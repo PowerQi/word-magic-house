@@ -1,0 +1,2003 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="c9qJAlRMkGAxfKfl5MgXPl">
+<head data-page-node-id="iejqmFY2FNXlakGlbXo09U">
+<meta charset="utf-8" data-page-node-id="VVvtgVfeSHWeAtvfSvvi9h">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" data-page-node-id="Y4S3TgZtPbhtGMzRhYttDK">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="单词魔法屋">
+<meta name="theme-color" content="#fff0f7">
+<title>单词魔法屋 · 四年级</title>
+<style>
+:root{
+  --pink:#ff8fb1; --pink-d:#e8638c; --purple:#a78bfa; --purple-d:#8b5cf6;
+  --mint:#5eead4; --yellow:#fcd34d; --sky:#7dd3fc; --ink:#4a3b52; --ink2:#8b7a93;
+  --card:#ffffff; --bg1:#fff0f7; --bg2:#f3edff; --line:#ede4ff;
+  --ok:#34d399; --bad:#fb7185;
+  --r:22px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  color:var(--ink); background:linear-gradient(160deg,var(--bg1),var(--bg2));
+  min-height:100%; overflow-x:hidden;
+}
+.app{max-width:820px;margin:0 auto;padding:14px 14px calc(30px + env(safe-area-inset-bottom));position:relative}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  padding:13px 24px;border-radius:16px;font-size:17px;font-weight:700;
+  background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff;
+  box-shadow:0 6px 0 rgba(139,92,246,.25);transition:transform .08s,box-shadow .08s;
+}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(139,92,246,.25)}
+.btn.ghost{background:#fff;color:var(--purple-d);box-shadow:0 4px 0 rgba(167,139,250,.18);border:2px solid #ede4ff}
+.btn.mint{background:linear-gradient(135deg,#5eead4,#38bdf8);box-shadow:0 6px 0 rgba(56,189,248,.25)}
+.btn.gray{background:#f1eef5;color:var(--ink2);box-shadow:0 4px 0 rgba(0,0,0,.05)}
+.btn:disabled{opacity:.45;pointer-events:none}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand{font-size:19px;font-weight:900;letter-spacing:.5px;
+  background:linear-gradient(90deg,var(--pink-d),var(--purple-d));-webkit-background-clip:text;background-clip:text;color:transparent}
+.iconbtn{width:40px;height:40px;border-radius:13px;background:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:19px;box-shadow:0 3px 0 rgba(0,0,0,.05)}
+.card{background:var(--card);border-radius:var(--r);padding:18px;box-shadow:0 8px 24px rgba(167,139,250,.13);margin-bottom:14px}
+.center{text-align:center}
+.muted{color:var(--ink2);font-size:14px;line-height:1.6}
+.big{font-size:26px;font-weight:900}
+.row{display:flex;align-items:center;gap:10px}
+.spread{display:flex;align-items:center;justify-content:space-between}
+.pill{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;font-size:13px;font-weight:700;background:#f6f0ff;color:var(--purple-d)}
+.pill.y{background:#fff6d6;color:#b4790a}.pill.g{background:#dcfce7;color:#15803d}.pill.p{background:#ffe4ef;color:var(--pink-d)}
+
+/* 首页 */
+.hero{background:linear-gradient(135deg,#ffc9dd,#d6c9ff);border-radius:26px;padding:22px;color:#5b3a63;position:relative;overflow:hidden}
+.hero h1{margin:0 0 6px;font-size:24px}
+.hero .sub{font-size:14px;opacity:.85}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.stat{background:rgba(255,255,255,.75);border-radius:16px;padding:10px;text-align:center}
+.stat b{display:block;font-size:21px;line-height:1.2}
+.stat span{font-size:12px;opacity:.75}
+.stars{display:flex;gap:4px;justify-content:center;margin-top:10px;font-size:18px}
+
+/* 词卡 */
+.wordart{width:150px;height:150px;margin:0 auto}
+.wordart.emoji{display:flex;align-items:center;justify-content:center;font-size:86px;line-height:1}
+.wordbig{font-size:44px;font-weight:900;letter-spacing:2px;margin:6px 0 2px;word-break:break-word}
+.cn{font-size:19px;color:var(--purple-d);font-weight:700}
+.syl{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:10px 0}
+.syl span{background:#f6f0ff;color:var(--purple-d);padding:4px 12px;border-radius:10px;font-weight:700;font-size:16px;letter-spacing:1px}
+.syl span.dots{background:#f2eefa;color:#c3b2da;letter-spacing:4px;padding:4px 14px}
+.sent{background:#fbf7ff;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:14px;line-height:1.6}
+.sent i{color:var(--ink2);font-style:normal;font-size:13px}
+
+/* 拼写 */
+.slots{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:16px 0 8px}
+.slot{width:44px;height:56px;border-radius:12px;background:#fff;border:3px solid #e8dff5;
+  display:flex;align-items:center;justify-content:center;font-size:27px;font-weight:900}
+.slot.filled{border-color:var(--purple);background:#faf5ff;color:var(--purple-d)}
+.slot.locked{background:#f4f0fa;border-style:dashed;border-color:#ddd2ec;color:#b9a9c9}
+.slot.cur{border-color:var(--pink);box-shadow:0 0 0 4px rgba(255,143,177,.22);transform:scale(1.06)}
+.slot.err{border-color:var(--bad);background:#fff1f3;animation:shake .35s}
+.slot.ok{border-color:var(--ok);background:#ecfdf5;color:#0f766e}
+.slot.gap{width:26px;border:none;background:none}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.hintbar{min-height:34px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:15px;font-weight:700;color:var(--purple-d)}
+.clue{font-size:15px;color:var(--ink2);margin-bottom:2px}
+.clue b{color:var(--ink)}
+
+/* 键盘 */
+.kb{max-width:660px;margin:6px auto 0;user-select:none}
+.kbrow{display:flex;gap:6px;justify-content:center;margin-bottom:6px}
+.k{padding:0;border-radius:11px;height:48px;flex:1;max-width:56px;font-size:19px;font-weight:800;
+  color:#5b4a63;box-shadow:0 3px 0 rgba(0,0,0,.09);transition:transform .06s}
+.k:active{transform:translateY(3px);box-shadow:none}
+.k.wide{max-width:110px;font-size:14px}
+.k.target{outline:4px solid var(--pink);outline-offset:1px;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+.k.dim{opacity:.5}
+
+/* 结算 */
+.score2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.sc{background:#fbf7ff;border-radius:18px;padding:14px;text-align:center}
+.sc b{display:block;font-size:30px;line-height:1.1}
+.sc span{font-size:13px;color:var(--ink2)}
+.ticket{background:linear-gradient(135deg,#fff3c4,#ffe0ef);border:2px dashed #f0a9c8;border-radius:18px;padding:14px;text-align:center}
+
+/* 抽奖 */
+.gcard{width:170px;height:230px;margin:0 auto;border-radius:20px;background:linear-gradient(160deg,#fff,#f6f0ff);
+  border:4px solid #e8dff5;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:transform .4s}
+.gcard.flip{transform:rotateY(180deg) scale(1.04)}
+.gcard.r-R{border-color:#d7d3e0}.gcard.r-S{border-color:#a7f3d0}.gcard.r-SR{border-color:#a5b4fc}.gcard.r-SSR{border-color:#fcd34d;box-shadow:0 0 0 6px rgba(252,211,77,.25)}
+.rar{display:inline-block;padding:3px 12px;border-radius:999px;font-weight:900;font-size:13px;letter-spacing:1px}
+.rar.R{background:#eceaf2;color:#7c7488}.rar.S{background:#d1fae5;color:#047857}
+.rar.SR{background:#e0e7ff;color:#4338ca}.rar.SSR{background:linear-gradient(90deg,#fde68a,#fca5a5);color:#7c2d12}
+
+/* 衣柜 */
+.dollbox{display:flex;gap:14px;align-items:flex-start;flex-wrap:wrap;justify-content:center}
+.doll{width:250px;height:320px;border-radius:20px;background:linear-gradient(160deg,#fdf3ff,#eef4ff)}
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px;max-width:340px}
+.item{background:#fff;border-radius:14px;padding:8px;text-align:center;border:3px solid #f0e8fa;position:relative}
+.item.on{border-color:var(--pink);box-shadow:0 0 0 3px rgba(255,143,177,.18)}
+.item.locked{opacity:.42}
+.item .nm{font-size:12px;font-weight:700;margin-top:4px}
+.tabs{display:flex;gap:8px;justify-content:center;margin-bottom:12px;flex-wrap:wrap}
+.tab{padding:7px 15px;border-radius:999px;background:#fff;font-weight:700;font-size:14px;color:var(--ink2)}
+.tab.on{background:linear-gradient(135deg,var(--pink),var(--purple));color:#fff}
+
+/* 弹窗 */
+#mask{position:fixed;inset:0;background:rgba(74,59,82,.45);display:none;align-items:center;justify-content:center;padding:18px;z-index:50}
+#mask.show{display:flex}
+#modal{background:#fff;border-radius:24px;padding:20px;max-width:420px;width:100%;max-height:86vh;overflow:auto;text-align:center}
+#modal h3{margin:0 0 10px;font-size:20px}
+.toast{position:fixed;left:50%;top:24px;transform:translateX(-50%);background:rgba(74,59,82,.92);color:#fff;
+  padding:10px 20px;border-radius:14px;font-weight:700;font-size:15px;z-index:99;opacity:0;transition:opacity .25s;pointer-events:none}
+.toast.show{opacity:1}
+.fade{animation:fade .3s}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.bar{height:9px;border-radius:99px;background:#efe8f7;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--purple));transition:width .4s}
+.timer{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.timer .bar{flex:1}
+
+/* 可点击统计 */
+.stat.clickable{cursor:pointer;transition:transform .1s,background .15s}
+.stat.clickable:active{transform:scale(.96)}
+.stat.clickable:hover{background:rgba(255,255,255,.95)}
+.lnk{cursor:pointer;text-decoration:underline dotted;text-underline-offset:3px}
+
+/* 学习档案切换 */
+.pbar{display:flex;gap:10px;margin-bottom:12px}
+.pchip{flex:1;display:flex;align-items:center;gap:9px;background:var(--card);border:2.5px solid transparent;
+  border-radius:18px;padding:8px 10px;cursor:pointer;text-align:left;box-shadow:0 3px 0 rgba(0,0,0,.04);transition:.15s}
+.pchip.on{border-color:var(--pink-d);background:#fff6fa}
+.pchip:not(.on){opacity:.6}
+.pchip .ptxt{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.pchip .pn{font-weight:800;font-size:14px;color:var(--ink)}
+.pchip .pd{font-size:11px;opacity:.7;color:var(--ink2)}
+.pchip svg{display:block;border-radius:50%;flex:none}
+.avpick{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:10px 0 4px}
+.avbtn{width:46px;height:46px;border-radius:50%;border:3px solid transparent;background:none;padding:2px;cursor:pointer}
+.avbtn.on{border-color:var(--pink-d);background:#fff0f6}
+.namerow{display:flex;align-items:center;gap:8px;margin:6px 0}
+.namerow input{flex:1;border:2px solid var(--line);border-radius:12px;padding:8px 12px;font-size:15px;font-weight:700;color:var(--ink);background:#fff}
+
+/* 单词列表 */
+#modal.wide{max-width:560px}
+.wgrp{margin:14px 0 6px;font-size:13px;font-weight:700;color:var(--ink2);text-align:left}
+.wrow{display:flex;align-items:center;gap:8px;background:#fbf7ff;border-radius:14px;padding:8px 10px;margin-bottom:7px;text-align:left;cursor:pointer}
+.wrow .w{font-size:16px;font-weight:800;min-width:96px}
+.wrow .cn{font-size:14px;color:var(--ink2);flex:1}
+.wbadge{font-size:11px;font-weight:800;padding:3px 9px;border-radius:999px;white-space:nowrap}
+.wbadge.b0{background:#f1efe8;color:#7c7488}
+.wbadge.b1{background:#fff3c4;color:#a16207}
+.wbadge.b2{background:#d1fae5;color:#047857}
+.wbadge.b3{background:#e0e7ff;color:#4338ca}
+.wmini{padding:5px 10px;border-radius:10px;font-size:12px;font-weight:800;background:#fff;border:2px solid #e8dff5;color:var(--purple-d);white-space:nowrap;font-family:inherit;cursor:pointer}
+.wmini:active{transform:translateY(2px)}
+.wmini.dim{opacity:.45}
+.wempty{padding:26px 10px;color:var(--ink2);font-size:14px;line-height:1.7}
+</style>
+</head>
+<body data-page-node-id="F6bsHfBqEmBfFC7aAcNEos">
+<div class="app" data-page-node-id="rQLEvEuEWwxjFqaCA8VpIp">
+  <div class="topbar" data-page-node-id="zVVKpgDH7UOS2tfJZUqdSL">
+    <div class="brand" data-page-node-id="gHXpOjQmdjCdxrGmLRhuO2">✨ 单词魔法屋</div>
+    <div class="row" data-page-node-id="QHFe8LYPvIlPVj9ndbmvhJ">
+      <button class="iconbtn" id="btnSet" title="设置" data-page-node-id="9o31VDZHb2KmnzQClcYqDD">⚙️</button>
+    </div>
+  </div>
+  <div id="view" data-page-node-id="7Zu8rFP14ZUGMHRakMhFBH"></div>
+</div>
+<div id="mask" data-page-node-id="bQLMOnvoDvLacYEgiYG7Nw"><div id="modal" data-page-node-id="2nvskgZbTybkFaK1BQgI1x"></div></div>
+<div class="toast" id="toast" data-page-node-id="NIBz6bYMekwJFoBoRSrPaP"></div>
+
+<script>
+/* ============================================================
+   1. 词表：人教 PEP 四年级上册（2024 新版 / 2022 课标）全册
+      来源：课本 Appendix 2「Words in each unit」
+      去重说明：also / cook / fun 在多个单元重复出现，只收一次（首次出现的单元）
+   ============================================================ */
+const BOOK_4A = [
+ // ---- Unit 1 Helping at home（在家帮忙）23 词 ----
+ {w:'PE',              cn:'体育（课）', syl:['PE'],                 u:1, s:'We have PE on Monday.',        sc:'我们星期一有体育课。'},
+ {w:'job',             cn:'工作；职业', syl:['job'],                u:1, s:'What is your job?',            sc:'你的工作是什么？'},
+ {w:'doctor',          cn:'医生',       syl:['doc','tor'],          u:1, s:'My mother is a doctor.',       sc:'我妈妈是医生。'},
+ {w:'farmer',          cn:'农场主；农民',syl:['far','mer'],         u:1, s:'My grandpa is a farmer.',      sc:'我爷爷是农民。'},
+ {w:'nurse',           cn:'护士',       syl:['nurse'],              u:1, s:'She is a nurse.',              sc:'她是一名护士。'},
+ {w:'worker',          cn:'工人',       syl:['wor','ker'],          u:1, s:'My father is a worker.',       sc:'我爸爸是工人。'},
+ {w:'office worker',   cn:'公司职员',   syl:['of','fice','wor','ker'],u:1,s:'He is an office worker.',      sc:'他是公司职员。'},
+ {w:'factory worker',  cn:'工厂工人',   syl:['fac','to','ry','wor','ker'],u:1,s:'She is a factory worker.', sc:'她是工厂工人。'},
+ {w:'busy',            cn:'忙碌的',     syl:['bus','y'],            u:1, s:'Mum is busy today.',           sc:'妈妈今天很忙。'},
+ {w:'tired',           cn:'疲倦的',     syl:['tired'],              u:1, s:'Dad is tired.',                sc:'爸爸累了。'},
+ {w:'chore',           cn:'家庭杂务',   syl:['chore'],              u:1, s:'I do chores at home.',         sc:'我在家做家务。'},
+ {w:'cook',            cn:'烹饪；煮',   syl:['cook'],               u:1, s:'I can cook dinner.',           sc:'我会做晚饭。'},
+ {w:'clean',           cn:'打扫；干净的',syl:['clean'],             u:1, s:'Let me clean the room.',       sc:'让我打扫房间。'},
+ {w:'room',            cn:'房间',       syl:['room'],               u:1, s:'This is my room.',             sc:'这是我的房间。'},
+ {w:'also',            cn:'也',         syl:['al','so'],            u:1, s:'She is also kind.',            sc:'她也很友善。'},
+ {w:'look after',      cn:'照顾',       syl:['look','af','ter'],    u:1, s:'I look after my sister.',      sc:'我照顾妹妹。'},
+ {w:'sweep',           cn:'扫',         syl:['sweep'],              u:1, s:'I sweep the floor.',           sc:'我扫地。'},
+ {w:'floor',           cn:'地板；地面', syl:['floor'],              u:1, s:'The floor is clean.',          sc:'地板很干净。'},
+ {w:'together',        cn:'在一起；共同',syl:['to','ge','ther'],    u:1, s:'We work together.',            sc:'我们一起干活。'},
+ {w:'fun',             cn:'享乐；乐趣', syl:['fun'],                u:1, s:'It is great fun.',             sc:'这很有趣。'},
+ {w:'helpful',         cn:'有帮助的',   syl:['help','ful'],         u:1, s:'He is very helpful.',          sc:'他很乐于帮忙。'},
+ {w:'people',          cn:'人；人们',   syl:['peo','ple'],          u:1, s:'Many people are here.',        sc:'这里有很多人。'},
+ {w:'child',           cn:'儿童；小孩', syl:['child'],              u:1, s:'The child is happy.',          sc:'这个孩子很开心。'},
+ // ---- Unit 2 My friends（我的朋友）14 词 ----
+ {w:'his',             cn:'他的',       syl:['his'],                u:2, s:'His name is Tom.',             sc:'他叫汤姆。'},
+ {w:'strong',          cn:'强壮的',     syl:['strong'],             u:2, s:'He is tall and strong.',       sc:'他又高又壮。'},
+ {w:'hair',            cn:'头发',       syl:['hair'],               u:2, s:'Her hair is long.',            sc:'她的头发很长。'},
+ {w:'kind',            cn:'友好的',     syl:['kind'],               u:2, s:'She is very kind.',            sc:'她非常友善。'},
+ {w:'quiet',           cn:'文静的',     syl:['qui','et'],           u:2, s:'He is quiet.',                 sc:'他很文静。'},
+ {w:'best',            cn:'最好的',     syl:['best'],               u:2, s:'She is my best friend.',       sc:'她是我最好的朋友。'},
+ {w:'read',            cn:'阅读',       syl:['read'],               u:2, s:'I read books every day.',      sc:'我每天读书。'},
+ {w:'Chinese',         cn:'中文；中国的',syl:['Chi','nese'],        u:2, s:'We learn Chinese.',            sc:'我们学中文。'},
+ {w:'play',            cn:'玩耍',       syl:['play'],               u:2, s:'Let us play together.',        sc:'我们一起玩吧。'},
+ {w:'game',            cn:'游戏',       syl:['game'],               u:2, s:'This game is fun.',            sc:'这个游戏很有趣。'},
+ {w:'football',        cn:'足球运动',   syl:['foot','ball'],        u:2, s:'I like football.',             sc:'我喜欢足球。'},
+ {w:'basketball',      cn:'篮球运动',   syl:['bas','ket','ball'],   u:2, s:'He plays basketball.',         sc:'他打篮球。'},
+ {w:'always',          cn:'总是',       syl:['al','ways'],          u:2, s:'She always helps me.',         sc:'她总是帮助我。'},
+ {w:'both',            cn:'两者',       syl:['both'],               u:2, s:'They both like music.',        sc:'他们俩都喜欢音乐。'},
+ // ---- Unit 3 Places we live in（我们居住的地方）18 词 ----
+ {w:'afternoon',       cn:'下午',       syl:['af','ter','noon'],    u:3, s:'Good afternoon!',              sc:'下午好！'},
+ {w:'there',           cn:'在那里',     syl:['there'],              u:3, s:'There is a park.',             sc:'有一个公园。'},
+ {w:'playground',      cn:'游乐场；操场',syl:['play','ground'],     u:3, s:'We play on the playground.',   sc:'我们在操场上玩。'},
+ {w:'park',            cn:'公园',       syl:['park'],               u:3, s:'The park is big.',             sc:'这个公园很大。'},
+ {w:'over',            cn:'在……对面',   syl:['o','ver'],            u:3, s:'The shop is over there.',      sc:'商店在那边。'},
+ {w:'hospital',        cn:'医院',       syl:['hos','pi','tal'],     u:3, s:'My mother works in a hospital.',sc:'我妈妈在医院工作。'},
+ {w:'shop',            cn:'商店',       syl:['shop'],               u:3, s:'I go to the shop.',            sc:'我去商店。'},
+ {w:'toilet',          cn:'厕所；卫生间',syl:['toi','let'],         u:3, s:'Where is the toilet?',         sc:'厕所在哪里？'},
+ {w:'bus',            cn:'公共汽车',   syl:['bus'],                u:3, s:'I go to school by bus.',       sc:'我坐公交车上学。'},
+ {w:'stop',           cn:'车站',       syl:['stop'],               u:3, s:'Wait for me at the stop.',     sc:'在车站等我。'},
+ {w:'library',         cn:'图书馆',     syl:['li','bra','ry'],      u:3, s:'We read in the library.',      sc:'我们在图书馆看书。'},
+ {w:'sport',           cn:'体育运动',   syl:['sport'],              u:3, s:'I like sport.',                sc:'我喜欢运动。'},
+ {w:'walk',            cn:'散步；行走', syl:['walk'],               u:3, s:'Let us take a walk.',          sc:'我们去散步吧。'},
+ {w:'community',       cn:'社区',       syl:['com','mu','ni','ty'], u:3, s:'We live in a big community.',  sc:'我们住在一个大社区。'},
+ {w:'favourite',       cn:'最喜欢的',   syl:['fa','vou','rite'],    u:3, s:'My favourite place is the park.',sc:'我最喜欢的地方是公园。'},
+ {w:'place',           cn:'地方；场所', syl:['place'],              u:3, s:'This is a nice place.',        sc:'这是个好地方。'},
+ {w:'photo',           cn:'照片',       syl:['pho','to'],           u:3, s:'Look at my photo.',            sc:'看我的照片。'},
+ {w:'story',           cn:'故事',       syl:['sto','ry'],           u:3, s:'I like this story.',           sc:'我喜欢这个故事。'},
+ {w:'buy',             cn:'购买',       syl:['buy'],                u:3, s:'I buy some books.',            sc:'我买一些书。'},
+ // ---- Unit 4 Helping in the community（在社区帮忙）13 词 ----
+ {w:'firefighter',     cn:'消防队员',   syl:['fire','fight','er'],  u:4, s:'He is a firefighter.',         sc:'他是消防员。'},
+ {w:'why',             cn:'为什么',     syl:['why'],                u:4, s:'Why are you sad?',             sc:'你为什么难过？'},
+ {w:'driver',          cn:'司机',       syl:['dri','ver'],          u:4, s:'He is a bus driver.',          sc:'他是公交车司机。'},
+ {w:'cleaner',         cn:'清洁工',     syl:['clean','er'],         u:4, s:'She is a cleaner.',            sc:'她是清洁工。'},
+ {w:'delivery worker', cn:'快递员',     syl:['de','li','ve','ry','wor','ker'],u:4,s:'He is a delivery worker.',sc:'他是快递员。'},
+ {w:'police officer',  cn:'警察；警员', syl:['po','lice','of','fi','cer'],u:4,s:'The police officer helps us.',sc:'警察帮助我们。'},
+ {w:'a lot of',        cn:'大量；许多', syl:['a','lot','of'],       u:4, s:'There are a lot of books.',    sc:'有很多书。'},
+ {w:'now',             cn:'现在',       syl:['now'],                u:4, s:'I am busy now.',               sc:'我现在很忙。'},
+ {w:'make the bed',    cn:'铺床',       syl:['make','the','bed'],   u:4, s:'I make the bed every day.',    sc:'我每天整理床铺。'},
+ {w:'old',             cn:'年纪大的',   syl:['old'],                u:4, s:'My grandma is old.',           sc:'我奶奶年纪大了。'},
+ {w:'tell',            cn:'讲述；告诉', syl:['tell'],               u:4, s:'Tell me a story.',             sc:'给我讲个故事。'},
+ {w:'everyone',        cn:'每人',       syl:['eve','ry','one'],     u:4, s:'Everyone is happy.',           sc:'每个人都很开心。'},
+ {w:'Mrs',             cn:'夫人',       syl:['Mrs'],                u:4, s:'Mrs Li is our teacher.',       sc:'李夫人是我们的老师。'},
+ // ---- Unit 5 The weather and us（天气与我们）23 词 ----
+ {w:'speak',           cn:'说话；发言', syl:['speak'],              u:5, s:'I speak English.',             sc:'我说英语。'},
+ {w:'weather',         cn:'天气',       syl:['wea','ther'],         u:5, s:'What is the weather like?',    sc:'天气怎么样？'},
+ {w:'sunny',           cn:'阳光充足的', syl:['sun','ny'],           u:5, s:'It is sunny today.',           sc:'今天是晴天。'},
+ {w:'hot',             cn:'热的',       syl:['hot'],                u:5, s:'It is hot in summer.',         sc:'夏天很热。'},
+ {w:'bad',             cn:'坏的；糟的', syl:['bad'],                u:5, s:'The weather is bad.',          sc:'天气不好。'},
+ {w:'cold',            cn:'冷的',       syl:['cold'],               u:5, s:'It is cold today.',            sc:'今天很冷。'},
+ {w:'windy',           cn:'多风的',     syl:['win','dy'],           u:5, s:'It is windy outside.',         sc:'外面刮风。'},
+ {w:'cloudy',          cn:'多云的',     syl:['cloud','y'],          u:5, s:'It is cloudy.',                sc:'今天多云。'},
+ {w:'rainy',           cn:'阴雨的',     syl:['rain','y'],           u:5, s:'It is rainy today.',           sc:'今天下雨。'},
+ {w:'snowy',           cn:'多雪的',     syl:['snow','y'],           u:5, s:'It is snowy in winter.',       sc:'冬天下雪。'},
+ {w:'cool',            cn:'凉爽的',     syl:['cool'],               u:5, s:'It is cool in autumn.',        sc:'秋天很凉爽。'},
+ {w:'warm',            cn:'温暖的',     syl:['warm'],               u:5, s:'It is warm in spring.',        sc:'春天很暖和。'},
+ {w:'tomorrow',        cn:'在明天',     syl:['to','mor','row'],     u:5, s:'See you tomorrow!',            sc:'明天见！'},
+ {w:'Sydney',          cn:'悉尼',       syl:['Syd','ney'],          u:5, s:'It is hot in Sydney.',         sc:'悉尼很热。'},
+ {w:'rain',            cn:'下雨；雨',   syl:['rain'],               u:5, s:'I like the rain.',             sc:'我喜欢雨。'},
+ {w:'closed',          cn:'关闭的',     syl:['closed'],             u:5, s:'The shop is closed.',          sc:'商店关门了。'},
+ {w:'film',            cn:'电影',       syl:['film'],               u:5, s:'Let us watch a film.',         sc:'我们看电影吧。'},
+ {w:'idea',            cn:'想法；主意', syl:['i','de','a'],         u:5, s:'That is a good idea.',         sc:'那是个好主意。'},
+ {w:'fly',             cn:'飞；放（风筝）',syl:['fly'],             u:5, s:'I can fly a kite.',            sc:'我会放风筝。'},
+ {w:'kite',            cn:'风筝',       syl:['kite'],               u:5, s:'My kite is red.',              sc:'我的风筝是红色的。'},
+ {w:'snowman',         cn:'雪人',       syl:['snow','man'],         u:5, s:'We make a snowman.',           sc:'我们堆雪人。'},
+ {w:'their',           cn:'他们的',     syl:['their'],              u:5, s:'Their children swim.',         sc:'他们的孩子游泳。'},
+ {w:'swim',            cn:'游泳',       syl:['swim'],               u:5, s:'I can swim.',                  sc:'我会游泳。'},
+ // ---- Unit 6 Changing for the seasons（随季节变化）21 词 ----
+ {w:'whose',           cn:'谁的',       syl:['whose'],              u:6, s:'Whose sweater is this?',       sc:'这是谁的毛衣？'},
+ {w:'sweater',         cn:'毛衣',       syl:['swea','ter'],         u:6, s:'My sweater is warm.',          sc:'我的毛衣很暖和。'},
+ {w:'sock',            cn:'短袜',       syl:['sock'],               u:6, s:'Where is my sock?',            sc:'我的袜子在哪里？'},
+ {w:'mine',            cn:'我的',       syl:['mine'],               u:6, s:'This book is mine.',           sc:'这本书是我的。'},
+ {w:'wear',            cn:'穿；戴',     syl:['wear'],               u:6, s:'I wear a coat today.',         sc:'我今天穿外套。'},
+ {w:'shirt',           cn:'衬衫',       syl:['shirt'],              u:6, s:'His shirt is blue.',           sc:'他的衬衫是蓝色的。'},
+ {w:'coat',            cn:'大衣；外套', syl:['coat'],               u:6, s:'Put on your coat.',            sc:'穿上你的外套。'},
+ {w:'dress',           cn:'连衣裙',     syl:['dress'],              u:6, s:'Her dress is pink.',           sc:'她的连衣裙是粉色的。'},
+ {w:'which',           cn:'哪一个',     syl:['which'],              u:6, s:'Which season do you like?',    sc:'你喜欢哪个季节？'},
+ {w:'season',          cn:'季节',       syl:['sea','son'],          u:6, s:'My favourite season is spring.',sc:'我最喜欢的季节是春天。'},
+ {w:'winter',          cn:'冬天',       syl:['win','ter'],          u:6, s:'Winter is cold.',              sc:'冬天很冷。'},
+ {w:'snow',            cn:'下雪；雪',   syl:['snow'],               u:6, s:'I like the snow.',             sc:'我喜欢雪。'},
+ {w:'get together',    cn:'聚会',       syl:['get','to','ge','ther'],u:6,s:'We get together in spring.',   sc:'我们在春天聚会。'},
+ {w:'spring',          cn:'春天',       syl:['spring'],             u:6, s:'Spring is warm.',              sc:'春天很暖和。'},
+ {w:'summer',          cn:'夏天',       syl:['sum','mer'],          u:6, s:'Summer is hot.',               sc:'夏天很热。'},
+ {w:'autumn',          cn:'秋天',       syl:['au','tumn'],          u:6, s:'Autumn is cool.',              sc:'秋天很凉爽。'},
+ {w:'T-shirt',         cn:'T恤衫',      syl:['T-','shirt'],         u:6, s:'I like my T-shirt.',           sc:'我喜欢我的T恤。'},
+ {w:'fall',            cn:'落下',       syl:['fall'],               u:6, s:'The leaves fall.',             sc:'树叶落下来。'},
+ {w:'leaf',            cn:'叶',         syl:['leaf'],               u:6, s:'This leaf is yellow.',         sc:'这片叶子是黄色的。'},
+ {w:'glove',           cn:'手套',       syl:['glove'],              u:6, s:'My gloves are warm.',          sc:'我的手套很暖和。'},
+ {w:'then',            cn:'然后；那时', syl:['then'],               u:6, s:'Then spring comes again.',     sc:'然后春天又来了。'}
+];
+/* 词表注册表：两个档案共用同一份（book 字段已接上，以后要分册只需在这里加一条） */
+const BOOKS={
+  '4A':{name:'人教 PEP 四年级上册（2024 新版）',sub:'Unit 1-6',list:BOOK_4A}
+};
+let WORDS=BOOK_4A, BY_W={};
+function useBook(id){
+  const b=BOOKS[id]||BOOKS['4A'];
+  WORDS=b.list; BY_W={}; WORDS.forEach((x,i)=>{ x.i=i; BY_W[x.w]=x; });
+}
+useBook('4A');
+
+/* ---------- 简笔 SVG 图标（100×100） ---------- */
+const C={pink:'#ff8fb1',pur:'#a78bfa',mint:'#5eead4',yel:'#fcd34d',sky:'#7dd3fc',wood:'#c4a484',wood2:'#a0785a',grey:'#94a3b8',ink:'#64748b'};
+const ICONS={
+/* ---- Unit 1 · 简笔 SVG（已绘制）---- */
+PE:`<circle cx="50" cy="54" r="30" fill="#fff8e1" stroke="${C.wood}" stroke-width="6"/>
+<path d="M20 54 h60 M50 24 v60" stroke="${C.wood}" stroke-width="4" fill="none"/>
+<path d="M28 38 a30 30 0 0 1 44 0 M28 70 a30 30 0 0 0 44 0" fill="none" stroke="${C.wood}" stroke-width="4"/>`,
+job:`<rect x="14" y="34" width="72" height="50" rx="7" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M38 34 V26 a12 12 0 0 1 24 0 v8" fill="none" stroke="${C.wood2}" stroke-width="6"/>
+<rect x="42" y="52" width="16" height="12" rx="3" fill="${C.wood2}"/>`,
+doctor:`<rect x="22" y="20" width="56" height="60" rx="10" fill="#fff" stroke="${C.pink}" stroke-width="6"/>
+<rect x="42" y="32" width="16" height="36" rx="4" fill="${C.pink}"/>
+<rect x="30" y="44" width="40" height="14" rx="4" fill="${C.pink}"/>`,
+farmer:`<path d="M12 68 q38 -16 76 0 q-10 12 -38 12 q-28 0 -38 -12z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M34 66 a16 18 0 0 1 32 0z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<rect x="32" y="60" width="36" height="8" rx="4" fill="${C.pink}"/>`,
+nurse:`<path d="M26 64 V40 L50 28 L74 40 v24z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<rect x="44" y="42" width="12" height="24" rx="3" fill="${C.pink}"/>
+<rect x="37" y="48" width="26" height="12" rx="3" fill="${C.pink}"/>
+<rect x="20" y="64" width="60" height="10" rx="5" fill="${C.sky}"/>`,
+worker:`<path d="M20 62 a30 30 0 0 1 60 0z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<rect x="12" y="62" width="76" height="10" rx="5" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<rect x="44" y="30" width="12" height="32" fill="${C.wood2}"/>`,
+'office worker':`<rect x="14" y="20" width="72" height="48" rx="5" fill="#e8f4ff" stroke="${C.sky}" stroke-width="6"/>
+<path d="M30 38 h40 M30 50 h24" stroke="${C.sky}" stroke-width="5" stroke-linecap="round"/>
+<rect x="36" y="72" width="28" height="10" rx="4" fill="${C.sky}"/>
+<rect x="22" y="82" width="56" height="8" rx="4" fill="${C.sky}"/>`,
+'factory worker':`<path d="M12 80 V46 l20 12 V46 l20 12 V32 h12 v48z" fill="${C.grey}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<rect x="70" y="24" width="10" height="26" fill="${C.grey}" stroke="${C.ink}" stroke-width="4"/>
+<path d="M74 16 q8 -8 14 -2" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<path d="M20 80 v-10 h12 v10 M44 80 v-10 h12 v10" fill="${C.yel}"/>`,
+busy:`<circle cx="48" cy="54" r="28" fill="#fff3cd" stroke="${C.pink}" stroke-width="6"/>
+<path d="M48 38 v16 l12 9" fill="none" stroke="${C.pink}" stroke-width="5" stroke-linecap="round"/>
+<path d="M18 20 l9 9 M78 20 l-9 9" stroke="${C.yel}" stroke-width="5" stroke-linecap="round"/>`,
+tired:`<circle cx="44" cy="56" r="24" fill="#ffe3cb" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M32 52 q6 6 12 0 M44 52 q6 6 12 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<path d="M34 68 q9 6 18 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<path d="M74 22 h14 l-14 14 h14" fill="none" stroke="${C.pur}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M80 42 h10 l-10 10 h10" fill="none" stroke="${C.pur}" stroke-width="3.5" stroke-linejoin="round"/>`,
+chore:`<rect x="50" y="46" width="36" height="34" rx="5" fill="${C.sky}" stroke="${C.ink}" stroke-width="5"/>
+<path d="M54 46 q14 -10 28 0" fill="none" stroke="${C.ink}" stroke-width="4"/>
+<path d="M18 82 L34 36" stroke="${C.wood}" stroke-width="6" stroke-linecap="round"/>
+<path d="M28 36 l13 -5 l-3 20 l-13 5z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>`,
+cook:`<rect x="16" y="46" width="56" height="32" rx="8" fill="${C.grey}" stroke="${C.ink}" stroke-width="5"/>
+<path d="M72 56 h10 a6 6 0 0 1 0 12 h-10" fill="none" stroke="${C.ink}" stroke-width="5"/>
+<path d="M32 36 q7 -10 0 -16 M50 34 q7 -12 0 -18 M68 36 q7 -10 0 -16" fill="none" stroke="${C.sky}" stroke-width="4" stroke-linecap="round"/>`,
+clean:`<circle cx="34" cy="30" r="9" fill="#d6f5ff" stroke="${C.sky}" stroke-width="4"/>
+<circle cx="58" cy="22" r="13" fill="#d6f5ff" stroke="${C.sky}" stroke-width="4"/>
+<circle cx="78" cy="40" r="7" fill="#d6f5ff" stroke="${C.sky}" stroke-width="4"/>
+<rect x="18" y="52" width="52" height="30" rx="8" fill="${C.mint}" stroke="#0f9b76" stroke-width="5"/>`,
+room:`<path d="M14 84 V26 L50 10 L86 26 v58z" fill="#fff" stroke="${C.pur}" stroke-width="6" stroke-linejoin="round"/>
+<rect x="22" y="42" width="14" height="14" fill="${C.sky}"/>
+<rect x="64" y="42" width="14" height="14" fill="${C.sky}"/>
+<rect x="41" y="52" width="22" height="32" rx="3" fill="${C.wood}"/>`,
+also:`<path d="M16 54 l14 14 l30 -34" fill="none" stroke="${C.mint}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M48 62 l12 12 l24 -28" fill="none" stroke="${C.pur}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`,
+'look after':`<path d="M20 78 q30 -14 60 0" fill="none" stroke="${C.pink}" stroke-width="9" stroke-linecap="round"/>
+<path d="M34 66 q16 -12 32 0" fill="none" stroke="${C.pur}" stroke-width="7" stroke-linecap="round"/>
+<circle cx="50" cy="36" r="14" fill="#ffe3cb" stroke="${C.wood2}" stroke-width="5"/>`,
+sweep:`<path d="M46 30 l16 -6 l-5 30 l-16 6z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M32 86 L52 32" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>
+<path d="M18 86 q16 -9 32 0" fill="${C.grey}" stroke="${C.ink}" stroke-width="4"/>`,
+floor:`<rect x="12" y="28" width="76" height="54" rx="4" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M12 46 h76 M12 64 h76" stroke="${C.wood2}" stroke-width="4"/>
+<path d="M31 28 v18 M50 46 v18 M69 28 v18 M31 64 v18 M50 64 v18 M69 64 v18" stroke="${C.wood2}" stroke-width="4"/>`,
+together:`<circle cx="34" cy="32" r="13" fill="${C.pink}"/><circle cx="66" cy="32" r="13" fill="${C.sky}"/>
+<path d="M20 82 v-14 a14 14 0 0 1 28 0 v14z" fill="${C.pink}"/>
+<path d="M52 82 v-14 a14 14 0 0 1 28 0 v14z" fill="${C.sky}"/>
+<path d="M47 54 h6" stroke="${C.yel}" stroke-width="8" stroke-linecap="round"/>`,
+fun:`<circle cx="50" cy="52" r="32" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<circle cx="38" cy="44" r="5" fill="${C.ink}"/><circle cx="62" cy="44" r="5" fill="${C.ink}"/>
+<path d="M32 62 q18 18 36 0" fill="none" stroke="${C.ink}" stroke-width="5" stroke-linecap="round"/>`,
+helpful:`<path d="M50 80 C22 62 16 44 28 34 C38 26 48 34 50 42 C52 34 62 26 72 34 C84 44 78 62 50 80z" fill="${C.pink}" stroke="#d4537e" stroke-width="4"/>`,
+people:`<circle cx="26" cy="34" r="13" fill="${C.pur}"/><circle cx="50" cy="26" r="15" fill="${C.pink}"/><circle cx="74" cy="34" r="13" fill="${C.mint}"/>
+<path d="M10 84 v-8 a16 16 0 0 1 32 0 v8z" fill="${C.pur}"/>
+<path d="M32 84 v-8 a18 18 0 0 1 36 0 v8z" fill="${C.pink}"/>
+<path d="M58 84 v-8 a16 16 0 0 1 32 0 v8z" fill="${C.mint}"/>`,
+child:`<path d="M26 42 q24 -22 48 -4 q-10 -10 -24 -8 q-14 2 -24 12z" fill="${C.wood2}"/>
+<circle cx="50" cy="48" r="24" fill="#ffe3cb" stroke="${C.wood2}" stroke-width="5"/>
+<circle cx="41" cy="48" r="4" fill="${C.ink}"/><circle cx="59" cy="48" r="4" fill="${C.ink}"/>
+<path d="M43 60 q7 6 14 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<path d="M36 82 q14 -10 28 0" fill="none" stroke="${C.pink}" stroke-width="5" stroke-linecap="round"/>`,
+/* ---- Unit 2 · 我的朋友 ---- */
+his:`<circle cx="50" cy="46" r="25" fill="#ffe3cb" stroke="${C.sky}" stroke-width="6"/>
+<path d="M25 44 a25 25 0 0 1 50 0 q-8 -16 -25 -16 q-17 0 -25 16z" fill="${C.sky}"/>
+<circle cx="41" cy="48" r="4" fill="${C.ink}"/><circle cx="59" cy="48" r="4" fill="${C.ink}"/>
+<path d="M43 60 q7 6 14 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<path d="M50 76 v10 M43 86 l7 6 7 -6" fill="none" stroke="${C.sky}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+strong:`<rect x="30" y="43" width="40" height="10" rx="4" fill="${C.pur}" stroke="${C.ink}" stroke-width="4"/>
+<rect x="16" y="30" width="16" height="36" rx="6" fill="${C.pink}" stroke="${C.ink}" stroke-width="6"/>
+<rect x="68" y="30" width="16" height="36" rx="6" fill="${C.pink}" stroke="${C.ink}" stroke-width="6"/>`,
+hair:`<path d="M50 16 q-28 0 -28 32 v26 q0 12 12 12 h32 q12 0 12 -12 V48 q0 -32 -28 -32z" fill="${C.wood2}"/>
+<circle cx="50" cy="52" r="21" fill="#ffe3cb" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M29 44 q10 -14 21 -14 q11 0 21 14 q-8 -6 -21 -6 q-13 0 -21 6z" fill="${C.wood2}"/>
+<circle cx="42" cy="52" r="4" fill="${C.ink}"/><circle cx="58" cy="52" r="4" fill="${C.ink}"/>
+<path d="M44 63 q6 5 12 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>`,
+kind:`<path d="M50 80 C 22 60 14 42 26 31 C 35 23 47 30 50 39 C 53 30 65 23 74 31 C 86 42 78 60 50 80 Z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M34 40 q6 -6 14 -2" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`,
+quiet:`<circle cx="48" cy="46" r="24" fill="#ffe3cb" stroke="${C.pur}" stroke-width="6"/>
+<circle cx="40" cy="43" r="4" fill="${C.ink}"/><circle cx="56" cy="43" r="4" fill="${C.ink}"/>
+<path d="M41 60 h9" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>
+<rect x="58" y="54" width="9" height="22" rx="4.5" fill="#ffe3cb" stroke="${C.ink}" stroke-width="4"/>
+<path d="M70 40 l8 -6 M78 48 l9 -6" stroke="${C.pur}" stroke-width="4" stroke-linecap="round"/>`,
+best:`<path d="M34 14 L44 44 M66 14 L56 44" stroke="${C.pink}" stroke-width="8" stroke-linecap="round" fill="none"/>
+<circle cx="50" cy="64" r="26" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6"/>
+<path d="M50 48 l4 8 9 1 -6 6 1 9 -8 -4 -8 4 1 -9 -6 -6 9 -1z" fill="#fff" stroke="${C.wood2}" stroke-width="3"/>`,
+read:`<path d="M50 34 C 38 24 22 22 10 26 v46 c12 -4 28 -2 40 8z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 34 C 62 24 78 22 90 26 v46 c-12 -4 -28 -2 -40 8z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 34 v46" stroke="${C.sky}" stroke-width="5"/>
+<path d="M20 40 h18 M20 52 h18 M62 40 h18 M62 52 h18" stroke="${C.sky}" stroke-width="4" stroke-linecap="round"/>`,
+Chinese:`<ellipse cx="50" cy="52" rx="30" ry="26" fill="${C.pink}" stroke="${C.ink}" stroke-width="6"/>
+<rect x="34" y="20" width="32" height="9" rx="3" fill="${C.wood2}"/>
+<rect x="34" y="74" width="32" height="9" rx="3" fill="${C.wood2}"/>
+<path d="M40 44 h20 M40 58 h20" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+<path d="M42 83 v9 M50 83 v11 M58 83 v9" stroke="${C.yel}" stroke-width="4" stroke-linecap="round"/>`,
+play:`<rect x="10" y="34" width="80" height="42" rx="20" fill="${C.pur}" stroke="${C.ink}" stroke-width="6"/>
+<path d="M26 55 h16 M34 47 v16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+<circle cx="68" cy="48" r="6" fill="${C.yel}" stroke="${C.ink}" stroke-width="3"/>
+<circle cx="79" cy="60" r="6" fill="${C.pink}" stroke="${C.ink}" stroke-width="3"/>`,
+game:`<rect x="20" y="20" width="60" height="60" rx="14" fill="#fff" stroke="${C.sky}" stroke-width="6"/>
+<circle cx="37" cy="37" r="6.5" fill="${C.pink}"/>
+<circle cx="63" cy="37" r="6.5" fill="${C.pur}"/>
+<circle cx="50" cy="50" r="6.5" fill="${C.mint}"/>
+<circle cx="37" cy="63" r="6.5" fill="${C.yel}"/>
+<circle cx="63" cy="63" r="6.5" fill="${C.sky}"/>`,
+football:`<circle cx="50" cy="50" r="32" fill="#fff" stroke="${C.ink}" stroke-width="6"/>
+<path d="M50 32 l15 11 -6 17 h-18 l-6 -17z" fill="${C.ink}"/>
+<path d="M50 18 v14 M28 26 l7 11 M72 26 l-7 11 M26 66 l10 -6 M74 66 l-10 -6" stroke="${C.ink}" stroke-width="5" stroke-linecap="round"/>`,
+basketball:`<circle cx="50" cy="50" r="32" fill="${C.wood}" stroke="${C.wood2}" stroke-width="6"/>
+<path d="M18 50 h64 M50 18 v64" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M27 27 q23 23 0 46 M73 27 q-23 23 0 46" fill="none" stroke="${C.wood2}" stroke-width="5"/>`,
+always:`<path d="M50 24 a26 26 0 1 1 -25 33" fill="none" stroke="${C.mint}" stroke-width="9" stroke-linecap="round"/>
+<path d="M50 24 v-11 l-11 10 11 10z" fill="${C.mint}"/>
+<path d="M38 50 l8 8 16 -18" fill="none" stroke="${C.pink}" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>`,
+both:`<circle cx="31" cy="50" r="19" fill="#e8fbf6" stroke="${C.mint}" stroke-width="6"/>
+<circle cx="69" cy="50" r="19" fill="#e8fbf6" stroke="${C.mint}" stroke-width="6"/>
+<path d="M23 50 l7 8 14 -16" fill="none" stroke="${C.pink}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M61 50 l7 8 14 -16" fill="none" stroke="${C.pink}" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>`,
+/* ---- Unit 3 · 居住的地方 ---- */
+afternoon:`<circle cx="50" cy="52" r="17" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M50 30 v-9 M32 37 l-7 -8 M68 37 l7 -8 M28 62 l-8 5 M72 62 l8 5" stroke="${C.yel}" stroke-width="5" stroke-linecap="round"/>
+<path d="M14 78 h72" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>`,
+there:`<path d="M46 14 L62 28 H54 v22 h16 l-16 14 l16 14 H54 v14 h8 L46 92z" fill="${C.mint}"/>
+<path d="M14 62 H70" stroke="${C.pur}" stroke-width="8" stroke-linecap="round"/>
+<path d="M56 48 L76 62 L56 76" fill="none" stroke="${C.pur}" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>`,
+playground:`<path d="M26 76 V28 h14 v48" fill="none" stroke="${C.sky}" stroke-width="6"/>
+<path d="M24 28 h54" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>
+<path d="M76 30 q10 26 -8 46" fill="none" stroke="${C.pink}" stroke-width="8" stroke-linecap="round"/>
+<path d="M20 76 h62" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>`,
+park:`<path d="M50 14 a17 17 0 0 1 17 17 a15 15 0 0 1 -34 0 a17 17 0 0 1 17 -17z" fill="${C.mint}" stroke="${C.ink}" stroke-width="5"/>
+<rect x="44" y="46" width="12" height="24" fill="${C.wood}" stroke="${C.wood2}" stroke-width="4"/>
+<rect x="18" y="70" width="64" height="9" rx="4" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5"/>
+<rect x="22" y="79" width="7" height="12" fill="${C.wood2}"/><rect x="71" y="79" width="7" height="12" fill="${C.wood2}"/>`,
+over:`<rect x="36" y="58" width="28" height="26" rx="5" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M18 56 q32 -42 64 0" fill="none" stroke="${C.pur}" stroke-width="8" stroke-linecap="round"/>
+<path d="M72 44 l10 12 -11 7z" fill="${C.pur}"/>`,
+hospital:`<rect x="16" y="28" width="68" height="56" rx="7" fill="#fff" stroke="${C.sky}" stroke-width="6"/>
+<rect x="43" y="40" width="14" height="32" rx="3" fill="${C.pink}"/>
+<rect x="35" y="48" width="30" height="16" rx="3" fill="${C.pink}"/>`,
+shop:`<path d="M12 42 h76 l-9 -16 H21z" fill="${C.pink}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<rect x="20" y="42" width="60" height="42" rx="5" fill="#fff" stroke="${C.pink}" stroke-width="6"/>
+<rect x="38" y="56" width="24" height="28" rx="3" fill="${C.sky}"/>`,
+toilet:`<rect x="16" y="20" width="68" height="60" rx="9" fill="#e8f4ff" stroke="${C.sky}" stroke-width="6"/>
+<circle cx="36" cy="38" r="8" fill="${C.pink}"/><path d="M27 64 q9 -14 18 0z" fill="${C.pink}"/>
+<circle cx="64" cy="38" r="8" fill="${C.sky}"/><path d="M55 64 h18 l-3 -12 h-12z" fill="${C.sky}"/>`,
+bus:`<rect x="12" y="28" width="76" height="46" rx="9" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6"/>
+<rect x="22" y="36" width="22" height="17" rx="3" fill="#e8f4ff" stroke="${C.wood2}" stroke-width="4"/>
+<rect x="56" y="36" width="22" height="17" rx="3" fill="#e8f4ff" stroke="${C.wood2}" stroke-width="4"/>
+<path d="M12 58 h76" stroke="${C.wood2}" stroke-width="4"/>
+<circle cx="30" cy="80" r="9" fill="${C.ink}"/><circle cx="70" cy="80" r="9" fill="${C.ink}"/>`,
+stop:`<rect x="46" y="38" width="9" height="46" fill="${C.grey}" stroke="${C.ink}" stroke-width="4"/>
+<circle cx="50" cy="30" r="21" fill="${C.pink}" stroke="${C.ink}" stroke-width="5"/>
+<rect x="37" y="24" width="26" height="13" rx="2" fill="#fff" stroke="${C.ink}" stroke-width="3"/>
+<path d="M28 84 h44" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>`,
+library:`<rect x="14" y="20" width="72" height="64" rx="6" fill="${C.wood}" stroke="${C.wood2}" stroke-width="6"/>
+<rect x="22" y="30" width="56" height="7" fill="${C.wood2}"/>
+<rect x="24" y="39" width="11" height="37" rx="2" fill="${C.pink}"/><rect x="37" y="39" width="11" height="37" rx="2" fill="${C.yel}"/>
+<rect x="50" y="39" width="11" height="37" rx="2" fill="${C.sky}"/><rect x="63" y="39" width="11" height="37" rx="2" fill="${C.mint}"/>
+<path d="M14 76 h72" stroke="${C.wood2}" stroke-width="5"/>`,
+sport:`<path d="M31 18 h38 v20 a19 19 0 0 1 -38 0z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M31 28 H19 v7 a11 11 0 0 0 12 9 M69 28 h12 v7 a11 11 0 0 1 -12 9" fill="none" stroke="${C.wood2}" stroke-width="6"/>
+<rect x="42" y="56" width="16" height="16" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<rect x="28" y="72" width="44" height="11" rx="4" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5"/>`,
+walk:`<ellipse cx="38" cy="36" rx="10" ry="14" fill="${C.pur}" stroke="${C.ink}" stroke-width="4"/>
+<circle cx="29" cy="20" r="4.5" fill="${C.pur}" stroke="${C.ink}" stroke-width="3"/>
+<ellipse cx="64" cy="68" rx="10" ry="14" fill="${C.pur}" stroke="${C.ink}" stroke-width="4"/>
+<circle cx="73" cy="52" r="4.5" fill="${C.pur}" stroke="${C.ink}" stroke-width="3"/>`,
+community:`<path d="M12 54 L26 40 L40 54 v24 H12z" fill="${C.pink}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M34 62 L50 46 L66 62 v16 H34z" fill="${C.sky}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M60 52 L74 40 L88 52 v26 H60z" fill="${C.mint}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M8 78 h84" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>`,
+favourite:`<path d="M50 12 l11 23 25 3 -18 17 4 25 -22 -12 -22 12 4 -25 -18 -17 25 -3z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M50 62 C 43 55 39 49 44 45 c3 -2 6 1 6 4 c0 -3 3 -6 6 -4 c5 4 1 10 -6 17z" fill="${C.pink}"/>`,
+place:`<path d="M50 12 a23 23 0 0 1 23 23 c0 17 -23 43 -23 43 s-23 -26 -23 -43 a23 23 0 0 1 23 -23z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="50" cy="34" r="9" fill="#fff"/>`,
+photo:`<rect x="12" y="30" width="76" height="50" rx="9" fill="${C.pur}" stroke="${C.ink}" stroke-width="6"/>
+<rect x="38" y="20" width="20" height="12" rx="3" fill="${C.pur}" stroke="${C.ink}" stroke-width="5"/>
+<circle cx="50" cy="55" r="17" fill="#e8f4ff" stroke="${C.ink}" stroke-width="5"/>
+<circle cx="50" cy="55" r="7" fill="${C.sky}"/>
+<circle cx="76" cy="42" r="4.5" fill="${C.yel}"/>`,
+story:`<path d="M50 40 C 38 30 24 28 14 32 v40 c10 -4 24 -2 36 8z" fill="#fff" stroke="${C.pink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 40 C 62 30 76 28 86 32 v40 c-10 -4 -24 -2 -36 8z" fill="#fff" stroke="${C.pink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 40 v40" stroke="${C.pink}" stroke-width="5"/>
+<path d="M50 10 l4 8 9 1 -6 6 1 9 -8 -4 -8 4 1 -9 -6 -6 9 -1z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="3"/>`,
+buy:`<path d="M20 34 h60 l-6 52 H26z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M37 34 V25 a13 13 0 0 1 26 0 v9" fill="none" stroke="${C.ink}" stroke-width="6" stroke-linecap="round"/>
+<path d="M36 56 h28" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`,
+/* ---- Unit 4 · 社区帮忙 ---- */
+firefighter:`<rect x="12" y="42" width="76" height="32" rx="7" fill="#ff6b6b" stroke="${C.ink}" stroke-width="6"/>
+<rect x="18" y="24" width="26" height="20" rx="4" fill="#e8f4ff" stroke="${C.ink}" stroke-width="5"/>
+<path d="M52 24 L84 42" stroke="${C.grey}" stroke-width="8" stroke-linecap="round"/>
+<circle cx="30" cy="78" r="9" fill="${C.ink}"/><circle cx="70" cy="78" r="9" fill="${C.ink}"/>
+<path d="M76 30 v10 M71 35 h10" stroke="${C.yel}" stroke-width="5" stroke-linecap="round"/>`,
+why:`<path d="M34 38 a16 16 0 1 1 16 16 v10" fill="none" stroke="${C.pur}" stroke-width="11" stroke-linecap="round"/>
+<circle cx="50" cy="76" r="6.5" fill="${C.pink}"/>`,
+driver:`<circle cx="50" cy="50" r="32" fill="none" stroke="${C.sky}" stroke-width="10"/>
+<circle cx="50" cy="50" r="10" fill="${C.sky}"/>
+<path d="M50 18 v14 M50 82 V68" stroke="${C.sky}" stroke-width="8" stroke-linecap="round"/>
+<path d="M18 50 h14" stroke="${C.sky}" stroke-width="8" stroke-linecap="round"/>`,
+cleaner:`<path d="M50 16 v34" stroke="${C.wood}" stroke-width="8" stroke-linecap="round"/>
+<path d="M34 50 h32 l6 30 H28z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M34 64 h32 M32 72 h36" stroke="${C.wood2}" stroke-width="4"/>`,
+'delivery worker':`<path d="M50 30 L18 46 v38 h64 V46z" fill="none" stroke="${C.wood2}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M18 58 h64 M50 30 v54" stroke="${C.wood2}" stroke-width="6"/>
+<rect x="38" y="14" width="24" height="16" rx="3" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5"/>`,
+'police officer':`<path d="M50 14 L82 26 v22 c0 20 -14 32 -32 38 c-18 -6 -32 -18 -32 -38 V26z" fill="${C.sky}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 34 l4 8 9 1 -6 6 1 9 -8 -4 -8 4 1 -9 -6 -6 9 -1z" fill="${C.yel}"/>`,
+'a lot of':`<circle cx="26" cy="34" r="9" fill="${C.pink}"/><circle cx="50" cy="30" r="9" fill="${C.yel}"/><circle cx="74" cy="34" r="9" fill="${C.mint}"/>
+<circle cx="30" cy="58" r="9" fill="${C.pur}"/><circle cx="54" cy="62" r="9" fill="${C.sky}"/><circle cx="76" cy="58" r="9" fill="${C.pink}"/>
+<circle cx="38" cy="80" r="7" fill="${C.yel}"/><circle cx="60" cy="82" r="7" fill="${C.mint}"/>`,
+now:`<circle cx="50" cy="52" r="32" fill="#fff" stroke="${C.pur}" stroke-width="7"/>
+<path d="M50 30 v24 l17 10" fill="none" stroke="${C.pur}" stroke-width="7" stroke-linecap="round"/>
+<rect x="42" y="8" width="16" height="10" rx="3" fill="${C.pink}"/>`,
+'make the bed':`<path d="M12 70 h76 v14 H12z" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M12 62 q22 -16 44 -8 q14 4 26 8 v10 H12z" fill="${C.pink}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<rect x="24" y="44" width="26" height="18" rx="6" fill="#fff" stroke="${C.pur}" stroke-width="5"/>`,
+old:`<circle cx="50" cy="42" r="22" fill="#ffe3cb" stroke="${C.grey}" stroke-width="6"/>
+<path d="M30 36 q8 -16 20 -16 q12 0 20 16 q-8 -8 -20 -8 q-12 0 -20 8z" fill="#fff" stroke="${C.grey}" stroke-width="5"/>
+<circle cx="42" cy="44" r="3.5" fill="${C.ink}"/><circle cx="58" cy="44" r="3.5" fill="${C.ink}"/>
+<path d="M36 58 q14 -14 28 0 q-6 10 -14 10 q-8 0 -14 -10z" fill="#fff" stroke="${C.grey}" stroke-width="4"/>
+<path d="M78 34 v56" stroke="${C.wood2}" stroke-width="7" stroke-linecap="round"/>
+<path d="M78 34 q-12 2 -12 12" fill="none" stroke="${C.wood2}" stroke-width="7" stroke-linecap="round"/>`,
+tell:`<path d="M18 26 h64 a10 10 0 0 1 10 10 v26 a10 10 0 0 1 -10 10 H40 L24 84 V72 h-6 a10 10 0 0 1 -10 -10 V36 a10 10 0 0 1 4 -10z" fill="#fff" stroke="${C.mint}" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="38" cy="49" r="5" fill="${C.mint}"/><circle cx="52" cy="49" r="5" fill="${C.mint}"/><circle cx="66" cy="49" r="5" fill="${C.mint}"/>`,
+everyone:`<circle cx="26" cy="34" r="10" fill="${C.pink}"/><path d="M14 70 q12 -14 24 0z" fill="${C.pink}"/>
+<circle cx="50" cy="28" r="11" fill="${C.sky}"/><path d="M36 70 q14 -16 28 0z" fill="${C.sky}"/>
+<circle cx="74" cy="34" r="10" fill="${C.mint}"/><path d="M62 70 q12 -14 24 0z" fill="${C.mint}"/>`,
+Mrs:`<circle cx="50" cy="46" r="24" fill="#ffe3cb" stroke="${C.pur}" stroke-width="6"/>
+<path d="M26 44 q0 -22 24 -22 q24 0 24 22 q-6 -10 -24 -10 q-18 0 -24 10z" fill="${C.wood2}"/>
+<circle cx="26" cy="50" r="8" fill="${C.wood2}"/><circle cx="74" cy="50" r="8" fill="${C.wood2}"/>
+<circle cx="42" cy="48" r="4" fill="${C.ink}"/><circle cx="58" cy="48" r="4" fill="${C.ink}"/>
+<path d="M44 60 q6 5 12 0" fill="none" stroke="${C.ink}" stroke-width="4" stroke-linecap="round"/>`,
+/* ---- Unit 5 · 天气与我们 ---- */
+speak:`<path d="M16 28 h56 a10 10 0 0 1 10 10 v18 a10 10 0 0 1 -10 10 H40 L24 80 V66 h-8 a10 10 0 0 1 -10 -10 V38 a10 10 0 0 1 10 -10z" fill="#fff" stroke="${C.pur}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M34 44 h26 M34 56 h16" stroke="${C.pur}" stroke-width="5" stroke-linecap="round"/>`,
+weather:`<circle cx="34" cy="34" r="15" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M40 74 a14 14 0 0 1 14 -22 a17 17 0 0 1 30 8 a12 12 0 0 1 -2 14z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>`,
+sunny:`<circle cx="50" cy="50" r="20" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6"/>
+<path d="M50 16 v-8 M50 92 v-8 M16 50 h-8 M92 50 h-8 M26 26 l-6 -6 M80 74 l6 6 M74 26 l6 -6 M20 74 l-6 6" stroke="${C.yel}" stroke-width="7" stroke-linecap="round"/>`,
+hot:`<rect x="42" y="16" width="16" height="52" rx="8" fill="#fff" stroke="${C.ink}" stroke-width="5"/>
+<circle cx="50" cy="76" r="14" fill="#ff6b6b" stroke="${C.ink}" stroke-width="5"/>
+<path d="M50 30 v38" stroke="#ff6b6b" stroke-width="7" stroke-linecap="round"/>
+<path d="M74 32 q8 8 0 16 q-6 -6 -6 -10 q6 2 6 -6z" fill="#ff6b6b"/>
+<path d="M26 34 q-8 8 0 16 q6 -6 6 -10 q-6 2 -6 -6z" fill="${C.yel}"/>`,
+bad:`<circle cx="50" cy="50" r="32" fill="#fff" stroke="${C.grey}" stroke-width="7"/>
+<path d="M34 34 l32 32 M66 34 l-32 32" stroke="#ff6b6b" stroke-width="9" stroke-linecap="round"/>`,
+cold:`<path d="M50 16 v68 M22 34 l56 36 M78 34 L22 70" stroke="${C.sky}" stroke-width="8" stroke-linecap="round"/>
+<path d="M50 28 l-8 -8 M50 28 l8 -8 M50 72 l-8 8 M50 72 l8 8" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>`,
+windy:`<path d="M24 34 a13 13 0 0 1 13 -20 a16 16 0 0 1 29 7 a11 11 0 0 1 -2 15z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M18 58 h34 a9 9 0 1 0 -9 -9" fill="none" stroke="${C.mint}" stroke-width="6" stroke-linecap="round"/>
+<path d="M22 76 h44 a9 9 0 1 1 -9 9" fill="none" stroke="${C.mint}" stroke-width="6" stroke-linecap="round"/>`,
+cloudy:`<path d="M28 72 a15 15 0 0 1 15 -24 a18 18 0 0 1 33 9 a13 13 0 0 1 -3 15z" fill="#fff" stroke="${C.grey}" stroke-width="7" stroke-linejoin="round"/>
+<circle cx="24" cy="34" r="13" fill="${C.yel}" stroke="${C.wood2}" stroke-width="5"/>`,
+rainy:`<path d="M26 60 a14 14 0 0 1 14 -22 a17 17 0 0 1 31 8 a12 12 0 0 1 -2 14z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M32 72 l-5 14 M50 74 l-5 14 M68 72 l-5 14" stroke="${C.sky}" stroke-width="7" stroke-linecap="round"/>`,
+snowy:`<path d="M26 58 a14 14 0 0 1 14 -22 a17 17 0 0 1 31 8 a12 12 0 0 1 -2 14z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="32" cy="76" r="5" fill="${C.sky}"/><circle cx="50" cy="82" r="5" fill="${C.sky}"/><circle cx="68" cy="76" r="5" fill="${C.sky}"/>`,
+cool:`<path d="M14 40 h72 a6 6 0 0 1 6 6 q0 18 -20 20 q-4 10 4 12 q-24 6 -30 -6 H14a6 6 0 0 1 -6 -6 v-16 a6 6 0 0 1 6 -10z" fill="${C.pur}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<circle cx="30" cy="52" r="10" fill="#e8f4ff" stroke="${C.ink}" stroke-width="4"/>
+<circle cx="64" cy="52" r="10" fill="#e8f4ff" stroke="${C.ink}" stroke-width="4"/>
+<path d="M40 52 h18" stroke="${C.ink}" stroke-width="5"/>`,
+warm:`<rect x="42" y="14" width="16" height="54" rx="8" fill="#fff" stroke="${C.ink}" stroke-width="5"/>
+<circle cx="50" cy="76" r="14" fill="${C.yel}" stroke="${C.ink}" stroke-width="5"/>
+<path d="M50 26 v34" stroke="${C.yel}" stroke-width="7" stroke-linecap="round"/>
+<path d="M74 30 q9 9 0 18 q-7 -7 -7 -11 q7 2 7 -7z" fill="${C.yel}"/>
+<path d="M26 32 q-9 9 0 18 q7 -7 7 -11 q-7 2 -7 -7z" fill="${C.yel}"/>`,
+tomorrow:`<rect x="14" y="24" width="72" height="60" rx="8" fill="#fff" stroke="${C.pur}" stroke-width="6"/>
+<path d="M14 42 h72" stroke="${C.pur}" stroke-width="6"/>
+<rect x="26" y="14" width="8" height="18" rx="4" fill="${C.pink}"/><rect x="66" y="14" width="8" height="18" rx="4" fill="${C.pink}"/>
+<path d="M32 58 h12 M32 70 h12 M56 58 h12 M56 70 h12" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>`,
+Sydney:`<path d="M12 80 h76" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>
+<path d="M20 78 L34 44 q8 -16 16 0 L64 78z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 78 L46 52 q5 -10 10 0 L66 78z" fill="#fff" stroke="${C.sky}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 44 v-10" stroke="${C.pink}" stroke-width="5" stroke-linecap="round"/>`,
+rain:`<path d="M50 14 a34 34 0 0 1 34 34 H16 a34 34 0 0 1 34 -34z" fill="${C.sky}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 48 v10" stroke="${C.ink}" stroke-width="6" stroke-linecap="round"/>
+<path d="M32 66 l-6 16 M50 70 l-6 16 M68 66 l-6 16" stroke="${C.sky}" stroke-width="7" stroke-linecap="round"/>`,
+closed:`<rect x="16" y="44" width="68" height="44" rx="7" fill="#fff" stroke="${C.grey}" stroke-width="6"/>
+<path d="M32 44 V28 a18 18 0 0 1 36 0 v16" fill="none" stroke="${C.grey}" stroke-width="8"/>
+<path d="M40 62 h20" stroke="${C.grey}" stroke-width="6" stroke-linecap="round"/>`,
+film:`<rect x="12" y="26" width="76" height="56" rx="6" fill="${C.ink}" stroke="${C.ink}" stroke-width="5"/>
+<rect x="20" y="34" width="60" height="40" rx="3" fill="#e8f4ff"/>
+<path d="M50 34 v40" stroke="${C.ink}" stroke-width="5"/>
+<path d="M30 44 l14 8 -14 8z" fill="${C.pink}"/>
+<circle cx="66" cy="46" r="5" fill="${C.yel}"/><circle cx="66" cy="62" r="5" fill="${C.pink}"/>`,
+idea:`<path d="M50 12 a26 26 0 0 1 16 46 v10 h-32 v-10 a26 26 0 0 1 16 -46z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M38 76 h24 v8 H38z" fill="${C.grey}" stroke="${C.wood2}" stroke-width="5"/>
+<path d="M42 90 h16" stroke="${C.grey}" stroke-width="6" stroke-linecap="round"/>
+<path d="M50 34 v18 M42 44 h16" stroke="${C.wood2}" stroke-width="4" stroke-linecap="round"/>`,
+fly:`<path d="M14 56 q22 -22 40 -4 q18 -18 32 4" fill="none" stroke="${C.pur}" stroke-width="7" stroke-linecap="round"/>
+<circle cx="26" cy="40" r="7" fill="${C.pur}"/><circle cx="74" cy="40" r="7" fill="${C.pur}"/>
+<path d="M44 70 q10 -8 20 0" fill="none" stroke="${C.pink}" stroke-width="6" stroke-linecap="round"/>`,
+kite:`<path d="M50 12 L74 38 L50 64 L26 38z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 12 v52 M26 38 h48" stroke="${C.ink}" stroke-width="4"/>
+<path d="M50 64 q-6 14 4 20 q10 -6 4 -20" fill="none" stroke="${C.yel}" stroke-width="5" stroke-linecap="round"/>`,
+snowman:`<circle cx="50" cy="70" r="20" fill="#fff" stroke="${C.sky}" stroke-width="6"/>
+<circle cx="50" cy="40" r="14" fill="#fff" stroke="${C.sky}" stroke-width="6"/>
+<path d="M38 34 h24 M40 40 h20" stroke="${C.pink}" stroke-width="4" stroke-linecap="round"/>
+<circle cx="45" cy="36" r="2.5" fill="${C.ink}"/><circle cx="55" cy="36" r="2.5" fill="${C.ink}"/>
+<path d="M50 46 L82 32 l-4 8 4 8z" fill="${C.wood}" stroke="${C.wood2}" stroke-width="4"/>`,
+their:`<circle cx="26" cy="40" r="9" fill="${C.pink}"/><path d="M15 70 q11 -14 22 0z" fill="${C.pink}"/>
+<circle cx="50" cy="34" r="10" fill="${C.sky}"/><path d="M37 70 q13 -16 26 0z" fill="${C.sky}"/>
+<circle cx="74" cy="40" r="9" fill="${C.mint}"/><path d="M63 70 q11 -14 22 0z" fill="${C.mint}"/>`,
+swim:`<path d="M14 76 q10 -10 20 0 q10 -10 20 0 q10 -10 20 0 q6 -6 12 0" fill="none" stroke="${C.sky}" stroke-width="7" stroke-linecap="round"/>
+<circle cx="34" cy="42" r="10" fill="#ffe3cb" stroke="${C.ink}" stroke-width="5"/>
+<path d="M44 52 L70 40 M44 52 L62 66" fill="none" stroke="${C.pink}" stroke-width="7" stroke-linecap="round"/>
+<path d="M62 66 L74 60" fill="none" stroke="${C.pink}" stroke-width="7" stroke-linecap="round"/>`,
+/* ---- Unit 6 · 四季变化 ---- */
+whose:`<circle cx="42" cy="42" r="24" fill="#e8f4ff" stroke="${C.pur}" stroke-width="7"/>
+<path d="M60 60 L84 84" stroke="${C.pur}" stroke-width="12" stroke-linecap="round"/>
+<path d="M36 40 a8 8 0 1 1 8 8 v6" fill="none" stroke="${C.pur}" stroke-width="6" stroke-linecap="round"/>
+<circle cx="44" cy="58" r="3.5" fill="${C.pur}"/>`,
+sweater:`<path d="M36 24 L14 40 l10 18 12 -6 v34 h28 V52 l12 6 10 -18 L64 24z" fill="${C.mint}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 24 q14 12 28 0" fill="none" stroke="${C.ink}" stroke-width="6"/>
+<path d="M40 60 h20 M40 72 h20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`,
+sock:`<path d="M34 16 h24 v40 q0 12 12 16 q-8 10 -22 8 q-16 -2 -16 -18z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M32 30 h28" stroke="#fff" stroke-width="5"/>
+<path d="M30 20 h32" stroke="${C.ink}" stroke-width="6" stroke-linecap="round"/>`,
+mine:`<path d="M28 54 V34 a7 7 0 0 1 7 -7 v-7 a7 7 0 0 1 7 -7 v14 h10 v-11 a7 7 0 0 1 7 -7 v18 a7 7 0 0 1 7 7 v20 a20 20 0 0 1 -20 20 h-14 a14 14 0 0 1 -14 -14z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M72 22 q10 -6 14 2 q-10 2 -14 -2z" fill="${C.pink}"/>`,
+wear:`<path d="M36 22 L14 38 l10 16 12 -8 v40 h28 V46 l12 8 10 -16 L64 22z" fill="${C.sky}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 22 q14 14 28 0 l-14 12z" fill="#fff" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M46 44 l4 8 8 -16" fill="none" stroke="${C.pink}" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>`,
+shirt:`<path d="M36 22 L14 38 l10 16 12 -8 v40 h28 V46 l12 8 10 -16 L64 22z" fill="#fff" stroke="${C.pur}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 22 l14 14 14 -14 l-4 -6 h-20z" fill="${C.pur}"/>
+<path d="M50 36 v44" stroke="${C.pur}" stroke-width="4"/>
+<circle cx="50" cy="52" r="3" fill="${C.pur}"/><circle cx="50" cy="66" r="3" fill="${C.pur}"/>`,
+coat:`<path d="M36 22 L12 40 l10 16 14 -8 v42 h28 V48 l14 8 10 -16 L64 22z" fill="${C.wood}" stroke="${C.wood2}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 22 q14 14 28 0" fill="none" stroke="${C.wood2}" stroke-width="6"/>
+<path d="M50 36 v46" stroke="${C.wood2}" stroke-width="4"/>
+<circle cx="50" cy="50" r="3.5" fill="${C.wood2}"/><circle cx="50" cy="64" r="3.5" fill="${C.wood2}"/><circle cx="50" cy="78" r="3.5" fill="${C.wood2}"/>`,
+dress:`<path d="M36 22 L20 36 l10 12 10 -6 v46 h20 V42 l10 6 10 -12 L64 22z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M36 22 q14 14 28 0 l-14 10z" fill="#fff" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>
+<path d="M40 62 h20" stroke="#fff" stroke-width="5" stroke-linecap="round"/>`,
+which:`<path d="M34 34 a16 16 0 1 1 16 16 v8" fill="none" stroke="${C.mint}" stroke-width="10" stroke-linecap="round"/>
+<circle cx="50" cy="72" r="6" fill="${C.pink}"/>
+<circle cx="20" cy="70" r="8" fill="${C.yel}" stroke="${C.wood2}" stroke-width="4"/>
+<circle cx="80" cy="70" r="8" fill="${C.sky}" stroke="${C.ink}" stroke-width="4"/>`,
+season:`<circle cx="50" cy="50" r="34" fill="none" stroke="${C.grey}" stroke-width="5"/>
+<path d="M50 16 a34 34 0 0 1 34 34 H50z" fill="${C.mint}"/>
+<path d="M84 50 a34 34 0 0 1 -34 34 V50z" fill="${C.yel}"/>
+<path d="M50 84 a34 34 0 0 1 -34 -34 H50z" fill="${C.wood}"/>
+<path d="M16 50 a34 34 0 0 1 34 -34 V50z" fill="${C.sky}"/>
+<circle cx="50" cy="50" r="34" fill="none" stroke="${C.ink}" stroke-width="5"/>`,
+winter:`<path d="M50 14 v72 M22 32 l56 38 M78 32 L22 70" stroke="${C.sky}" stroke-width="8" stroke-linecap="round"/>
+<path d="M50 26 l-8 -8 M50 26 l8 -8 M50 74 l-8 8 M50 74 l8 8 M28 38 l-10 -2 M28 38 l2 -10 M72 62 l10 2 M72 62 l-2 10" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>`,
+snow:`<path d="M50 12 v76 M18 31 l64 38 M82 31 L18 69" stroke="${C.sky}" stroke-width="8" stroke-linecap="round"/>
+<path d="M50 24 l-9 -9 M50 24 l9 -9 M50 76 l-9 9 M50 76 l9 9" stroke="${C.sky}" stroke-width="6" stroke-linecap="round"/>
+<circle cx="50" cy="50" r="8" fill="#fff" stroke="${C.sky}" stroke-width="5"/>`,
+'get together':`<circle cx="24" cy="36" r="9" fill="${C.pink}"/><path d="M13 66 q11 -14 22 0z" fill="${C.pink}"/>
+<circle cx="50" cy="30" r="10" fill="${C.yel}"/><path d="M37 66 q13 -16 26 0z" fill="${C.yel}"/>
+<circle cx="76" cy="36" r="9" fill="${C.mint}"/><path d="M65 66 q11 -14 22 0z" fill="${C.mint}"/>
+<path d="M30 84 h40" stroke="${C.pur}" stroke-width="6" stroke-linecap="round"/>`,
+spring:`<path d="M50 84 V44" stroke="${C.mint}" stroke-width="7" stroke-linecap="round"/>
+<path d="M50 56 q-18 -4 -22 -20 q14 -2 22 12 M50 48 q18 -4 22 -20 q-14 -2 -22 12" fill="${C.mint}" stroke="${C.ink}" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="32" cy="26" r="9" fill="${C.pink}"/>
+<circle cx="68" cy="34" r="9" fill="${C.pink}"/>
+<circle cx="50" cy="18" r="8" fill="${C.yel}"/>`,
+summer:`<circle cx="50" cy="34" r="17" fill="${C.yel}" stroke="${C.wood2}" stroke-width="6"/>
+<path d="M50 10 v-6 M24 34 h-8 M76 34 h8 M30 16 l-6 -6 M70 16 l6 -6" stroke="${C.yel}" stroke-width="6" stroke-linecap="round"/>
+<path d="M12 78 q20 -14 38 0 q20 -14 38 0 v10 H12z" fill="${C.wood}" stroke="${C.wood2}" stroke-width="5" stroke-linejoin="round"/>`,
+autumn:`<path d="M50 84 V40" stroke="${C.wood}" stroke-width="8" stroke-linecap="round"/>
+<path d="M50 52 q-20 -6 -24 -24 q16 0 24 16 M50 44 q20 -6 24 -24 q-16 0 -24 16" fill="${C.wood}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M30 74 q10 -10 20 -6 M70 74 q-10 -10 -20 -6" fill="none" stroke="${C.wood2}" stroke-width="4"/>
+<path d="M20 88 h60" stroke="${C.wood}" stroke-width="7" stroke-linecap="round"/>`,
+'T-shirt':`<path d="M34 24 L12 40 l12 14 12 -8 v40 h32 V46 l12 8 12 -14 L66 24 q-16 12 -32 0z" fill="${C.pur}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M34 24 q16 14 32 0 l-6 -8 h-20z" fill="${C.pink}" stroke="${C.ink}" stroke-width="5" stroke-linejoin="round"/>`,
+fall:`<path d="M20 20 q16 -8 24 4 q-14 6 -24 -4z" fill="${C.wood}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M62 40 q16 -8 24 4 q-14 6 -24 -4z" fill="${C.yel}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M28 66 q14 -6 20 4 q-12 6 -20 -4z" fill="${C.pink}" stroke="${C.wood2}" stroke-width="4" stroke-linejoin="round"/>
+<path d="M16 34 q10 8 8 20 M70 60 q10 8 8 20" fill="none" stroke="${C.grey}" stroke-width="4" stroke-linecap="round"/>`,
+leaf:`<path d="M50 88 C 26 70 20 40 44 16 c20 4 30 26 14 40 c14 4 22 16 22 16s-14 4 -30 16z" fill="${C.mint}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M50 88 C 48 60 46 34 44 16" fill="none" stroke="${C.ink}" stroke-width="4"/>`,
+glove:`<path d="M30 52 V32 a7 7 0 0 1 7 -7 v-7 a7 7 0 0 1 7 -7 v14 h8 v-11 a7 7 0 0 1 7 -7 v18 a7 7 0 0 1 7 7 v22 a18 18 0 0 1 -18 18 h-12 a12 12 0 0 1 -12 -12z" fill="${C.pink}" stroke="${C.ink}" stroke-width="6" stroke-linejoin="round"/>
+<path d="M30 62 h26" stroke="#fff" stroke-width="5"/>
+<path d="M26 78 h30" stroke="${C.sky}" stroke-width="7" stroke-linecap="round"/>`,
+then:`<path d="M14 30 h44" stroke="${C.pur}" stroke-width="8" stroke-linecap="round"/>
+<path d="M48 18 l14 12 -14 12z" fill="${C.pur}"/>
+<path d="M14 70 h44" stroke="${C.pink}" stroke-width="8" stroke-linecap="round"/>
+<path d="M48 58 l14 12 -14 12z" fill="${C.pink}"/>`,
+};
+function icon(w){
+  const v=ICONS[w]||'';
+  if(!v) return '<div class="wordart emoji">\u{1F4D8}</div>';
+  if(v.indexOf('<')<0) return '<div class="wordart emoji">'+v+'</div>';   // emoji 占位
+  return '<svg class="wordart" viewBox="0 0 100 100">'+v+'</svg>';
+}
+
+/* ============================================================
+   2. 换装：素体 + 37 件 SVG 部件（发型/裙子/鞋子/头饰/颈饰/背饰/手持/宠物/背景）
+   ============================================================ */
+const DOLL_W=300, DOLL_H=380;
+const BODY_SVG=`
+<g id="body">
+  <ellipse cx="150" cy="364" rx="72" ry="10" fill="rgba(120,90,140,.13)"/>
+  <rect x="126" y="252" width="20" height="72" rx="10" fill="#ffe3cb"/>
+  <rect x="154" y="252" width="20" height="72" rx="10" fill="#ffe3cb"/>
+  <ellipse cx="136" cy="330" rx="16" ry="9" fill="#ff8fb1"/><ellipse cx="164" cy="330" rx="16" ry="9" fill="#ff8fb1"/>
+  <rect x="98" y="186" width="15" height="76" rx="7.5" fill="#ffe3cb"/>
+  <rect x="187" y="186" width="15" height="76" rx="7.5" fill="#ffe3cb"/>
+  <path d="M118 166 h64 v56 a32 32 0 0 1 -64 0z" fill="#ffe3cb"/>
+  <rect x="139" y="152" width="22" height="20" fill="#f9d3b8"/>
+  <circle cx="150" cy="112" r="52" fill="#ffe3cb"/>
+  <circle cx="131" cy="112" r="6" fill="#4a3b52"/><circle cx="169" cy="112" r="6" fill="#4a3b52"/>
+  <circle cx="131" cy="114" r="2" fill="#fff"/><circle cx="169" cy="114" r="2" fill="#fff"/>
+  <circle cx="120" cy="128" r="8" fill="#ffb3c8" opacity=".75"/><circle cx="180" cy="128" r="8" fill="#ffb3c8" opacity=".75"/>
+  <path d="M143 134 q7 8 14 0" stroke="#e07a9a" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+</g>`;
+
+const ITEMS=[
+ /* ---------------- 背景 ---------------- */
+ {id:'bg_sakura', name:'樱花小院', slot:'bg', rar:'R',
+  svg:`<rect width="300" height="380" fill="#fff1f6"/>
+   <rect x="0" y="300" width="300" height="80" fill="#d9f2e4"/>
+   <rect x="30" y="150" width="26" height="160" rx="8" fill="#b98d6b"/>
+   <circle cx="43" cy="130" r="52" fill="#ffc9dd"/><circle cx="10" cy="160" r="30" fill="#ffd8e6"/><circle cx="76" cy="156" r="30" fill="#ffd8e6"/>
+   <rect x="240" y="180" width="18" height="130" rx="6" fill="#b98d6b"/>
+   <circle cx="249" cy="160" r="38" fill="#ffc9dd"/>
+   <g fill="#ff9dc0"><circle cx="120" cy="80" r="5"/><circle cx="200" cy="60" r="4"/><circle cx="160" cy="120" r="4"/><circle cx="90" cy="180" r="5"/><circle cx="260" cy="240" r="4"/></g>`},
+ {id:'bg_room', name:'温馨小屋', slot:'bg', rar:'R',
+  svg:`<rect width="300" height="380" fill="#fff6ec"/>
+   <rect x="0" y="298" width="300" height="82" fill="#f3d9b8"/>
+   <rect x="0" y="292" width="300" height="10" fill="#e6c49c"/>
+   <rect x="12" y="56" width="76" height="94" rx="8" fill="#cfe9f7" stroke="#b98d6b" stroke-width="6"/>
+   <path d="M50 56 v94 M12 103 h76" stroke="#b98d6b" stroke-width="5"/>
+   <circle cx="74" cy="84" r="9" fill="#ffe9a8"/>
+   <rect x="196" y="118" width="80" height="176" rx="8" fill="#e8c9a0" stroke="#c9a06d" stroke-width="5"/>
+   <path d="M196 178 h80 M196 238 h80" stroke="#c9a06d" stroke-width="5"/>
+   <g><rect x="206" y="130" width="13" height="42" rx="3" fill="#ff9dc0"/><rect x="223" y="134" width="11" height="38" rx="3" fill="#9ad7c4"/><rect x="238" y="128" width="14" height="44" rx="3" fill="#f7c66a"/></g>
+   <g><rect x="208" y="190" width="13" height="42" rx="3" fill="#c4b5fd"/><rect x="225" y="194" width="11" height="38" rx="3" fill="#ffb3c8"/></g>
+   <g><rect x="208" y="250" width="13" height="38" rx="3" fill="#9be7d8"/><rect x="225" y="254" width="11" height="34" rx="3" fill="#ffd86b"/></g>
+   <ellipse cx="150" cy="350" rx="106" ry="18" fill="#f0cfa8"/>`},
+ {id:'bg_sea', name:'海风沙滩', slot:'bg', rar:'S',
+  svg:`<rect width="300" height="380" fill="#bfe9ff"/>
+   <circle cx="250" cy="56" r="26" fill="#ffe066"/>
+   <g fill="#fff" opacity=".9"><ellipse cx="58" cy="58" rx="30" ry="14"/><ellipse cx="90" cy="50" rx="22" ry="12"/><ellipse cx="36" cy="50" rx="18" ry="11"/></g>
+   <rect x="0" y="196" width="300" height="96" fill="#5cc6e8"/>
+   <path d="M0 196 q25 -12 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 v20 H0z" fill="#7ed8f2"/>
+   <path d="M0 250 q25 -12 50 0 t50 0 t50 0 t50 0 t50 0 t50 0 v14 H0z" fill="#a8e6f7" opacity=".7"/>
+   <rect x="0" y="288" width="300" height="92" fill="#ffe9c4"/>
+   <path d="M0 292 q30 -10 60 0 t60 0 t60 0 t60 0 t60 0 v16 H0z" fill="#f7d9a8"/>
+   <path d="M44 332 q11 -16 22 0z" fill="#ffb3c8"/><path d="M238 346 q11 -16 22 0z" fill="#ffb3c8"/>
+   <circle cx="72" cy="338" r="7" fill="#fff" stroke="#f0a0b8" stroke-width="3"/>`},
+ {id:'bg_star', name:'星夜舞台', slot:'bg', rar:'SSR',
+  svg:`<rect width="300" height="380" fill="#2e1f5b"/>
+   <circle cx="240" cy="70" r="30" fill="#fef9c3"/><circle cx="228" cy="62" r="26" fill="#2e1f5b"/>
+   <g fill="#fff"><circle cx="40" cy="50" r="2.5"/><circle cx="80" cy="110" r="2"/><circle cx="30" cy="160" r="2.5"/>
+   <circle cx="120" cy="60" r="2"/><circle cx="180" cy="40" r="2.5"/><circle cx="60" cy="230" r="2"/><circle cx="270" cy="170" r="2.5"/>
+   <circle cx="200" cy="120" r="2"/><circle cx="20" cy="290" r="2"/><circle cx="280" cy="270" r="2.5"/><circle cx="150" cy="30" r="2"/></g>
+   <path d="M110 40 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#fde68a"/>
+   <path d="M60 100 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#fde68a"/>
+   <ellipse cx="150" cy="356" rx="110" ry="16" fill="rgba(167,139,250,.35)"/>`},
+
+ /* ---------------- 发型 ---------------- */
+ {id:'hair_bob', name:'清爽波波头', slot:'hair', rar:'R',
+  back:`<path d="M96 118 q0 -62 54 -62 q54 0 54 62 v58 q-16 -10 -18 -30 q-6 -34 -36 -34 q-30 0 -36 34 q-2 20 -18 30z" fill="#6b4a34"/>`,
+  front:`<path d="M100 106 q6 -50 50 -50 q44 0 50 50 q-14 -26 -50 -26 q-36 0 -50 26z" fill="#7a5140"/>
+   <path d="M108 96 q14 -16 30 -10 q-14 2 -20 18z" fill="#8f6349"/>`},
+ {id:'hair_long', name:'蜜糖长发', slot:'hair', rar:'S',
+  back:`<path d="M98 120 q0 -64 52 -64 q52 0 52 64 v96 q-18 -10 -24 -34 v-58 q-28 -14 -56 0 v58 q-6 24 -24 34z" fill="#b0764f"/>`,
+  front:`<path d="M98 108 q6 -52 52 -52 q46 0 52 52 q-16 -26 -52 -26 q-36 0 -52 26z" fill="#a06a45"/>
+   <path d="M104 100 q14 -20 34 -14 q-18 4 -24 22z" fill="#c08c62"/>`},
+ {id:'hair_bun', name:'元气丸子头', slot:'hair', rar:'S',
+  back:`<circle cx="150" cy="44" r="30" fill="#8a5a3b"/>
+   <ellipse cx="150" cy="72" rx="19" ry="8" fill="#ff8fb1"/>
+   <path d="M100 116 q4 -56 50 -56 q46 0 50 56 v46 q-14 -8 -16 -26 q-6 -30 -34 -30 q-28 0 -34 30 q-2 18 -16 26z" fill="#8a5a3b"/>
+   <path d="M124 40 q14 -12 30 -6" fill="none" stroke="#a06a45" stroke-width="4" stroke-linecap="round"/>`,
+  front:`<path d="M100 106 q6 -50 50 -50 q44 0 50 50 q-16 -28 -50 -28 q-34 0 -50 28z" fill="#9c6a47"/>
+   <path d="M104 98 q14 -18 32 -12 q-16 2 -22 20z" fill="#b07c56"/>
+   <path d="M104 112 q-8 14 -6 28 q8 -12 14 -18z" fill="#9c6a47"/><path d="M196 112 q8 14 6 28 q-8 -12 -14 -18z" fill="#9c6a47"/>`},
+ {id:'hair_twin', name:'元气双马尾', slot:'hair', rar:'SR',
+  back:`<path d="M100 116 q0 -60 50 -60 q50 0 50 60 v40 q-16 -8 -20 -30 v-24 q-30 -12 -60 0 v24 q-4 22 -20 30z" fill="#f0c454"/>
+   <path d="M96 120 q-26 6 -30 34 q-4 30 14 44 q10 -26 26 -32z" fill="#f0c454"/>
+   <path d="M204 120 q26 6 30 34 q4 30 -14 44 q-10 -26 -26 -32z" fill="#f0c454"/>
+   <ellipse cx="90" cy="150" rx="14" ry="9" fill="#ff8fb1"/><ellipse cx="210" cy="150" rx="14" ry="9" fill="#ff8fb1"/>`,
+  front:`<path d="M98 106 q6 -50 52 -50 q46 0 52 50 q-14 -30 -52 -30 q-38 0 -52 30z" fill="#f5d078"/>
+   <path d="M102 96 q16 -18 34 -10 q-16 2 -22 22z" fill="#ffe4a3"/>`},
+ {id:'hair_rainbow', name:'彩虹渐变长发', slot:'hair', rar:'SR',
+  back:`<defs><linearGradient id="rbow" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb3c8"/><stop offset=".3" stop-color="#e0b3f7"/><stop offset=".6" stop-color="#a8d8f7"/><stop offset="1" stop-color="#b9f5c9"/></linearGradient></defs>
+   <path d="M98 120 q0 -64 52 -64 q52 0 52 64 v104 q-18 -10 -24 -34 v-58 q-28 -14 -56 0 v58 q-6 24 -24 34z" fill="url(#rbow)"/>
+   <g fill="#fff" opacity=".8"><path d="M118 156 l2 6 6 1 -4 5 1 6 -5 -3 -5 3 1 -6 -4 -5 6 -1z"/><path d="M184 178 l2 5 6 1 -4 4 1 6 -5 -3 -5 3 1 -6 -4 -4 6 -1z"/><circle cx="108" cy="196" r="2.5"/><circle cx="194" cy="212" r="2.5"/></g>`,
+  front:`<path d="M98 108 q6 -52 52 -52 q46 0 52 52 q-16 -26 -52 -26 q-36 0 -52 26z" fill="#ffc9dd"/>
+   <path d="M104 100 q14 -20 34 -14 q-18 4 -24 22z" fill="#fff" opacity=".55"/>
+   <path d="M150 56 q-18 4 -26 20 q14 -8 26 -8z" fill="#e0b3f7"/>`},
+
+ /* ---------------- 裙子 ---------------- */
+ {id:'dress_pink', name:'草莓蛋糕裙', slot:'dress', rar:'R',
+  svg:`<path d="M114 164 q36 -12 72 0 l16 84 q-52 20 -104 0z" fill="#ff8fb1"/>
+   <path d="M114 164 q36 -12 72 0 l3 18 q-39 -10 -78 0z" fill="#ffb3c8"/>
+   <rect x="112" y="228" width="76" height="10" rx="5" fill="#fff" opacity=".65"/>
+   <g fill="#fff"><circle cx="132" cy="252" r="4"/><circle cx="160" cy="268" r="4"/><circle cx="186" cy="246" r="4"/><circle cx="146" cy="284" r="3"/></g>`},
+ {id:'dress_sun', name:'向日葵田园裙', slot:'dress', rar:'R',
+  svg:`<path d="M114 164 q36 -12 72 0 l14 78 q-50 20 -100 0z" fill="#ffd86b"/>
+   <path d="M114 164 q36 -12 72 0 l2 14 q-38 -10 -76 0z" fill="#ffe9a8"/>
+   <rect x="100" y="214" width="100" height="12" rx="6" fill="#7fc98a"/>
+   <g><circle cx="130" cy="248" r="9" fill="#f9b13c"/><g fill="#ffd86b"><circle cx="130" cy="236" r="5"/><circle cx="130" cy="260" r="5"/><circle cx="118" cy="248" r="5"/><circle cx="142" cy="248" r="5"/></g><circle cx="130" cy="248" r="4" fill="#7a4a1e"/></g>
+   <g><circle cx="172" cy="258" r="8" fill="#f9b13c"/><g fill="#ffd86b"><circle cx="172" cy="247" r="4.5"/><circle cx="172" cy="269" r="4.5"/><circle cx="161" cy="258" r="4.5"/><circle cx="183" cy="258" r="4.5"/></g><circle cx="172" cy="258" r="3.5" fill="#7a4a1e"/></g>`},
+ {id:'dress_mint', name:'薄荷汽水裙', slot:'dress', rar:'S',
+  svg:`<path d="M114 164 q36 -12 72 0 l12 92 q-48 20 -96 0z" fill="#9be7d8"/>
+   <path d="M114 164 q36 -12 72 0 l2 16 q-38 -12 -76 0z" fill="#c4f2e8"/>
+   <g fill="#fff" opacity=".85"><circle cx="120" cy="236" r="7"/><circle cx="140" cy="236" r="7"/><circle cx="160" cy="236" r="7"/><circle cx="180" cy="236" r="7"/></g>
+   <path d="M100 256 q50 18 100 0" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+   <g fill="#fff" opacity=".75"><circle cx="130" cy="272" r="3.5"/><circle cx="158" cy="282" r="3"/><circle cx="178" cy="266" r="3"/></g>`},
+ {id:'dress_cat', name:'猫咪连帽裙', slot:'dress', rar:'SR',
+  svg:`<path d="M182 212 q24 2 26 22 q2 20 -14 22 q6 -14 -4 -24 q-6 -8 -12 -10z" fill="#cfc9dc"/>
+   <path d="M114 164 q36 -12 72 0 l12 80 q-48 18 -96 0z" fill="#cfc9dc"/>
+   <path d="M114 164 q36 -12 72 0 l2 14 q-38 -12 -76 0z" fill="#e6e2f2"/>
+   <rect x="110" y="228" width="80" height="10" rx="5" fill="#8f88a3" opacity=".55"/>
+   <g><path d="M136 194 l-4 -12 11 5z" fill="#8f88a3"/><path d="M164 194 l4 -12 -11 5z" fill="#8f88a3"/>
+   <circle cx="150" cy="208" r="17" fill="#8f88a3"/>
+   <circle cx="144" cy="205" r="2.4" fill="#fff"/><circle cx="156" cy="205" r="2.4" fill="#fff"/>
+   <path d="M148 211 h4 l-2 3.5z" fill="#ff9dc0"/>
+   <path d="M132 208 h8 M132 212 h8 M160 208 h8 M160 212 h8" stroke="#8f88a3" stroke-width="1.8" stroke-linecap="round"/>
+   <circle cx="150" cy="217" r="3" fill="#e6e2f2"/></g>
+   <g fill="#ff9dc0"><circle cx="130" cy="246" r="4"/><circle cx="170" cy="250" r="4"/><circle cx="150" cy="258" r="4"/></g>`},
+ {id:'dress_mermaid', name:'人鱼公主裙', slot:'dress', rar:'SR',
+  svg:`<path d="M114 164 q36 -12 72 0 l8 52 q-44 16 -88 0z" fill="#7fd7e8"/>
+   <path d="M114 164 q36 -12 72 0 l1 12 q-37 -10 -74 0z" fill="#b3ecf5"/>
+   <path d="M106 214 q44 16 88 0 l6 50 q-50 20 -100 0z" fill="#5ec5da"/>
+   <path d="M112 264 q38 16 76 0 l4 22 q-10 14 -20 0 q-10 12 -22 0 q-12 14 -22 0 q-10 12 -16 -2z" fill="#8ee0a8"/>
+   <g fill="#fff" opacity=".8"><circle cx="132" cy="230" r="4"/><circle cx="160" cy="238" r="3.5"/><circle cx="146" cy="250" r="3"/><circle cx="172" cy="252" r="3"/></g>
+   <circle cx="150" cy="188" r="7" fill="#ffd86b"/>`},
+ {id:'dress_star', name:'星空魔法裙', slot:'dress', rar:'SSR',
+  svg:`<path d="M112 162 q38 -14 76 0 l20 96 q-58 22 -116 0z" fill="#4c3f8f"/>
+   <path d="M112 162 q38 -14 76 0 l4 20 q-42 -12 -84 0z" fill="#7c6bc4"/>
+   <path d="M150 258 l6 13 14 2 -10 10 2 14 -12 -7 -12 7 2 -14 -10 -10 14 -2z" fill="#fde68a"/>
+   <path d="M122 232 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#fde68a"/>
+   <path d="M180 236 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#fde68a"/>
+   <g fill="#fff" opacity=".85"><circle cx="136" cy="288" r="2.5"/><circle cx="166" cy="300" r="2"/><circle cx="152" cy="200" r="2"/><circle cx="176" cy="272" r="2.5"/></g>
+   <rect x="110" y="242" width="80" height="8" rx="4" fill="#fde68a" opacity=".8"/>`},
+
+ /* ---------------- 鞋子 ---------------- */
+ {id:'shoe_flat', name:'小红皮鞋', slot:'shoes', rar:'R',
+  svg:`<rect x="116" y="316" width="34" height="17" rx="8" fill="#e0566d"/>
+   <rect x="150" y="316" width="34" height="17" rx="8" fill="#e0566d"/>
+   <rect x="114" y="329" width="38" height="8" rx="4" fill="#8c3a48"/>
+   <rect x="148" y="329" width="38" height="8" rx="4" fill="#8c3a48"/>
+   <path d="M124 317 l8 12 M170 317 l8 12" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+   <circle cx="133" cy="321" r="3" fill="#ffd86b"/><circle cx="167" cy="321" r="3" fill="#ffd86b"/>`},
+ {id:'shoe_boots', name:'雪地小靴', slot:'shoes', rar:'S',
+  svg:`<path d="M124 288 h20 v46 q0 10 -10 12 q-10 -2 -10 -12z" fill="#a05a34" stroke="#7c421f" stroke-width="2.5"/>
+   <path d="M156 288 h20 v46 q0 10 -10 12 q-10 -2 -10 -12z" fill="#a05a34" stroke="#7c421f" stroke-width="2.5"/>
+   <rect x="118" y="330" width="32" height="12" rx="6" fill="#6e3a1c"/>
+   <rect x="150" y="330" width="32" height="12" rx="6" fill="#6e3a1c"/>
+   <rect x="119" y="282" width="30" height="13" rx="6.5" fill="#fff" stroke="#d9c4b0" stroke-width="2.5"/>
+   <rect x="151" y="282" width="30" height="13" rx="6.5" fill="#fff" stroke="#d9c4b0" stroke-width="2.5"/>
+   <g fill="#6e3a1c"><circle cx="134" cy="308" r="2.5"/><circle cx="166" cy="308" r="2.5"/></g>
+   <path d="M130 300 h8 M162 300 h8" stroke="#7c421f" stroke-width="2.5" stroke-linecap="round"/>`},
+ {id:'shoe_wing', name:'羽翼凉鞋', slot:'shoes', rar:'SR',
+  svg:`<rect x="120" y="326" width="30" height="9" rx="4" fill="#f0b45c"/>
+   <rect x="150" y="326" width="30" height="9" rx="4" fill="#f0b45c"/>
+   <path d="M126 326 l-5 -8 M143 326 l5 -8 M157 326 l-5 -8 M174 326 l5 -8" stroke="#f0b45c" stroke-width="4" stroke-linecap="round"/>
+   <path d="M112 298 q-16 6 -18 20 q12 4 20 -3z" fill="#fff" stroke="#c9bdf0" stroke-width="3"/>
+   <path d="M188 298 q16 6 18 20 q-12 4 -20 -3z" fill="#fff" stroke="#c9bdf0" stroke-width="3"/>
+   <g fill="#ffd86b"><circle cx="135" cy="330" r="2.5"/><circle cx="165" cy="330" r="2.5"/></g>`},
+ {id:'shoe_glass', name:'水晶玻璃鞋', slot:'shoes', rar:'SSR',
+  svg:`<path d="M116 324 q4 -16 20 -13 q13 3 12 15 v6 q0 6 -6 6 h-20 q-6 0 -6 -6z" fill="#bfe9ff" opacity=".92"/>
+   <path d="M152 324 q4 -16 20 -13 q13 3 12 15 v6 q0 6 -6 6 h-20 q-6 0 -6 -6z" fill="#bfe9ff" opacity=".92"/>
+   <path d="M118 331 h30 M154 331 h30" stroke="#fff" stroke-width="3" opacity=".9"/>
+   <g fill="#fff"><path d="M132 302 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z"/><path d="M172 310 l2 5 6 1 -4 4 1 6 -5 -3 -5 3 1 -6 -4 -4 6 -1z"/><circle cx="152" cy="298" r="2.5"/></g>`},
+
+ /* ---------------- 背饰 ---------------- */
+ {id:'back_cape', name:'星星小披风', slot:'back', rar:'R',
+  svg:`<path d="M104 164 q46 -16 92 0 l30 112 q-76 28 -152 0z" fill="#f2849b"/>
+   <path d="M104 164 q46 -16 92 0 l4 16 q-50 -14 -100 0z" fill="#ffa9bb"/>
+   <path d="M74 276 q76 28 152 0" fill="none" stroke="#d9627c" stroke-width="4"/>
+   <g fill="#ffe066"><path d="M150 244 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z"/><circle cx="98" cy="250" r="4"/><circle cx="202" cy="250" r="4"/></g>`},
+ {id:'back_wing', name:'天使翅膀', slot:'back', rar:'S',
+  svg:`<path d="M118 190 q-52 -30 -56 20 q-4 46 34 56 q30 8 30 -22 q0 -34 -8 -54z" fill="#fff" stroke="#dfe6f5" stroke-width="4"/>
+   <path d="M182 190 q52 -30 56 20 q4 46 -34 56 q-30 8 -30 -22 q0 -34 8 -54z" fill="#fff" stroke="#dfe6f5" stroke-width="4"/>
+   <g fill="#e9eefb"><path d="M96 200 q-24 6 -26 26 q14 6 28 -2z"/><path d="M204 200 q24 6 26 26 q-14 6 -28 -2z"/><path d="M92 232 q-20 8 -20 24 q12 4 22 -4z"/><path d="M208 232 q20 8 20 24 q-12 4 -22 -4z"/></g>`},
+ {id:'back_butterfly', name:'幻蝶翅膀', slot:'back', rar:'SR',
+  svg:`<path d="M118 182 q-40 -50 -70 -34 q-26 16 -6 52 q22 34 76 10z" fill="#c9a7f5" stroke="#8b5cf6" stroke-width="3"/>
+   <path d="M182 182 q40 -50 70 -34 q26 16 6 52 q-22 34 -76 10z" fill="#c9a7f5" stroke="#8b5cf6" stroke-width="3"/>
+   <path d="M116 208 q-34 6 -44 32 q-6 24 22 30 q26 4 30 -20z" fill="#a97ce8" stroke="#8b5cf6" stroke-width="3"/>
+   <path d="M184 208 q34 6 44 32 q6 24 -22 30 q-26 4 -30 -20z" fill="#a97ce8" stroke="#8b5cf6" stroke-width="3"/>
+   <g fill="#fff" opacity=".75"><circle cx="76" cy="174" r="9"/><circle cx="92" cy="198" r="6"/><circle cx="224" cy="174" r="9"/><circle cx="208" cy="198" r="6"/><circle cx="88" cy="248" r="5"/><circle cx="212" cy="248" r="5"/></g>`},
+
+ /* ---------------- 手持 ---------------- */
+ {id:'hand_book', name:'魔法绘本', slot:'hand', rar:'R',
+  svg:`<rect x="174" y="226" width="54" height="42" rx="6" fill="#7c6bc4" stroke="#5a4ba0" stroke-width="4"/>
+   <rect x="179" y="231" width="44" height="32" rx="3" fill="#fff"/>
+   <path d="M201 231 v32" stroke="#c4b5fd" stroke-width="3"/>
+   <g fill="#c4b5fd"><rect x="185" y="238" width="12" height="3" rx="1.5"/><rect x="185" y="246" width="12" height="3" rx="1.5"/><rect x="209" y="238" width="10" height="3" rx="1.5"/><rect x="209" y="246" width="10" height="3" rx="1.5"/></g>
+   <path d="M216 236 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#ffe066"/>`},
+ {id:'hand_bear', name:'抱抱小熊', slot:'hand', rar:'S',
+  svg:`<circle cx="192" cy="230" r="8" fill="#c99a6b"/><circle cx="221" cy="230" r="8" fill="#c99a6b"/>
+   <circle cx="192" cy="230" r="4" fill="#e8b9d0"/><circle cx="221" cy="230" r="4" fill="#e8b9d0"/>
+   <circle cx="206" cy="250" r="21" fill="#c99a6b"/>
+   <ellipse cx="206" cy="257" rx="12" ry="9" fill="#e8c9a0"/>
+   <ellipse cx="206" cy="252" rx="4" ry="3" fill="#5b4636"/>
+   <circle cx="200" cy="245" r="2.6" fill="#5b4636"/><circle cx="212" cy="245" r="2.6" fill="#5b4636"/>
+   <path d="M198 255 q8 6 16 0" fill="none" stroke="#5b4636" stroke-width="2" stroke-linecap="round"/>
+   <circle cx="193" cy="256" r="4" fill="#ff9dc0" opacity=".55"/><circle cx="219" cy="256" r="4" fill="#ff9dc0" opacity=".55"/>`},
+ {id:'hand_wand', name:'星月魔法棒', slot:'hand', rar:'SSR',
+  svg:`<path d="M184 270 L220 216" stroke="#f0c454" stroke-width="9" stroke-linecap="round"/>
+   <path d="M184 270 L220 216" stroke="#fff3c4" stroke-width="3" stroke-linecap="round"/>
+   <path d="M228 206 l6 14 15 2 -11 11 3 15 -13 -7 -13 7 3 -15 -11 -11 15 -2z" fill="#ffe066" stroke="#f0c454" stroke-width="3"/>
+   <g fill="#fff" opacity=".9"><circle cx="196" cy="254" r="4"/><circle cx="210" cy="234" r="3"/><circle cx="188" cy="238" r="2.5"/><circle cx="206" cy="206" r="2.5"/></g>`},
+
+ /* ---------------- 宠物（站在左手边地上） ---------------- */
+ {id:'pet_cat', name:'布丁小猫', slot:'pet', rar:'R',
+  svg:`<ellipse cx="70" cy="350" rx="32" ry="7" fill="rgba(120,90,140,.12)"/>
+   <path d="M100 342 q18 -2 16 -18 q-2 -12 -12 -10 q8 8 2 14 q-6 6 -12 6z" fill="#f3b268"/>
+   <path d="M46 348 q0 -46 26 -52 q26 -6 28 14 q2 18 -4 24 q-8 12 -24 14z" fill="#fbd7a4"/>
+   <path d="M52 332 q20 8 42 2" fill="none" stroke="#f3b268" stroke-width="3" stroke-linecap="round"/>
+   <path d="M52 276 l-2 -18 16 8z" fill="#fbd7a4"/><path d="M92 276 l2 -18 -16 8z" fill="#fbd7a4"/>
+   <path d="M54 274 l-1 -10 8 4z" fill="#ff9dc0"/><path d="M90 274 l1 -10 -8 4z" fill="#ff9dc0"/>
+   <circle cx="72" cy="286" r="26" fill="#fbd7a4"/>
+   <circle cx="62" cy="284" r="3.6" fill="#5b4636"/><circle cx="82" cy="284" r="3.6" fill="#5b4636"/>
+   <circle cx="63" cy="282" r="1.3" fill="#fff"/><circle cx="83" cy="282" r="1.3" fill="#fff"/>
+   <path d="M68 292 h8 l-4 5z" fill="#ff9dc0"/>
+   <path d="M50 288 h9 M50 293 h9 M85 288 h9 M85 293 h9" stroke="#c99a6b" stroke-width="1.6" stroke-linecap="round"/>
+   <circle cx="50" cy="298" r="5" fill="#ff9dc0" opacity=".45"/><circle cx="94" cy="298" r="5" fill="#ff9dc0" opacity=".45"/>
+   <path d="M56 308 h32 v9 a16 16 0 0 1 -32 0z" fill="#ff8fb1"/>
+   <circle cx="72" cy="326" r="5" fill="#ffe066"/><path d="M69 326 h6" stroke="#e8a93c" stroke-width="1.6"/>`},
+ {id:'pet_dog', name:'奶泡小狗', slot:'pet', rar:'S',
+  svg:`<ellipse cx="70" cy="350" rx="32" ry="7" fill="rgba(120,90,140,.12)"/>
+   <path d="M98 338 q17 0 16 -14 q0 -12 -10 -9 q7 7 1 13 q-6 6 -13 6z" fill="#e0c39a"/>
+   <path d="M46 348 q0 -46 26 -52 q26 -6 28 14 q2 18 -4 24 q-8 12 -24 14z" fill="#f7e3c3"/>
+   <path d="M52 332 q20 8 42 2" fill="none" stroke="#e0c39a" stroke-width="3" stroke-linecap="round"/>
+   <path d="M52 272 q-20 10 -16 32 q12 6 24 -6z" fill="#d9b98c"/>
+   <path d="M92 272 q20 10 16 32 q-12 6 -24 -6z" fill="#d9b98c"/>
+   <circle cx="72" cy="290" r="25" fill="#f7e3c3"/>
+   <ellipse cx="72" cy="300" rx="12" ry="9" fill="#fff5e4"/>
+   <ellipse cx="72" cy="296" rx="4.5" ry="3.5" fill="#5b4636"/>
+   <circle cx="63" cy="286" r="3.3" fill="#5b4636"/><circle cx="81" cy="286" r="3.3" fill="#5b4636"/>
+   <circle cx="64" cy="285" r="1.2" fill="#fff"/><circle cx="82" cy="285" r="1.2" fill="#fff"/>
+   <path d="M72 301 v5 M72 306 q-5 4 -9 0 M72 306 q5 4 9 0" fill="none" stroke="#5b4636" stroke-width="2.2" stroke-linecap="round"/>
+   <circle cx="50" cy="298" r="5" fill="#ffb3c8" opacity=".5"/><circle cx="94" cy="298" r="5" fill="#ffb3c8" opacity=".5"/>
+   <path d="M56 310 h32 v9 a16 16 0 0 1 -32 0z" fill="#7fd7e8"/>
+   <circle cx="72" cy="328" r="5" fill="#ffe066"/><path d="M69 328 h6" stroke="#e8a93c" stroke-width="1.6"/>`},
+ {id:'pet_bunny', name:'云朵小兔', slot:'pet', rar:'SR',
+  svg:`<ellipse cx="70" cy="350" rx="32" ry="7" fill="rgba(120,90,140,.12)"/>
+   <circle cx="100" cy="338" r="11" fill="#fff" stroke="#ece6f5" stroke-width="2"/>
+   <path d="M60 270 q-14 -34 -6 -50 q10 -12 14 6 q4 16 0 44z" fill="#fdfbff" stroke="#cbbfe0" stroke-width="3"/>
+   <path d="M84 270 q14 -34 6 -50 q-10 -12 -14 6 q-4 16 0 44z" fill="#fdfbff" stroke="#cbbfe0" stroke-width="3"/>
+   <path d="M61 266 q-8 -24 -4 -36 q7 -8 9 4 q2 12 0 32z" fill="#ffb3c8"/>
+   <path d="M83 266 q8 -24 4 -36 q-7 -8 -9 4 q-2 12 0 32z" fill="#ffb3c8"/>
+   <path d="M46 348 q0 -44 26 -50 q26 -6 28 14 q2 18 -4 24 q-8 12 -24 14z" fill="#fdfbff" stroke="#cbbfe0" stroke-width="3.5"/>
+   <circle cx="72" cy="292" r="24" fill="#fdfbff" stroke="#cbbfe0" stroke-width="3.5"/>
+   <circle cx="63" cy="288" r="3.4" fill="#5b4636"/><circle cx="81" cy="288" r="3.4" fill="#5b4636"/>
+   <circle cx="64" cy="287" r="1.3" fill="#fff"/><circle cx="82" cy="287" r="1.3" fill="#fff"/>
+   <path d="M68 296 h8 l-4 4.5z" fill="#ff9dc0"/>
+   <path d="M51 294 h9 M51 299 h9 M84 294 h9 M84 299 h9" stroke="#d8d2e4" stroke-width="1.6" stroke-linecap="round"/>
+   <circle cx="51" cy="302" r="5" fill="#ffb3c8" opacity=".55"/><circle cx="93" cy="302" r="5" fill="#ffb3c8" opacity=".55"/>
+   <path d="M52 334 q20 8 42 2" fill="none" stroke="#ece6f5" stroke-width="3" stroke-linecap="round"/>
+   <path d="M56 312 h32 v9 a16 16 0 0 1 -32 0z" fill="#ffb3c8"/>
+   <circle cx="72" cy="330" r="5" fill="#fff" stroke="#e8a93c" stroke-width="1.6"/>`},
+ {id:'pet_dragon', name:'星尾小飞龙', slot:'pet', rar:'SSR',
+  svg:`<ellipse cx="70" cy="350" rx="32" ry="7" fill="rgba(120,90,140,.12)"/>
+   <path d="M110 293 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#ffe066" stroke="#f0c454" stroke-width="2"/>
+   <path d="M96 338 q22 4 24 -14 q2 -12 -10 -9 q7 7 -1 13 q-8 6 -19 8z" fill="#8b7ce8"/>
+   <path d="M46 348 q0 -46 26 -52 q26 -6 28 14 q2 18 -4 24 q-8 12 -24 14z" fill="#a78bfa"/>
+   <path d="M52 332 q20 8 42 2" fill="none" stroke="#c9b8ff" stroke-width="3" stroke-linecap="round"/>
+   <path d="M48 306 q-24 -14 -28 8 q-2 18 20 18 q12 0 14 -9z" fill="#c9b8ff" stroke="#8b7ce8" stroke-width="2.5"/>
+   <path d="M98 308 q20 -14 24 6 q2 16 -16 16 q-10 0 -12 -8z" fill="#c9b8ff" stroke="#8b7ce8" stroke-width="2.5"/>
+   <path d="M55 266 l-3 -14 13 7z" fill="#8b7ce8"/><path d="M89 266 l3 -14 -13 7z" fill="#8b7ce8"/>
+   <circle cx="72" cy="288" r="26" fill="#a78bfa"/>
+   <circle cx="63" cy="285" r="5" fill="#fff"/><circle cx="81" cy="285" r="5" fill="#fff"/>
+   <circle cx="63.5" cy="285" r="2.8" fill="#4a3b52"/><circle cx="81.5" cy="285" r="2.8" fill="#4a3b52"/>
+   <path d="M64 297 q8 7 16 0" fill="none" stroke="#4a3b52" stroke-width="2.2" stroke-linecap="round"/>
+   <g fill="#ffe066"><path d="M36 258 l2 6 7 1 -5 5 1 7 -5 -3 -5 3 1 -7 -5 -5 7 -1z"/><circle cx="106" cy="266" r="3.5"/><circle cx="26" cy="292" r="2.5"/></g>
+   <path d="M56 310 h32 v9 a16 16 0 0 1 -32 0z" fill="#c4b5fd"/>
+   <path d="M110 293 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#ffe066"/>`},
+
+ /* ---------------- 头饰 ---------------- */
+ {id:'head_hat', name:'夏日草帽', slot:'head', rar:'R',
+  svg:`<ellipse cx="150" cy="86" rx="66" ry="18" fill="#f2d29b" stroke="#d9b26a" stroke-width="4"/>
+   <path d="M116 86 q34 -48 68 0z" fill="#f7dfae" stroke="#d9b26a" stroke-width="4"/>
+   <path d="M112 82 q38 14 76 0" fill="none" stroke="#e05c6e" stroke-width="9" stroke-linecap="round"/>
+   <g fill="#fff"><circle cx="172" cy="74" r="5"/><circle cx="128" cy="76" r="3.5"/></g>
+   <path d="M84 92 q10 10 24 8" fill="none" stroke="#d9b26a" stroke-width="3" stroke-linecap="round"/>`},
+ {id:'head_bow', name:'缎带蝴蝶结', slot:'head', rar:'S',
+  svg:`<path d="M150 62 q-34 -22 -44 4 q-8 22 32 20 z" fill="#ff8fb1"/>
+   <path d="M150 62 q34 -22 44 4 q8 22 -32 20 z" fill="#ff8fb1"/>
+   <circle cx="150" cy="68" r="9" fill="#ffb3c8"/>
+   <path d="M150 62 q-34 -22 -44 4" fill="none" stroke="#e8638c" stroke-width="2.5"/>`},
+ {id:'head_cat', name:'猫耳发箍', slot:'head', rar:'S',
+  svg:`<path d="M104 84 q-6 -34 16 -40 q16 -4 20 22z" fill="#b9b3c9" stroke="#8f88a3" stroke-width="3"/>
+   <path d="M110 78 q-2 -20 10 -24 q10 -2 12 14z" fill="#ff9dc0"/>
+   <path d="M196 84 q6 -34 -16 -40 q-16 -4 -20 22z" fill="#b9b3c9" stroke="#8f88a3" stroke-width="3"/>
+   <path d="M190 78 q2 -20 -10 -24 q-10 -2 -12 14z" fill="#ff9dc0"/>
+   <path d="M100 88 q50 -20 100 0" fill="none" stroke="#8f88a3" stroke-width="7" stroke-linecap="round"/>`},
+ {id:'head_flower', name:'花环', slot:'head', rar:'SR',
+  svg:`<path d="M104 74 q46 -34 92 0" fill="none" stroke="#4d9e6a" stroke-width="8" stroke-linecap="round"/>
+   <g><circle cx="112" cy="70" r="9" fill="#fff"/><circle cx="112" cy="70" r="3.5" fill="#fcd34d"/></g>
+   <g><circle cx="134" cy="58" r="9" fill="#ffb3c8"/><circle cx="134" cy="58" r="3.5" fill="#fff"/></g>
+   <g><circle cx="166" cy="58" r="9" fill="#c4b5fd"/><circle cx="166" cy="58" r="3.5" fill="#fff"/></g>
+   <g><circle cx="188" cy="70" r="9" fill="#fff"/><circle cx="188" cy="70" r="3.5" fill="#fcd34d"/></g>`},
+ {id:'head_crown', name:'星光小王冠', slot:'head', rar:'SSR',
+  svg:`<path d="M112 66 l-8 -34 26 16 20 -32 20 32 26 -16 -8 34z" fill="#ffd86b" stroke="#e8a93c" stroke-width="4"/>
+   <rect x="108" y="62" width="84" height="14" rx="7" fill="#f0b45c" stroke="#e8a93c" stroke-width="4"/>
+   <circle cx="150" cy="30" r="6" fill="#ff5c8a"/>
+   <circle cx="130" cy="48" r="5" fill="#7fd7e8"/><circle cx="170" cy="48" r="5" fill="#b9f5c9"/>
+   <path d="M150 70 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#fff" opacity=".9"/>`},
+
+ /* ---------------- 颈饰 ---------------- */
+ {id:'neck_ribbon', name:'蕾丝领结', slot:'neck', rar:'R',
+  svg:`<path d="M150 168 q-22 -12 -28 4 q-4 14 26 12z" fill="#fff"/>
+   <path d="M150 168 q22 -12 28 4 q4 14 -26 12z" fill="#fff"/>
+   <path d="M150 168 q-22 -12 -28 4 q-4 14 26 12z" fill="none" stroke="#e05c6e" stroke-width="2.5"/>
+   <path d="M150 168 q22 -12 28 4 q4 14 -26 12z" fill="none" stroke="#e05c6e" stroke-width="2.5"/>
+   <circle cx="150" cy="174" r="7" fill="#e05c6e"/>
+   <path d="M132 178 q18 8 36 0" fill="none" stroke="#ffb3c8" stroke-width="4" stroke-linecap="round"/>`},
+ {id:'neck_pearl', name:'珍珠项链', slot:'neck', rar:'S',
+  svg:`<path d="M126 172 q24 20 48 0" fill="none" stroke="#f5e6c8" stroke-width="5"/>
+   <g fill="#fff" stroke="#e6d3ae" stroke-width="1.5"><circle cx="131" cy="176" r="4"/><circle cx="141" cy="183" r="4.5"/><circle cx="150" cy="185" r="5"/><circle cx="159" cy="183" r="4.5"/><circle cx="169" cy="176" r="4"/></g>
+   <path d="M150 194 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#ffd86b"/>`},
+ {id:'neck_star', name:'流星项链', slot:'neck', rar:'SR',
+  svg:`<path d="M128 170 q22 18 44 0" fill="none" stroke="#c4b5fd" stroke-width="4"/>
+   <path d="M150 184 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#c4b5fd"/>
+   <g fill="#fff"><circle cx="139" cy="175" r="2.5"/><circle cx="161" cy="175" r="2.5"/><circle cx="150" cy="196" r="2"/></g>`}
+];
+const SLOT_NAME={hair:'发型',dress:'裙子',shoes:'鞋子',head:'头饰',neck:'颈饰',back:'背饰',hand:'手持',pet:'宠物',bg:'背景'};
+const SLOT_ORDER=['hair','dress','shoes','head','neck','back','hand','pet','bg'];
+const NULLABLE={head:1,neck:1,back:1,hand:1,pet:1};   // 这几类可以不戴/不带
+
+const BARE = {hair:'hair_long', dress:'dress_pink', shoes:'shoe_flat', head:null, neck:null, back:null, hand:null, pet:null, bg:'bg_sakura'};
+
+/* ============================================================
+   3. 键位 / 十指配色（复用打字项目）
+   ============================================================ */
+const FG={
+ LP:['q','a','z'], LR:['w','s','x'], LM:['e','d','c'], LI:['r','f','v','t','g','b'],
+ RI:['y','h','n','u','j','m'], RM:['i','k'], RR:['o','l'], RP:['p']
+};
+const FG_COLOR={LP:'#ffc9d4',LR:'#ffe0b2',LM:'#fff3b0',LI:'#c9f5c9',RI:'#b8ecf5',RM:'#c3d4ff',RR:'#d6ccff',RP:'#ffc9f2'};
+const FG_NAME={LP:'左手小指',LR:'左手无名指',LM:'左手中指',LI:'左手食指',RI:'右手食指',RM:'右手中指',RR:'右手无名指',RP:'右手小指'};
+const CH2FG={}; Object.keys(FG).forEach(f=>FG[f].forEach(c=>CH2FG[c]=f));
+const KB_ROWS=[['q','w','e','r','t','y','u','i','o','p'],['a','s','d','f','g','h','j','k','l'],['z','x','c','v','b','n','m']];
+const VOWELS='aeiouAEIOU';
+
+
+/* ---------- 头像（档案形象） ---------- */
+const AVATARS=[
+ {n:'长直发',hair:'#6b4a3a',bg:'#ffd9e8'},
+ {n:'双马尾',hair:'#8a5a33',bg:'#ffe6c4'},
+ {n:'波波头',hair:'#332c38',bg:'#d6ecff'},
+ {n:'丸子头',hair:'#b07c2a',bg:'#fff2c9'},
+ {n:'小卷发',hair:'#7f5fae',bg:'#e6ddff'},
+ {n:'清爽短发',hair:'#c15a44',bg:'#ffe0dd'}
+];
+const AV_BACK=[
+ '<path d="M8 25 q0 -15 14 -15 q14 0 14 15 l0 13 q-2 5 -5 1 l0 -11 q-9 4 -18 0 l0 11 q-3 4 -5 -1z" fill="H"/>',
+ '<circle cx="7" cy="27" r="6" fill="H"/><circle cx="37" cy="27" r="6" fill="H"/><path d="M9 24 q0 -13 13 -13 q13 0 13 13 q-13 -4 -26 0z" fill="H"/>',
+ '<path d="M8 24 q0 -14 14 -14 q14 0 14 14 l1 7 q-3 3 -4 -1 l-1 -8 q-10 4 -20 0 l-1 8 q-1 4 -4 1z" fill="H"/>',
+ '<circle cx="22" cy="8.5" r="6.8" fill="H"/><path d="M8 25 q0 -15 14 -15 q14 0 14 15 l0 9 q-2 5 -5 1 l0 -8 q-9 4 -18 0 l0 8 q-3 4 -5 -1z" fill="H"/>',
+ '<circle cx="8" cy="21" r="5.5" fill="H"/><circle cx="36" cy="21" r="5.5" fill="H"/><circle cx="7.5" cy="30" r="5" fill="H"/><circle cx="36.5" cy="30" r="5" fill="H"/><path d="M10 22 q0 -12 12 -12 q12 0 12 12 q-12 -4 -24 0z" fill="H"/>',
+ '<path d="M8 24 q0 -14 14 -14 q14 0 14 14 l0 7 q-2 5 -4 1 l-1 -6 q-9 4 -18 0 l-1 6 q-2 4 -4 -1z" fill="H"/>'
+];
+const AV_FRONT=[
+ '<path d="M9 21 q1 -11 13 -11 q12 0 13 11 q-5 -6 -13 -5 q-8 -1 -13 5z" fill="H"/>',
+ '<path d="M10 21 q1 -10 12 -10 q11 0 12 10 q-6 -5 -12 -4 q-6 -1 -12 4z" fill="H"/>',
+ '<path d="M9 20 q1 -10 13 -10 q12 0 13 10 q-6 -7 -13 -6 q-7 -1 -13 6z" fill="H"/>',
+ '<path d="M9 21 q0 -10 13 -10 q13 0 13 10 q-7 -6 -13 -5 q-7 -1 -13 5z" fill="H"/>',
+ '<path d="M10 20 q2 -9 12 -9 q10 0 12 9 q-4 -6 -8 -4 q-4 -1 -6 -3 q-3 3 -10 7z" fill="H"/>',
+ '<path d="M9 21 q0 -10 13 -10 q13 0 13 10 q-5 -7 -13 -6 q-8 -1 -13 6z" fill="H"/>'
+];
+function avatarSVG(i,sz){
+  const a=AVATARS[i]||AVATARS[0], h=a.hair;
+  const bk=(AV_BACK[i]||AV_BACK[0]).replace(/H/g,h);
+  const fr=(AV_FRONT[i]||AV_FRONT[0]).replace(/H/g,h);
+  return '<svg width="'+sz+'" height="'+sz+'" viewBox="0 0 44 44">'
+   +'<circle cx="22" cy="22" r="22" fill="'+a.bg+'"/>'
+   +bk
+   +'<circle cx="22" cy="24" r="12" fill="#ffe3cc"/>'
+   +'<circle cx="17.6" cy="24" r="1.7" fill="#4a3b52"/><circle cx="26.4" cy="24" r="1.7" fill="#4a3b52"/>'
+   +'<circle cx="18.1" cy="23.4" r=".65" fill="#fff"/><circle cx="26.9" cy="23.4" r=".65" fill="#fff"/>'
+   +'<circle cx="14.6" cy="27.4" r="2.1" fill="#ffb3c8" opacity=".5"/><circle cx="29.4" cy="27.4" r="2.1" fill="#ffb3c8" opacity=".5"/>'
+   +'<path d="M20.4 28.6 q1.6 1.7 3.2 0" fill="none" stroke="#e07a90" stroke-width="1.4" stroke-linecap="round"/>'
+   +fr+'</svg>';
+}
+
+/* ============================================================
+   4. 存档（多档案：每个小朋友一套独立进度）
+   ============================================================ */
+const SAVE_KEY='wordmagic_v2';
+const OLD_KEY='wordmagic_v1';
+const DEF_SAVE={
+  name:'', av:0, book:'4A',
+  words:{}, day:{}, streak:0, lastDay:'', week:[], gacha:{tickets:0,pity:0,total:0,owned:[],star:0},
+  equip:{bg:'bg_sakura',hair:'hair_long',dress:'dress_pink',shoes:'shoe_flat',head:null,neck:null,back:null,hand:null,pet:null},
+  settings:{sound:true,tts:true,gacha:true}
+};
+function newProf(name,av){
+  const p=JSON.parse(JSON.stringify(DEF_SAVE));
+  p.name=name||'小朋友'; p.av=av||0;
+  ['bg_sakura','hair_long','dress_pink','shoe_flat'].forEach(function(id){ p.gacha.owned.push(id); });
+  return p;
+}
+function normProf(p){
+  if(!p.words) p.words={};
+  if(!p.day) p.day={};
+  if(!Array.isArray(p.week)||p.week.length!==7) p.week=[false,false,false,false,false,false,false];
+  if(!p.gacha) p.gacha={tickets:0,pity:0,total:0,owned:[],star:0};
+  ['tickets','pity','total','star'].forEach(function(k){ if(typeof p.gacha[k]!=='number') p.gacha[k]=0; });
+  if(!Array.isArray(p.gacha.owned)) p.gacha.owned=[];
+  p.gacha.owned=p.gacha.owned.filter(function(id){ return ITEMS.some(function(i){ return i.id===id; }); });
+  if(!p.equip) p.equip={};
+  Object.keys(BARE).forEach(function(k){ if(!(k in p.equip)) p.equip[k]=BARE[k]; });
+  if(!p.equip.bg) p.equip.bg='bg_sakura';
+  if(!p.equip.shoes) p.equip.shoes='shoe_flat';
+  Object.keys(p.equip).forEach(function(k){ if(p.equip[k]&&!p.gacha.owned.includes(p.equip[k])) p.equip[k]=BARE[k]!==undefined?BARE[k]:null; });
+  ['bg_sakura','hair_long','dress_pink','shoe_flat'].forEach(function(id){ if(p.gacha.owned.indexOf(id)<0) p.gacha.owned.push(id); });
+  if(!p.settings) p.settings={sound:true,tts:true,gacha:true};
+  if(typeof p.av!=='number'||p.av<0||p.av>=AVATARS.length) p.av=0;
+  if(!p.name) p.name='小朋友';
+  if(!p.book) p.book='4A';
+  return p;
+}
+let ROOT={profiles:[],cur:0};
+let S=null;
+function load(){
+  let r=null;
+  try{ r=JSON.parse(localStorage.getItem(SAVE_KEY)); }catch(e){}
+  if(r&&Array.isArray(r.profiles)&&r.profiles.length){
+    ROOT={profiles:r.profiles.map(function(p){ return normProf(Object.assign(newProf(p&&p.name,p&&p.av),p)); }).slice(0,4), cur:r.cur|0};
+  }else{
+    let old=null;
+    try{ old=JSON.parse(localStorage.getItem(OLD_KEY)); }catch(e){}
+    const a=newProf('豆豆',0);
+    if(old&&old.words) Object.assign(a,old);
+    ROOT={profiles:[normProf(a),normProf(newProf('可可',1))],cur:0};
+  }
+  if(!(ROOT.cur>=0&&ROOT.cur<ROOT.profiles.length)) ROOT.cur=0;
+  S=ROOT.profiles[ROOT.cur]; useBook(S.book);
+  save();
+}
+function save(){ try{ localStorage.setItem(SAVE_KEY,JSON.stringify(ROOT)); }catch(e){} }
+function switchTo(i){
+  if(i===ROOT.cur) return;
+  if(T&&T.phase!=='result'){
+    if(!confirm('这一轮还没做完，切换后会重新开始。确定切换吗？')) return;
+  }
+  save(); ROOT.cur=i; S=ROOT.profiles[i]; useBook(S.book); T=null; save();
+  sfx.tap(); closeModal(); render(); toast('换成 '+S.name+' 的档案啦 ✨');
+}
+function resetCur(){
+  if(!confirm('确定清空「'+S.name+'」的全部进度和衣柜吗？')) return;
+  ROOT.profiles[ROOT.cur]=newProf(S.name,S.av); S=ROOT.profiles[ROOT.cur]; useBook(S.book); T=null; save();
+  closeModal(); render(); toast('已重置 '+S.name+' 的档案');
+}
+load();
+function today(){ const d=new Date(); return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function dayNum(){ return Math.floor(new Date(today()+' 00:00').getTime()/86400000); }
+function ws(w){ if(!S.words[w]) S.words[w]={st:0,due:0,hint:-1,streakNH:0,fails:0,modes:[],seen:0,right:0}; return S.words[w]; }
+
+/* ============================================================
+   5. 音频
+   ============================================================ */
+let AC=null;
+function ac(){
+  if(!AC){ try{ AC=new (window.AudioContext||window.webkitAudioContext)(); }catch(e){} }
+  if(AC&&AC.state==='suspended'){ try{ AC.resume(); }catch(e){} }
+  return AC;
+}
+/* iOS/Safari：首次触摸或按键时解锁音频与朗读，否则第一次发声会被系统拦掉 */
+(function(){
+  var done=false;
+  function unlock(){
+    if(done) return; done=true;
+    try{ const a=ac(); if(a&&a.state==='suspended') a.resume(); }catch(e){}
+    try{ if(window.speechSynthesis){ const u=new SpeechSynthesisUtterance(' '); u.volume=0; u.lang='en-US'; speechSynthesis.speak(u); } }catch(e){}
+  }
+  ['pointerdown','touchstart','keydown'].forEach(function(ev){
+    window.addEventListener(ev,unlock,{once:true,passive:true});
+  });
+})();
+function beep(f,d,type,vol){ if(!S.settings.sound) return; const a=ac(); if(!a) return;
+  const o=a.createOscillator(),g=a.createGain(); o.type=type||'sine'; o.frequency.value=f;
+  g.gain.setValueAtTime(vol||.18,a.currentTime); g.gain.exponentialRampToValueAtTime(.001,a.currentTime+d);
+  o.connect(g); g.connect(a.destination); o.start(); o.stop(a.currentTime+d); }
+const sfx={
+  tap(){ beep(620,.06,'square',.07); },
+  right(){ beep(880,.12); setTimeout(()=>beep(1320,.16),90); },
+  wrong(){ beep(190,.3,'triangle',.15); },
+  win(){ [523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.2,'sine',.16),i*110)); },
+  gacha(){ [392,523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.22,'triangle',.14),i*90)); }
+};
+function speak(t){
+  if(!S.settings.tts) return;
+  try{
+    const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=.85; u.pitch=1.05;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+
+/* ============================================================
+   6. 工具
+   ============================================================ */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function toast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),1600); }
+function norm(s){ return s.replace(/[’']/g,"'").toLowerCase(); }
+
+/* 错误分型 */
+const NEAR={'b':'d','d':'b','p':'q','q':'p','m':'n','n':'m','u':'v','v':'u','e':'a','a':'e','i':'e','o':'u','u':'o'};
+function classify(u,t){
+  u=norm(u); t=norm(t);
+  if(u===t) return null;
+  const uu=u.replace(/ /g,''), tt=t.replace(/ /g,'');
+  if(uu.length<tt.length){
+    for(let i=0;i<tt.length;i++){ if(uu.slice(0,i)+tt.slice(i+1)===uu) return {type:'miss',ch:tt[i],msg:'少了字母 <b>'+tt[i]+'</b>'}; }
+  }
+  if(uu.length>tt.length){ for(let i=0;i<uu.length;i++){ if(uu.slice(0,i)+uu.slice(i+1)===tt) return {type:'extra',ch:uu[i],msg:'多写了字母 <b>'+uu[i]+'</b>'}; } }
+  if(uu.length===tt.length){
+    const diffs=[]; for(let i=0;i<tt.length;i++) if(uu[i]!==tt[i]) diffs.push(i);
+    if(diffs.length===1){ const i=diffs[0], a=uu[i], b=tt[i];
+      if(NEAR[a]===b) return {type:'near',msg:'<b>'+a+'</b> 和 <b>'+b+'</b> 长得太像啦，看清楚'};
+      return {type:'sub',msg:'第 '+(i+1)+' 个字母应该是 <b>'+b+'</b>'};
+    }
+    if(diffs.length<=2 && uu.split('').sort().join('')===tt.split('').sort().join(''))
+      return {type:'order',msg:'字母都对，<b>顺序反了</b>'};
+    if(diffs.length) return {type:'sub',msg:'第 '+(diffs[0]+1)+' 个字母应该是 <b>'+tt[diffs[0]]+'</b>'};
+  }
+  return {type:'other',msg:'再听一遍，然后慢慢拼'};
+}
+
+/* ============================================================
+   7. 调度
+   ============================================================ */
+const MODES=['pic','cn','audio'];
+function pickMode(w){
+  const st=ws(w), left=MODES.filter(m=>!st.modes.includes(m));
+  const m = left.length? left[Math.floor(Math.random()*left.length)] : MODES[Math.floor(Math.random()*MODES.length)];
+  if(!st.modes.includes(m)) st.modes.push(m);
+  if(st.modes.length>=MODES.length) st.modes=[m];
+  return m;
+}
+function dueWords(){
+  const dn=dayNum(), out=[];
+  for(const w in S.words){ const st=S.words[w];
+    if(st.st===0) continue;               // 没见过面
+    if(st.due<=dn) out.push({w,over:dn-st.due,st});
+  }
+  out.sort((a,b)=>{
+    if(b.over!==a.over) return b.over-a.over;        // 逾期越久越先
+    if(a.st.fails!==b.st.fails) return b.st.fails-a.st.fails; // 加强队列优先
+    return a.st.st-b.st.st;                          // 状态低的先
+  });
+  return out.map(x=>x.w);
+}
+function freshWords(n){
+  // 只要还没「拼得出」(st===0) 就算新词 —— 见过卡但没拼写就退出的词不会被丢掉
+  const out=[];
+  for(const x of WORDS){ if(out.length>=n) break; const st=S.words[x.w]; if(!st||st.st===0) out.push(x.w); }
+  return out;
+}
+function buildQueue(){
+  const fresh=freshWords(4);
+  let rev=dueWords();
+  const q=[]; let fi=0, ri=0;
+  // 收尾保护：最后 60 秒只取熟练词 —— 运行时再过滤，这里只做交错
+  while(fi<fresh.length || ri<rev.length){
+    if(ri<rev.length){ q.push({w:rev[ri++],kind:'rev'}); }
+    if(ri<rev.length){ q.push({w:rev[ri++],kind:'rev'}); }
+    if(fi<fresh.length){ q.push({w:fresh[fi++],kind:'new'}); }
+    if(ri>=rev.length && fi<fresh.length){ while(fi<fresh.length) q.push({w:fresh[fi++],kind:'new'}); }
+  }
+  return {fresh,rev,q};
+}
+
+/* ============================================================
+   8. 会话状态
+   ============================================================ */
+let T=null;
+const ROUND_ADD=[600,240,120];
+function startDay(){
+  const b=buildQueue();
+  T={ phase:'card', fresh:b.fresh, qi:0, cardIdx:0, round:0, timeLeft:ROUND_ADD[0],
+      cards:b.fresh, cur:null, done:[], stat:{total:0,right:0,noHint:0,usedHint:0}, endReason:'' };
+  // 预标记新词已见
+  b.fresh.forEach(w=>{ const st=ws(w); st.seen=1; });
+  save(); render();
+}
+
+/* ============================================================
+   9. 渲染
+   ============================================================ */
+function render(){
+  const v=$('view');
+  if(!T){ v.innerHTML=homeHTML(); bindHome(); return; }
+  if(T.phase==='card'){ v.innerHTML=cardHTML(); bindCard(); }
+  else if(T.phase==='quiz'){ v.innerHTML=quizHTML(); bindQuiz(); }
+  else if(T.phase==='result'){ v.innerHTML=resultHTML(); bindResult(); }
+}
+
+/* ---------- 首页 ---------- */
+function homeHTML(){
+  const due=dueWords().length, learned=Object.values(S.words).filter(x=>x.st>0).length;
+  const grad=Object.values(S.words).filter(x=>x.st>=3).length;
+  const owned=S.gacha.owned.length;
+  const weekDone=S.week.filter(Boolean).length;
+  const pbar=`
+  <div class="pbar">
+    ${ROOT.profiles.map(function(p,i){
+       const done=p.lastDay===today();
+       return '<button class="pchip'+(i===ROOT.cur?' on':'')+'" data-p="'+i+'">'
+        +avatarSVG(p.av,36)
+        +'<span class="ptxt"><span class="pn">'+esc(p.name)+'</span>'
+        +'<span class="pd">'+(done?'今天已打卡 ✓':'还没开始')+' · '+Object.values(p.words).filter(function(x){return x.st>0;}).length+' 词</span></span></button>';
+     }).join('')}
+  </div>`;
+  return `
+  ${pbar}
+  <div class="hero fade">
+    <h1>${esc(S.name)}，今天也要变厉害 ✨</h1>
+    <div class="sub">${BOOKS[S.book].name} · ${BOOKS[S.book].sub} · <span class="lnk" id="statAll">共 ${WORDS.length} 词</span></div>
+    <div class="statgrid">
+      <div class="stat clickable" id="stat_learned"><b>${learned}</b><span>学过 ▸</span></div>
+      <div class="stat clickable" id="stat_grad"><b>${grad}</b><span>已掌握 ▸</span></div>
+      <div class="stat clickable" id="stat_due"><b>${due}</b><span>待复习 ▸</span></div>
+    </div>
+    <div class="stars">${'⭐'.repeat(Math.min(S.streak,10))||'<span style="opacity:.6">连续打卡 0 天</span>'}</div>
+  </div>
+
+  <div class="card">
+    <div class="spread">
+      <div><b>今日任务</b><div class="muted">新词 4 个 + 复习 ${due} 个 · 约 10 分钟</div></div>
+      <button class="btn" id="go">开始 →</button>
+    </div>
+    <div class="bar" style="margin-top:12px"><i style="width:${Math.round(learned/WORDS.length*100)}%"></i></div>
+    <div class="muted" style="margin-top:6px">进度 ${learned}/${WORDS.length}</div>
+  </div>
+
+  <div class="card">
+    <div class="spread">
+      <div><b>🎀 我的衣柜</b><div class="muted">已收集 ${owned}/${ITEMS.length} 件 · 本周打卡 ${weekDone}/7</div></div>
+      <button class="btn ghost" id="goWard">去换装</button>
+    </div>
+    <div style="margin-top:12px">${dollHTML(220,278)}</div>
+  </div>`
+  ;
+}
+function bindHome(){
+  Array.prototype.forEach.call(document.querySelectorAll('.pchip'),function(b){
+    b.onclick=function(){ switchTo(parseInt(b.dataset.p,10)); };
+  });
+  $('go').onclick=()=>{ if(dueWords().length===0 && freshWords(1).length===0){ toast('今天的词都练完啦 🎉'); return; } startDay(); };
+  $('goWard').onclick=()=>wardrobe();
+  const statAll=$('statAll'); if(statAll) statAll.onclick=()=>wordList('all');
+  ['learned','grad','due'].forEach(k=>{ const el=$('stat_'+k); if(el) el.onclick=()=>wordList(k); });
+}
+
+/* ---------- 词卡 ---------- */
+function cardHTML(){
+  const w=BY_W[T.cards[T.cardIdx]];
+  return `
+  <div class="timer"><span class="pill">🔔 新词 ${T.cardIdx+1}/${T.cards.length}</span><div class="bar"><i style="width:${T.timeLeft/ROUND_ADD[0]*100}%"></i></div></div>
+  <div class="card center fade">
+    <div class="muted">先认识一下它</div>
+    ${icon(w.w)}
+    <div class="wordbig">${esc(w.w)}</div>
+    <div class="cn">${esc(w.cn)}</div>
+    <div class="syl">${w.syl.map(s=>'<span>'+esc(s)+'</span>').join('')}</div>
+    <div class="row" style="justify-content:center">
+      <button class="btn ghost" id="say">🔊 读一遍</button>
+      <button class="btn ghost" id="saySyl">🔊 分音节</button>
+    </div>
+    <div class="sent"><div>${esc(w.s)}</div><i>${esc(w.sc)}</i></div>
+  </div>
+  <div class="center"><button class="btn" id="next">${T.cardIdx+1<T.cards.length?'下一个 →':'开始拼写 ✍️'}</button></div>`;
+}
+function bindCard(){
+  const w=BY_W[T.cards[T.cardIdx]];
+  $('say').onclick=()=>speak(w.w);
+  $('saySyl').onclick=()=>{ w.syl.forEach((s,i)=>setTimeout(()=>speak(s.replace(/[’']/g,'')),i*650)); };
+  $('next').onclick=()=>{
+    T.cardIdx++;
+    if(T.cardIdx>=T.cards.length){ T.phase='quiz'; T.q=buildQuizQueue(); T.qi=0; nextWord(); }
+    render();
+  };
+  setTimeout(()=>speak(w.w),350);
+}
+
+/* ---------- 拼写 ---------- */
+function buildQuizQueue(){
+  // 把复习词与新词交错，新词顺序打乱
+  const fresh=shuffle(T.fresh).map(w=>({w,kind:'new'}));
+  const rev=dueWords().map(w=>({w,kind:'rev'}));
+  const q=[]; let fi=0,ri=0;
+  while(fi<fresh.length||ri<rev.length){
+    if(ri<rev.length) q.push(rev[ri++]);
+    if(fi<fresh.length) q.push(fresh[fi++]);
+    if(ri<rev.length&&Math.random()<.7) q.push(rev[ri++]);
+  }
+  return q;
+}
+function startHint(w){
+  const st=ws(w);
+  if(st.hint===1) return 1;   // 上次用到 L2/L3 → 从 L1 起步
+  if(st.hint===0) return 0;   // 上次用 L1 → 直接无提示
+  return 0;
+}
+function nextWord(){
+  // 收尾保护：剩余 < 60 秒优先取熟练词，保证结尾是爽的
+  if(T.timeLeft<60){
+    let j=T.qi;
+    while(j<T.q.length && ws(T.q[j].w).st<2) j++;
+    if(j<T.q.length && j>T.qi){ const it=T.q.splice(j,1)[0]; T.q.splice(T.qi,0,it); }
+  }
+  if(T.qi>=T.q.length||T.timeLeft<=0){ finish(); return; }
+  const it=T.q[T.qi], w=BY_W[it.w];
+  let mode;
+  if(ws(it.w).st===0&&it.kind==='new'){ mode='pic'; const _s=ws(it.w); if(_s.modes.indexOf('pic')<0) _s.modes.push('pic'); }
+  else mode=pickMode(it.w);
+  const hint=startHint(it.w);
+  T.cur={ w:w.w, mode, hint, pos:0, wrongAt:-1, startAt:Date.now() };
+  buildSlots();
+  render();
+}
+const AUTO_CH=' -';                        // 空格与连字符：不是拼写考察点，永远自动预填
+const isAuto=ch=>AUTO_CH.indexOf(ch)>=0;
+function traceSeq(c){ const o=[]; c.cells.forEach((x,i)=>{ if(!isAuto(x.ch)) o.push(i); }); return o; }
+function buildSlots(){
+  const c=T.cur, t=c.w;
+  c.cells=t.split('').map(ch=>({ch,locked:false,val:'',done:false,br:false}));
+  // 空格 / 连字符永远自动填好
+  c.cells.forEach(x=>{ if(isAuto(x.ch)){ x.locked=true; x.val=x.ch; } });
+  // 按读音分段（只分段，不显示音节字母）；从第 1 级提示起才显示
+  if(c.hint>=1){
+    const sy=(BY_W[t]&&BY_W[t].syl)||[t];
+    if(sy.length>1){
+      let p=0;
+      for(let k=0;k<sy.length-1;k++){
+        p+=sy[k].length;
+        if(c.cells[p]&&!isAuto(c.cells[p].ch)) c.cells[p].br=true;
+      }
+    }
+  }
+  if(c.hint===1){
+    const first=c.cells.find(x=>!isAuto(x.ch));
+    if(first){ first.locked=true; first.val=first.ch; }
+  } else if(c.hint===2){
+    c.cells.forEach(x=>{ if(!isAuto(x.ch)&&!VOWELS.includes(x.ch)){ x.locked=true; x.val=x.ch; } });
+    if(c.cells.every(x=>x.locked)){ // 没有元音可填（如 why / fly），留最后一个辅音给孩子
+      const last=[...c.cells].reverse().find(x=>!isAuto(x.ch));
+      if(last){ last.locked=false; last.val=''; }
+    }
+  } else if(c.hint===3){
+    c.trace=true; c.pos=0;
+    c.cells.forEach(x=>{ if(!isAuto(x.ch)){ x.locked=true; x.val=x.ch; } });
+  }
+}
+function slotsHTML(){
+  const c=T.cur;
+  const seq=traceSeq(c);
+  const curIdx = c.trace ? seq[c.pos] : curFill();
+  let out='';
+  c.cells.forEach((x,i)=>{
+    if(x.br) out+='<div class="slot gap"></div>';   // 读音分段处的空隙
+    if(x.ch===' '){ out+='<div class="slot gap"></div>'; return; }
+    let cls='slot';
+    if(x.locked) cls+=' locked';
+    if(c.trace&&x.done) cls+=' ok'; else if(x.val) cls+=' filled';
+    if(i===curIdx) cls+=' cur';
+    if(c.wrongAt===i) cls+=' err';
+    out+='<div class="'+cls+'">'+esc(x.val)+'</div>';
+  });
+  return out;
+}
+function curFill(){
+  const c=T.cur;
+  for(let i=0;i<c.cells.length;i++) if(!c.cells[i].locked&&!c.cells[i].val) return i;
+  return -1;
+}
+function quizHTML(){
+  const c=T.cur, w=BY_W[c.w], st=ws(c.w);
+  let clue='';
+  if(c.mode==='pic') clue='<div class="center">'+icon(c.w)+'</div><div class="center clue">这个东西是什么？拼出来</div>';
+  else if(c.mode==='cn') clue='<div class="center clue">意思是 <b style="font-size:22px">'+esc(w.cn)+'</b></div>';
+  else clue='<div class="center clue"><button class="btn mint" id="play">🔊 再听一次</button></div>';
+  const hintTxt=['','已给出 <b>首字母</b> 和读音分段','辅音都给你啦，<b>只填元音</b>','照着打一遍，记住它 ✍️'][c.hint];
+  const sylRow = c.hint>=3
+    ? w.syl.map(s=>'<span>'+esc(s)+'</span>').join('')
+    : (c.hint>=1 ? w.syl.map(s=>'<span class="dots">'+'•'.repeat(s.length)+'</span>').join('') : '');
+  return `
+  <div class="timer">
+    <span class="pill">${T.qi+1}/${T.q.length}</span>
+    <div class="bar"><i style="width:${T.timeLeft/ROUND_ADD[0]*100}%"></i></div>
+    <span class="pill y">${Math.ceil(T.timeLeft/60)} 分</span>
+  </div>
+  <div class="card center fade">
+    ${clue}
+    <div class="syl" style="margin-top:10px">${sylRow}</div>
+    <div class="slots">${slotsHTML()}</div>
+    <div class="hintbar">${c.hint?('💡 '+hintTxt):'<span class="muted">慢慢想，不用急</span>'}</div>
+    <div class="row" style="justify-content:center;margin-top:6px">
+      <button class="btn ghost" id="del">⌫ 退格</button>
+      ${c.hint<3?'<button class="btn ghost" id="hint">💡 给点提示</button>':''}
+    </div>
+  </div>
+  ${kbHTML()}`;
+}
+function kbHTML(){
+  const c=T.cur;
+  let need='';
+  // 只有第 3 级提示（照打）才在键盘上高亮下一个键；L1/L2 不给键盘答案
+  if(c.hint>=3){
+    if(c.trace){ const seq=traceSeq(c); const i=seq[c.pos]; need=(c.cells[i]?c.cells[i].ch:'').toLowerCase(); }
+    else { const i=curFill(); if(i>=0) need=c.cells[i].ch.toLowerCase(); }
+  }
+  const rows=KB_ROWS.map(r=>'<div class="kbrow">'+r.map(k=>{
+    const f=CH2FG[k]||'';
+    let cls='k'+(need===k?' target':'');
+    return '<button class="'+cls+'" data-k="'+k+'" style="background:'+(FG_COLOR[f]||'#fff')+'">'+k+'</button>';
+  }).join('')+'</div>').join('');
+  return '<div class="kb">'+rows+
+    '<div class="kbrow"><button class="k wide" data-k=" " style="background:#eceaf2">空格</button>'+
+    '<button class="k wide" data-k="bk" style="background:#ffe4ef">退格</button></div></div>';
+}
+function bindQuiz(){
+  const c=T.cur;
+  if($('play')) $('play').onclick=()=>speak(c.w);
+  $('del').onclick=()=>{ sfx.tap(); backspace(); };
+  const hb=$('hint'); if(hb) hb.onclick=()=>{ raiseHint(true); };
+  document.querySelectorAll('.kb .k').forEach(b=>{
+    b.onclick=()=>{ const k=b.dataset.k; if(k==='bk'){ sfx.tap(); backspace(); } else type(k); };
+  });
+}
+function type(ch){
+  const c=T.cur; if(!c) return;
+  sfx.tap();
+  if(c.trace){
+    const seq=traceSeq(c), i=seq[c.pos], cell=c.cells[i];
+    if(!cell) return;
+    if(norm(cell.ch)===norm(ch)){
+      cell.done=true; c.pos++; c.wrongAt=-1;
+      if(c.pos>=seq.length){ setTimeout(submit,160); return; }
+      render();
+    } else {
+      c.wrongAt=i; render(); sfx.wrong();
+      setTimeout(()=>{ if(T&&T.cur){ T.cur.wrongAt=-1; render(); } },400);
+    }
+    return;
+  }
+  const i=curFill(); if(i<0) return;
+  c.cells[i].val=ch; c.wrongAt=-1;   // 填孩子实际按下的键，判定忽略大小写
+  if(curFill()<0) setTimeout(submit,140); else render();
+}
+function backspace(){
+  const c=T.cur; if(!c) return;
+  if(c.trace){ if(c.pos>0){ c.pos--; const seq=traceSeq(c); c.cells[seq[c.pos]].done=false; } render(); return; }
+  for(let i=c.cells.length-1;i>=0;i--){ if(!c.cells[i].locked&&c.cells[i].val){ c.cells[i].val=''; break; } }
+  render();
+}
+function raiseHint(auto){
+  const c=T.cur;
+  if(c.hint>=3) return;
+  c.hint++; c.wrongAt=-1;
+  buildSlots(); render();
+  if(!auto) toast('提示用掉啦，这个词明天再来找你');
+}
+function submit(){
+  const c=T.cur; if(!c) return;
+  const val=c.cells.map(x=>x.val||'').join('');
+  const ok=norm(val)===norm(c.w);
+  const st=ws(c.w);
+
+  /* ---- 拼错：先升级提示，不计数、不推进 ---- */
+  if(!ok){
+    if(c.hint<3){
+      const err=classify(val,c.w)||{type:'other',msg:'再试一次'};
+      sfx.wrong();
+      c.hint++; c.wrongAt=-1; buildSlots();
+      toast(c.hint===3?'照着打一遍，记住它 ✍️':err.msg.replace(/<[^>]+>/g,''));
+      render(); return;
+    }
+    // 照打（L3）仍没打完 —— 说明这次没拿下
+    sfx.wrong();
+    T.stat.total++;
+    st.fails++; st.streakNH=0; st.hint=3; st.st=0; st.due=dayNum()+1;
+    T.done.push({w:c.w,hint:3,ok:false});
+    save(); T.qi++; T.cur=null;
+    setTimeout(nextWord,300);
+    return;
+  }
+
+  /* ---- 拼对 ---- */
+  sfx.right(); st.right++; T.stat.total++;
+  if(c.hint===0){
+    st.streakNH++; T.stat.noHint++; st.hint=-1;
+    st.st = st.streakNH>=5 ? 3 : (st.streakNH>=2 ? 2 : 1);
+    const gap=[1,1,2,4,7,15][Math.min(st.streakNH,5)]||15;
+    st.due = dayNum() + (st.st>=3?15:gap);
+  } else {
+    // 用了提示：不算真正通过 —— 明天必现、换考法、提示收紧
+    T.stat.usedHint++; st.streakNH=0; st.fails++;
+    st.hint=c.hint; st.st=Math.max(0,st.st-1); st.due=dayNum()+1;
+  }
+  T.done.push({w:c.w,hint:c.hint,ok:true});
+  save(); T.qi++; T.cur=null;
+  setTimeout(nextWord,260);
+}
+
+/* ---------- 结算 ---------- */
+function finish(reason){
+  if(T.phase==='result') return;
+  T.phase='result'; T.endReason=reason||'';
+  const st=S.day;
+  // 统计
+  const total=T.stat.total, noHint=T.stat.noHint;
+  const recogn=Math.min(total, total); // P0：认得分 = 完成数（词卡都看过）
+  T.result={ total, noHint, recogn:total };
+  // 每日完成判定（第一天只有 4 个新词，也要算完成）
+  T.completed = total>=4;
+  if(T.completed){
+    const td=today();
+    if(S.lastDay!==td){
+      const y=new Date(Date.now()-86400000);
+      const ystr=y.getFullYear()+'-'+(y.getMonth()+1)+'-'+y.getDate();
+      S.streak = (S.lastDay===ystr)? S.streak+1 : 1;
+      S.lastDay=td;
+      const dow=(new Date().getDay()+6)%7; S.week[dow]=true;
+      let t=1;
+      if(noHint>=8) t+=2;
+      if(S.streak>0&&S.streak%3===0) t+=3;
+      if(S.week.filter(Boolean).length>=7&&!S.gacha.weeklyDone){ t+=10; S.gacha.weeklyDone=true; S.week=[false,false,false,false,false,false,false]; }
+      S.gacha.tickets+=t; T.got=t;
+    }
+  }
+  save(); render(); sfx.win();
+}
+function resultHTML(){
+  const r=T.result, pct=r.total?Math.round(r.noHint/r.total*100):0;
+  const weak=Math.max(0,r.total-r.noHint);
+  return `
+  <div class="card center fade">
+    <div class="big">今天练完啦 🎉</div>
+    <div class="score2">
+      <div class="sc"><b style="color:var(--purple-d)">${r.recogn}</b><span>认得（看着提示能拼）</span></div>
+      <div class="sc"><b style="color:var(--pink-d)">${r.noHint}</b><span>打得出来（自己拼对）</span></div>
+    </div>
+    <div class="muted">${weak>0?('有 <b>'+weak+'</b> 个词你只是眼熟，明天我再找你 🙂'):'全部都是你自己拼出来的，太棒了！'}</div>
+    ${T.completed?`<div class="ticket" style="margin-top:14px">🎟️ 获得抽奖券 <b style="font-size:22px">×${T.got||0}</b><div class="muted" style="margin-top:4px">零提示拼对 ${r.noHint} 个 · 连续 ${S.streak} 天</div></div>`:
+      '<div class="muted" style="margin-top:12px">今天练得有点少，明天多练几个就能抽奖啦</div>'}
+    <div class="row" style="justify-content:center;margin-top:16px">
+      ${T.got>0?'<button class="btn" id="draw">🎁 去抽奖</button>':''}
+      <button class="btn ghost" id="again">再来一轮</button>
+      <button class="btn ghost" id="backHome">回首页</button>
+    </div>
+    <div class="muted" style="margin-top:8px">${T.round>=2?'已经加到最长啦，明天见～':''}</div>
+  </div>`;
+}
+function bindResult(){
+  if($('draw')) $('draw').onclick=()=>gacha();
+  const ag=$('again');
+  if(ag){
+    if(T.round>=2){ ag.disabled=true; ag.textContent='已达上限'; }
+    else ag.onclick=()=>{
+      T.round++; T.timeLeft=ROUND_ADD[T.round]; T.phase='quiz';
+      const extra=dueWords().filter(w=>ws(w).st>=2).slice(0,12).map(w=>({w,kind:'rev'}));
+      T.q=extra.length?shuffle(extra):buildQuizQueue(); T.qi=0; nextWord();
+    };
+  }
+  $('backHome').onclick=()=>{ T=null; render(); };
+}
+
+/* ---------- 抽奖 ---------- */
+function gacha(){
+  if(S.gacha.tickets<=0){ toast('没有抽奖券啦，明天再来'); return; }
+  S.gacha.tickets--; S.gacha.total++;
+  const order=['R','S','SR','SSR'];
+  // 家长关闭了抽奖：不做随机，按顺序直接获得还没拥有的那一件
+  if(!S.settings.gacha){
+    const pool=ITEMS.filter(i=>!S.gacha.owned.includes(i.id)).sort((a,b)=>order.indexOf(a.rar)-order.indexOf(b.rar));
+    const got=pool[0]||ITEMS[0];
+    if(!S.gacha.owned.includes(got.id)) S.gacha.owned.push(got.id); else S.gacha.star+=5;
+    S.equip[got.slot]=got.id; save(); sfx.win();
+    showGacha(got,false);
+    return;
+  }
+  const pool=ITEMS.filter(i=>!S.gacha.owned.includes(i.id));
+  let pick;
+  const W={SSR:8,SR:16,S:28,R:48};
+  let forceSR=S.gacha.pity>=9, forceSSR=S.gacha.total%50===0;
+  let cand=pool.length?pool:ITEMS;
+  let cs=cand;
+  if(forceSSR) cs=cand.filter(i=>i.rar==='SSR');
+  else if(forceSR) cs=cand.filter(i=>i.rar==='SR'||i.rar==='SSR');
+  if(!cs.length) cs=cand;
+  const tot=cs.reduce((a,b)=>a+(W[b.rar]||10),0);
+  let r=Math.random()*tot;
+  for(const it of cs){ r-=(W[it.rar]||10); if(r<=0){ pick=it; break; } }
+  if(!pick) pick=cs[cs.length-1];
+  const dup=S.gacha.owned.includes(pick.id);
+  if(!dup) S.gacha.owned.push(pick.id); else S.gacha.star+=5;
+  S.gacha.pity=(pick.rar==='SR'||pick.rar==='SSR')?0:S.gacha.pity+1;
+  save(); sfx.gacha();
+  showGacha(pick,dup);
+}
+function showGacha(it,dup){
+  const prev=S.equip[it.slot];
+  S.equip[it.slot]=it.id; save();
+  openModal(`
+    <div class="fade">
+      <div class="rar ${it.rar}" style="margin-bottom:10px">${it.rar}</div>
+      <div class="gcard r-${it.rar}" id="gc"><div style="width:100%;height:100%">${dollHTML(200,240)}</div></div>
+      <h3 style="margin-top:14px">${esc(it.name)}</h3>
+      <div class="muted">${dup?'已经有啦，换成 5 颗 ⭐':'已放进衣柜，并帮你穿上 ✨'}</div>
+      <div class="row" style="justify-content:center;margin-top:16px">
+        ${S.gacha.tickets>0?'<button class="btn" id="more">再抽一次（剩 '+S.gacha.tickets+'）</button>':''}
+        <button class="btn ghost" id="ok">好耶</button>
+      </div>
+    </div>`);
+  if($('more')) $('more').onclick=()=>{ closeModal(); gacha(); };
+  $('ok').onclick=()=>{ closeModal(); T=null; render(); };
+  setTimeout(()=>{ const g=$('gc'); if(g) g.classList.add('flip'); },60);
+}
+
+/* ---------- 衣柜 ---------- */
+function dollHTML(w,h){
+  const eq=S.equip;
+  const get=id=>ITEMS.find(i=>i.id===id);
+  const bg=get(eq.bg), hair=get(eq.hair), dress=get(eq.dress), head=get(eq.head);
+  const shoes=get(eq.shoes), back=get(eq.back), hand=get(eq.hand), neck=get(eq.neck), pet=get(eq.pet);
+  const vb='0 0 '+DOLL_W+' '+DOLL_H;
+  return `<svg viewBox="${vb}" width="${w}" height="${h}" style="display:block;margin:0 auto">
+    ${bg?bg.svg:''}
+    ${back?back.svg:''}
+    ${hair&&hair.back?hair.back:''}
+    ${BODY_SVG}
+    ${shoes?shoes.svg:''}
+    ${dress?dress.svg:''}
+    ${hair&&hair.front?hair.front:''}
+    ${neck?neck.svg:''}
+    ${head?head.svg:''}
+    ${pet?pet.svg:''}
+    ${hand?hand.svg:''}
+  </svg>`;
+}
+let wardTab='dress';
+function wardrobe(){
+  openModal(`
+   <h3>🎀 我的衣柜</h3>
+   <div class="dollbox"><div>${dollHTML(200,254)}</div>
+   <div style="flex:1;min-width:200px">
+     <div class="tabs" id="tabs">
+       ${SLOT_ORDER.map(s=>'<button class="tab'+(wardTab===s?' on':'')+'" data-s="'+s+'">'+SLOT_NAME[s]+'<span style="font-size:11px;opacity:.65;margin-left:3px">'+ITEMS.filter(i=>i.slot===s&&S.gacha.owned.includes(i.id)).length+'/'+ITEMS.filter(i=>i.slot===s).length+'</span></button>').join('')}
+     </div>
+     <div class="items" id="items"></div>
+   </div></div>
+   <div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="closeW">完成</button></div>`);
+  const drawItems=()=>{
+    const list=ITEMS.filter(i=>i.slot===wardTab);
+    $('items').innerHTML=list.map(i=>{
+      const owned=S.gacha.owned.includes(i.id);
+      const on=S.equip[i.slot]===i.id;
+      return '<div class="item'+(on?' on':'')+(owned?'':' locked')+'" data-id="'+i.id+'">'+
+        '<svg viewBox="0 0 300 380" width="56" height="70">'+thumb(i)+'</svg>'+
+        '<div class="nm">'+(owned?esc(i.name):'？？？')+'</div>'+
+        '<div class="rar '+i.rar+'" style="font-size:10px;padding:1px 7px;margin-top:3px">'+i.rar+'</div>'+
+      '</div>';
+    }).join('');
+    document.querySelectorAll('#items .item').forEach(el=>{
+      el.onclick=()=>{
+        const id=el.dataset.id;
+        if(!S.gacha.owned.includes(id)){ toast('还没抽到哦，继续加油！'); return; }
+        // 背景/发型/裙子必须始终有一件；头饰（发饰）可点击取消
+        if(NULLABLE[wardTab]) S.equip[wardTab]= (S.equip[wardTab]===id)?null:id;
+        else S.equip[wardTab]=id;
+        save(); wardrobe();
+      };
+    });
+  };
+  document.querySelectorAll('#tabs .tab').forEach(b=>{
+    b.onclick=()=>{ wardTab=b.dataset.s; wardrobe(); };
+  });
+  drawItems();
+  $('closeW').onclick=()=>{ closeModal(); render(); };
+}
+function thumb(i){
+  const SK='#ffe3cb';
+  if(i.slot==='bg'||i.slot==='pet') return i.svg;
+  if(i.slot==='hair') return (i.back||'')+'<circle cx="150" cy="112" r="52" fill="'+SK+'"/><circle cx="131" cy="112" r="5" fill="#4a3b52"/><circle cx="169" cy="112" r="5" fill="#4a3b52"/><path d="M143 134 q7 8 14 0" stroke="#e07a9a" stroke-width="3.5" fill="none" stroke-linecap="round"/>'+(i.front||'');
+  if(i.slot==='dress') return '<path d="M118 166 h64 v56 a32 32 0 0 1 -64 0z" fill="'+SK+'"/><circle cx="150" cy="112" r="52" fill="'+SK+'"/>'+i.svg;
+  if(i.slot==='shoes') return '<rect x="126" y="250" width="20" height="74" rx="10" fill="'+SK+'"/><rect x="154" y="250" width="20" height="74" rx="10" fill="'+SK+'"/>'+i.svg;
+  if(i.slot==='back') return '<path d="M118 166 h64 v56 a32 32 0 0 1 -64 0z" fill="'+SK+'"/>'+i.svg;
+  if(i.slot==='neck') return '<path d="M118 166 h64 v56 a32 32 0 0 1 -64 0z" fill="'+SK+'"/><circle cx="150" cy="112" r="52" fill="'+SK+'"/>'+i.svg;
+  return '<circle cx="150" cy="112" r="52" fill="'+SK+'"/><circle cx="131" cy="112" r="5" fill="#4a3b52"/><circle cx="169" cy="112" r="5" fill="#4a3b52"/>'+i.svg;
+}
+
+/* ---------- 单词列表 ---------- */
+const ST_LABEL=['未学','拼得出','熟练','已掌握'];
+const UNIT_NAME={1:'Unit 1 · 在家帮忙',2:'Unit 2 · 我的朋友',3:'Unit 3 · 居住的地方',4:'Unit 4 · 社区帮忙',5:'Unit 5 · 天气与我们',6:'Unit 6 · 四季变化'};
+const WL_TABS=[['all','全部'],['learned','学过'],['grad','已掌握'],['due','待复习']];
+const WL_TITLE={all:'全部单词',learned:'学过的词',grad:'已掌握的词',due:'今天要复习'};
+function stOf(w){ const s=S.words[w]; return s?s.st:0; }          // 只读，不创建记录
+function dueOf(w){ const s=S.words[w]; return s?s.due:0; }
+function listWords(kind){
+  if(kind==='all') return WORDS.slice();
+  if(kind==='due'){ const set={}; dueWords().forEach(w=>set[w]=1); return WORDS.filter(x=>set[x.w]); }
+  if(kind==='learned') return WORDS.filter(x=>stOf(x.w)>0);
+  if(kind==='grad') return WORDS.filter(x=>stOf(x.w)>=3);
+  return [];
+}
+let wlTab='all';
+function wordList(kind){
+  wlTab=kind||'all';
+  $('modal').classList.add('wide');
+  onModalClose=()=>{ $('modal').classList.remove('wide'); render(); };
+  openModal(
+    '<h3 id="wlTitle"></h3>'+
+    '<div class="tabs" id="wlTabs">'+WL_TABS.map(t=>'<button class="tab" data-k="'+t[0]+'">'+t[1]+'</button>').join('')+'</div>'+
+    '<div id="wlBody"></div>'+
+    '<div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="wlClose">完成</button></div>'
+  );
+  document.querySelectorAll('#wlTabs .tab').forEach(b=>{
+    b.onclick=()=>{ wlTab=b.dataset.k; drawWL(); };
+  });
+  $('wlClose').onclick=()=>{ const f=onModalClose; onModalClose=null; if(f) f(); closeModal(); };
+  drawWL();
+}
+function drawWL(){
+  const list=listWords(wlTab);
+  $('wlTitle').textContent=WL_TITLE[wlTab]+' '+list.length;
+  document.querySelectorAll('#wlTabs .tab').forEach(b=>{
+    const t=WL_TABS.filter(x=>x[0]===b.dataset.k)[0];
+    b.textContent=t[1]+' '+listWords(b.dataset.k).length;
+    if(b.dataset.k===wlTab) b.classList.add('on'); else b.classList.remove('on');
+  });
+  const body=$('wlBody');
+  if(!list.length){
+    body.innerHTML=wlEmpty(wlTab);
+    const g=$('wlGo'); if(g) g.onclick=()=>{ const f=onModalClose; onModalClose=null; if(f) f(); closeModal(); startDay(); };
+    return;
+  }
+  let html='', units=[];
+  list.forEach(x=>{ if(units.indexOf(x.u)<0) units.push(x.u); });
+  units.forEach(u=>{
+    const grp=list.filter(x=>x.u===u);
+    html+='<div class="wgrp">'+(UNIT_NAME[u]||('Unit '+u))+' · '+grp.length+' 词</div>';
+    grp.forEach(x=>{ html+=wlRow(x); });
+  });
+  body.innerHTML=html;
+  body.querySelectorAll('.wrow').forEach(r=>{
+    r.onclick=e=>{ if(e.target.className.indexOf('wmini')>=0) return; speak(r.dataset.w); };
+  });
+  body.querySelectorAll('.wmini').forEach(b=>{
+    b.onclick=e=>{
+      e.stopPropagation();
+      if(b.classList.contains('dim')){
+        toast(stOf(b.dataset.w)===0 ? '还没学过这个词，做任务就会遇到它' : '它本来就在今天的复习里');
+        return;
+      }
+      if(b.dataset.act==='rev') addReview(b.dataset.w); else markKnown(b.dataset.w);
+      drawWL();
+    };
+  });
+}
+function wlRow(x){
+  const st=stOf(x.w), dueNow=st>0&&dueOf(x.w)<=dayNum();
+  let act='';
+  if(st===0) act='<button class="wmini dim" data-w="'+esc(x.w)+'" data-act="rev">加入复习</button>';
+  else act='<button class="wmini'+(dueNow?' dim':'')+'" data-w="'+esc(x.w)+'" data-act="rev">加入复习</button>'+
+           '<button class="wmini" data-w="'+esc(x.w)+'" data-act="know">'+(st>=3?'取消已会':'标为已会')+'</button>';
+  return '<div class="wrow" data-w="'+esc(x.w)+'">'+
+    '<span class="w">'+esc(x.w)+'</span>'+
+    '<span class="cn">'+esc(x.cn)+'</span>'+
+    '<span class="wbadge b'+st+'">'+ST_LABEL[st]+'</span>'+act+
+  '</div>';
+}
+function wlEmpty(kind){
+  if(kind==='learned') return '<div class="wempty">还没有学过的词 🫧<br>去开始今天的任务吧</div>'+
+    '<div class="row" style="justify-content:center"><button class="btn" id="wlGo">开始任务 →</button></div>';
+  if(kind==='grad') return '<div class="wempty">还没有毕业的词 🌱<br>一个词要连续 5 次不看提示拼对，才算真正掌握。</div>';
+  if(kind==='due') return '<div class="wempty">今天的复习都完成啦 🎉<br>明天再来，会有新的词等着你。</div>';
+  return '<div class="wempty">这里还没有词</div>';
+}
+function addReview(w){
+  const s=ws(w);
+  if(s.st===0){ toast('还没学过这个词，做任务就会遇到它'); return; }
+  if(s.due<=dayNum()){ toast('它本来就在今天的复习里'); return; }
+  s.due=dayNum(); s.fails=Math.max(s.fails,0); save(); toast('已加入今天的复习');
+}
+function markKnown(w){
+  const s=ws(w);
+  if(s.st>=3){ s.st=2; s.streakNH=2; s.due=dayNum()+2; save(); toast('取消「已会」，回到熟练档'); }
+  else { s.st=3; s.streakNH=5; s.hint=-1; s.due=dayNum()+15; save(); toast('已标为已会，15 天后再来找你'); }
+}
+
+/* ---------- 弹窗 ---------- */
+let onModalClose=null;
+function openModal(html){ $('modal').innerHTML=html; $('mask').classList.add('show'); }
+function closeModal(){ $('mask').classList.remove('show'); $('modal').innerHTML=''; }
+$('mask').addEventListener('click',e=>{ if(e.target.id==='mask'){ closeModal(); if(T&&T.phase==='result'){ T=null; render(); } if(onModalClose){ const f=onModalClose; onModalClose=null; f(); } } });
+$('btnSet').onclick=()=>{
+  openModal(`
+   <h3>⚙️ 设置</h3>
+   <div style="text-align:left">
+     <div class="wgrp">${esc(S.name)} 的档案</div>
+     <div class="namerow"><span class="muted">名字</span><input id="setName" maxlength="6" value="${esc(S.name)}"></div>
+     <div class="avpick">${AVATARS.map(function(a,i){ return '<button class="avbtn'+(i===S.av?' on':'')+'" data-i="'+i+'" title="'+a.n+'">'+avatarSVG(i,40)+'</button>'; }).join('')}</div>
+   </div>
+   <div style="text-align:left;margin-top:6px">
+     <div class="wgrp">${esc(S.name)} 的学习设置</div>
+     <label class="row spread" style="padding:10px 0"><span>音效</span><input type="checkbox" id="setSound" ${S.settings.sound?'checked':''}></label>
+     <label class="row spread" style="padding:10px 0"><span>朗读单词</span><input type="checkbox" id="setTts" ${S.settings.tts?'checked':''}></label>
+     <label class="row spread" style="padding:10px 0"><span>抽奖（关闭后直接获得）</span><input type="checkbox" id="setGacha" ${S.settings.gacha?'checked':''}></label>
+   </div>
+   ${ROOT.profiles.length>1?('<div style="text-align:left;margin-top:6px"><div class="wgrp">切换小朋友</div><div class="row" style="gap:8px;flex-wrap:wrap">'
+     +ROOT.profiles.map(function(p,i){ return i===ROOT.cur?'':'<button class="btn ghost smallbtn" data-sw="'+i+'">'+avatarSVG(p.av,22)+' 换成 '+esc(p.name)+'</button>'; }).join('')
+     +'</div></div>'):''}
+   <div class="muted" style="margin-top:10px;text-align:left">两个人进度完全分开，各自学各自的、各自攒各自的衣柜。<br>进度保存在这台设备的浏览器里，换设备或清缓存会丢失。</div>
+   <div class="row" style="justify-content:center;margin-top:16px">
+     <button class="btn ghost" id="reset">重置 ${esc(S.name)}</button>
+     <button class="btn" id="closeSet">完成</button>
+   </div>`);
+  $('setName').oninput=e=>{ S.name=e.target.value.trim()||'小朋友'; };
+  $('setName').onblur=()=>{ save(); };
+  Array.prototype.forEach.call(document.querySelectorAll('.avbtn'),function(b){
+    b.onclick=function(){ S.av=parseInt(b.dataset.i,10); save();
+      Array.prototype.forEach.call(document.querySelectorAll('.avbtn'),function(x){ x.classList.remove('on'); });
+      b.classList.add('on'); };
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-sw]'),function(b){
+    b.onclick=function(){ switchTo(parseInt(b.dataset.sw,10)); };
+  });
+  $('setSound').onchange=e=>{ S.settings.sound=e.target.checked; save(); };
+  $('setTts').onchange=e=>{ S.settings.tts=e.target.checked; save(); };
+  $('setGacha').onchange=e=>{ S.settings.gacha=e.target.checked; save(); };
+  $('reset').onclick=()=>resetCur();
+  $('closeSet').onclick=()=>{ save(); closeModal(); render(); };
+};
+
+/* ---------- 计时器 ---------- */
+setInterval(()=>{
+  if(!T||T.phase==='result') return;
+  T.timeLeft--;
+  if(T.timeLeft<=0){ finish('time'); return; }
+  const bar=document.querySelector('.timer .bar i');
+  if(bar) bar.style.width=Math.max(0,T.timeLeft/ROUND_ADD[0]*100)+'%';
+  const p=document.querySelectorAll('.timer .pill')[1];
+  if(p) p.textContent=Math.ceil(T.timeLeft/60)+' 分';
+},1000);
+
+/* ---------- 物理键盘 ---------- */
+window.addEventListener('keydown',e=>{
+  if($('mask').classList.contains('show')) return;
+  if(!T||!T.cur) return;
+  if(e.key==='Backspace'){ e.preventDefault(); backspace(); return; }
+  if(e.key==='Enter'){ e.preventDefault(); if(!T.cur.trace) submit(); return; }
+  if(e.key.length===1&&/[a-zA-Z' ]/.test(e.key)){ e.preventDefault(); type(e.key); }
+});
+
+render();
+</script>
+</body>
+</html>
