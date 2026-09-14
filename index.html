@@ -176,6 +176,8 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .wmini{padding:5px 10px;border-radius:10px;font-size:12px;font-weight:800;background:#fff;border:2px solid #e8dff5;color:var(--purple-d);white-space:nowrap;font-family:inherit;cursor:pointer}
 .wmini:active{transform:translateY(2px)}
 .wmini.dim{opacity:.45}
+.wmini.on{background:#efe7ff;border-color:#a78bfa;color:#6d28d9}
+.wmini.del{border-color:#f3c7d2;color:#db2777}
 .wempty{padding:26px 10px;color:var(--ink2);font-size:14px;line-height:1.7}
 </style>
 </head>
@@ -323,10 +325,13 @@ const BOOK_4A = [
 const BOOKS={
   '4A':{name:'人教 PEP 四年级上册（2024 新版）',sub:'Unit 1-6',list:BOOK_4A}
 };
+/* 自定义单词（手工录入）：两档案共用同一份，归在 else 组。ROOT 提前声明，避免 useBook 引用时处于 TDZ */
+let ROOT={profiles:[],cur:0,extra:[]};
 let WORDS=BOOK_4A, BY_W={};
 function useBook(id){
   const b=BOOKS[id]||BOOKS['4A'];
-  WORDS=b.list; BY_W={}; WORDS.forEach((x,i)=>{ x.i=i; BY_W[x.w]=x; });
+  WORDS=b.list.concat(Array.isArray(ROOT.extra)?ROOT.extra:[]);   // 课本词 + 自定义词（else 组，排在最后）
+  BY_W={}; WORDS.forEach((x,i)=>{ x.i=i; BY_W[x.w]=x; });
 }
 useBook('4A');
 
@@ -1487,12 +1492,12 @@ function normProf(p){
   Object.keys(p.equip).forEach(function(k){ if(p.equip[k]&&!p.gacha.owned.includes(p.equip[k])) p.equip[k]=BARE[k]!==undefined?BARE[k]:null; });
   ['bg_sakura','hair_long','dress_pink','shoe_flat'].forEach(function(id){ if(p.gacha.owned.indexOf(id)<0) p.gacha.owned.push(id); });
   if(!p.settings) p.settings={sound:true,tts:true,gacha:true};
+  if(!Array.isArray(p.extra)) p.extra=[];   // 想今天学的未学词（手动标记）
   if(typeof p.av!=='number'||p.av<0||p.av>=AVATARS.length) p.av=0;
   if(!p.name) p.name='小朋友';
   if(!p.book) p.book='4A';
   return p;
 }
-let ROOT={profiles:[],cur:0};
 let S=null;
 function load(){
   let r=null;
@@ -1507,6 +1512,7 @@ function load(){
     ROOT={profiles:[normProf(a),normProf(newProf('可可',1))],cur:0};
   }
   if(!(ROOT.cur>=0&&ROOT.cur<ROOT.profiles.length)) ROOT.cur=0;
+  if(!Array.isArray(ROOT.extra)) ROOT.extra=[];   // 旧存档可能没有自定义词字段，补上
   S=ROOT.profiles[ROOT.cur]; useBook(S.book);
   save();
 }
@@ -1625,14 +1631,23 @@ function dueWords(){
   });
   return out.map(x=>x.w);
 }
-function freshWords(n){
+function freshWords(n, excl){
   // 只要还没「拼得出」(st===0) 就算新词 —— 见过卡但没拼写就退出的词不会被丢掉
+  const skip=excl||{};
   const out=[];
-  for(const x of WORDS){ if(out.length>=n) break; const st=S.words[x.w]; if(!st||st.st===0) out.push(x.w); }
+  for(const x of WORDS){ if(out.length>=n) break; const st=S.words[x.w]; if((!st||st.st===0) && !skip[x.w]) out.push(x.w); }
   return out;
 }
+/* 手动标记「想今天学」的未学词（来自 S.extra），已学会的会被剔除 */
+function pickedExtra(){
+  return (S.extra||[]).filter(function(w){ var st=S.words[w]; return !st||st.st===0; });
+}
+function pickedSet(arr){ const o={}; (arr||[]).forEach(function(w){ o[w]=1; }); return o; }
+/* 今天的新词数量 = 手动挑的未学词 + 自动补足到 4 个 */
+function todayNewCount(){ return Math.max(4, pickedExtra().length); }
 function buildQueue(){
-  const fresh=freshWords(4);
+  const picked=pickedExtra();
+  const fresh=picked.concat(freshWords(Math.max(0,4-picked.length), pickedSet(picked)));
   let rev=dueWords();
   const q=[]; let fi=0, ri=0;
   // 收尾保护：最后 60 秒只取熟练词 —— 运行时再过滤，这里只做交错
@@ -1701,7 +1716,7 @@ function homeHTML(){
 
   <div class="card">
     <div class="spread">
-      <div><b>今日任务</b><div class="muted">新词 4 个 + 复习 ${due} 个 · 约 10 分钟</div></div>
+      <div><b>今日任务</b><div class="muted">新词 ${todayNewCount()} 个 + 复习 ${due} 个 · 约 ${10+ (todayNewCount()-4)*2} 分钟</div></div>
       <button class="btn" id="go">开始 →</button>
     </div>
     <div class="bar" style="margin-top:12px"><i style="width:${Math.round(learned/WORDS.length*100)}%"></i></div>
@@ -1986,6 +2001,7 @@ function submit(){
     st.hint=c.hint; st.st=Math.max(0,st.st-1); st.due=dayNum()+1;
   }
   T.done.push({w:c.w,hint:c.hint,ok:true});
+  if(S.extra && S.extra.length && st.st>0){ S.extra=S.extra.filter(function(w){ return w!==c.w; }); }  // 学会了，移出「今天想学」
   save(); T.qi++; T.cur=null;
   setTimeout(nextWord,260);
 }
@@ -2181,7 +2197,7 @@ function thumb(i){
 
 /* ---------- 单词列表 ---------- */
 const ST_LABEL=['未学','拼得出','熟练','已掌握'];
-const UNIT_NAME={1:'Unit 1 · 在家帮忙',2:'Unit 2 · 我的朋友',3:'Unit 3 · 居住的地方',4:'Unit 4 · 社区帮忙',5:'Unit 5 · 天气与我们',6:'Unit 6 · 四季变化'};
+const UNIT_NAME={1:'Unit 1 · 在家帮忙',2:'Unit 2 · 我的朋友',3:'Unit 3 · 居住的地方',4:'Unit 4 · 社区帮忙',5:'Unit 5 · 天气与我们',6:'Unit 6 · 四季变化',else:'拓展词 · else（Unit 6 之后，手工录入）'};
 const WL_TABS=[['all','全部'],['learned','学过'],['grad','已掌握'],['due','待复习']];
 const WL_TITLE={all:'全部单词',learned:'学过的词',grad:'已掌握的词',due:'今天要复习'};
 function stOf(w){ const s=S.words[w]; return s?s.st:0; }          // 只读，不创建记录
@@ -2202,11 +2218,15 @@ function wordList(kind){
     '<h3 id="wlTitle"></h3>'+
     '<div class="tabs" id="wlTabs">'+WL_TABS.map(t=>'<button class="tab" data-k="'+t[0]+'">'+t[1]+'</button>').join('')+'</div>'+
     '<div id="wlBody"></div>'+
-    '<div class="row" style="justify-content:center;margin-top:14px"><button class="btn" id="wlClose">完成</button></div>'
+    '<div class="row" style="justify-content:center;margin-top:14px">'+
+      '<button class="btn ghost" id="wlAdd">＋ 添加单词 / 词组</button>'+
+      '<button class="btn" id="wlClose">完成</button>'+
+    '</div>'
   );
   document.querySelectorAll('#wlTabs .tab').forEach(b=>{
     b.onclick=()=>{ wlTab=b.dataset.k; drawWL(); };
   });
+  $('wlAdd').onclick=()=>addWordForm();
   $('wlClose').onclick=()=>{ const f=onModalClose; onModalClose=null; if(f) f(); closeModal(); };
   drawWL();
 }
@@ -2242,7 +2262,10 @@ function drawWL(){
         toast(stOf(b.dataset.w)===0 ? '还没学过这个词，做任务就会遇到它' : '它本来就在今天的复习里');
         return;
       }
-      if(b.dataset.act==='rev') addReview(b.dataset.w); else markKnown(b.dataset.w);
+      if(b.dataset.act==='rev') addReview(b.dataset.w);
+      else if(b.dataset.act==='today') toggleToday(b.dataset.w);
+      else if(b.dataset.act==='delc') delCustom(b.dataset.w);
+      else markKnown(b.dataset.w);
       drawWL();
     };
   });
@@ -2250,9 +2273,13 @@ function drawWL(){
 function wlRow(x){
   const st=stOf(x.w), dueNow=st>0&&dueOf(x.w)<=dayNum();
   let act='';
-  if(st===0) act='<button class="wmini dim" data-w="'+esc(x.w)+'" data-act="rev">加入复习</button>';
+  if(st===0){
+    const inToday=S.extra && S.extra.indexOf(x.w)>=0;
+    act='<button class="wmini'+(inToday?' on':'')+'" data-w="'+esc(x.w)+'" data-act="today">'+(inToday?'已在今天 ✓':'加入今天')+'</button>';
+  }
   else act='<button class="wmini'+(dueNow?' dim':'')+'" data-w="'+esc(x.w)+'" data-act="rev">加入复习</button>'+
            '<button class="wmini" data-w="'+esc(x.w)+'" data-act="know">'+(st>=3?'取消已会':'标为已会')+'</button>';
+  if(x.custom) act+='<button class="wmini del" data-w="'+esc(x.w)+'" data-act="delc" title="删除这个自定义词">✕</button>';
   return '<div class="wrow" data-w="'+esc(x.w)+'">'+
     '<span class="w">'+esc(x.w)+'</span>'+
     '<span class="cn">'+esc(x.cn)+'</span>'+
@@ -2276,6 +2303,53 @@ function markKnown(w){
   const s=ws(w);
   if(s.st>=3){ s.st=2; s.streakNH=2; s.due=dayNum()+2; save(); toast('取消「已会」，回到熟练档'); }
   else { s.st=3; s.streakNH=5; s.hint=-1; s.due=dayNum()+15; save(); toast('已标为已会，15 天后再来找你'); }
+}
+/* 未学词：加入 / 移出「今天的学习」 */
+function toggleToday(w){
+  S.extra=S.extra||[];
+  const i=S.extra.indexOf(w);
+  if(i>=0){ S.extra.splice(i,1); toast('已移出今天的学习'); }
+  else { S.extra.push(w); toast('已加入今天的学习 🌟'); }
+  save(); drawWL();
+}
+/* 删除手工录入的词：两个档案进度一起清掉 */
+function delCustom(w){
+  if(!confirm('删除「'+w+'」？两个小朋友的进度也会一起清掉。')) return;
+  ROOT.extra=ROOT.extra.filter(function(x){ return x.w!==w; });
+  ROOT.profiles.forEach(function(p){ if(p.words && p.words[w]) delete p.words[w]; });
+  ROOT.profiles.forEach(function(p){ if(p.extra) p.extra=p.extra.filter(function(x){ return x!==w; }); });
+  useBook(S.book); save(); toast('已删除：'+w);
+  if(document.getElementById('wlTitle')) drawWL(); else wordList(wlTab);   // 在词表里删就原地刷新，否则回到词表
+}
+/* ---------- 手工录入单词 / 词组 ---------- */
+function addWordForm(){
+  openModal(
+    '<h3>＋ 添加单词 / 词组</h3>'+
+    '<div class="wgrp">会放进「else 组」（Unit 6 之后），两个小朋友共用同一份</div>'+
+    '<div class="namerow"><span class="muted">英文</span><input id="aw_w" placeholder="如 hello 或 good morning" autocomplete="off"></div>'+
+    '<div class="namerow"><span class="muted">中文</span><input id="aw_cn" placeholder="如 你好" autocomplete="off"></div>'+
+    '<div class="namerow"><span class="muted">例句英</span><input id="aw_s" placeholder="可选（英文例句）" autocomplete="off"></div>'+
+    '<div class="namerow"><span class="muted">例句中</span><input id="aw_sc" placeholder="可选（中文翻译）" autocomplete="off"></div>'+
+    '<div class="muted" style="margin-top:6px">不填音节：词组按空格分段、单词整体算一段；两个框都填了才会保存。</div>'+
+    '<div class="row" style="justify-content:center;margin-top:14px">'+
+      '<button class="btn ghost" id="awCancel">取消</button>'+
+      '<button class="btn" id="awSave">保存</button>'+
+    '</div>'
+  );
+  $('awCancel').onclick=()=>wordList(wlTab);
+  $('awSave').onclick=()=>saveCustomWord();
+}
+function saveCustomWord(){
+  const w=($('aw_w').value||'').trim().replace(/\s+/g,' ').toLowerCase();
+  const cn=($('aw_cn').value||'').trim();
+  if(!w){ toast('先填英文哦'); return; }
+  if(!cn){ toast('先填中文意思哦'); return; }
+  if(w.length>40){ toast('这个词太长啦，短一点'); return; }
+  if(BY_W[w] && !confirm('「'+w+'」已经在词表里了，还要再添一份吗？')) return;
+  const syl = w.indexOf(' ')>0 ? w.split(' ') : [w];   // 词组按空格分、单词整体一段
+  ROOT.extra.push({w:w, cn:cn, syl:syl, u:'else', s:($('aw_s').value||'').trim(), sc:($('aw_sc').value||'').trim(), custom:1});
+  useBook(S.book); save(); toast('已添加：'+w+' ✓');
+  wordList(wlTab);
 }
 
 /* ---------- 弹窗 ---------- */
