@@ -1503,17 +1503,19 @@ function load(){
   let r=null;
   try{ r=JSON.parse(localStorage.getItem(SAVE_KEY)); }catch(e){}
   if(r&&Array.isArray(r.profiles)&&r.profiles.length){
-    ROOT={profiles:r.profiles.map(function(p){ return normProf(Object.assign(newProf(p&&p.name,p&&p.av),p)); }).slice(0,4), cur:r.cur|0};
+    ROOT={profiles:r.profiles.map(function(p){ return normProf(Object.assign(newProf(p&&p.name,p&&p.av),p)); }).slice(0,4), cur:r.cur|0, extra:Array.isArray(r.extra)?r.extra:[]};
   }else{
     let old=null;
     try{ old=JSON.parse(localStorage.getItem(OLD_KEY)); }catch(e){}
     const a=newProf('豆豆',0);
     if(old&&old.words) Object.assign(a,old);
-    ROOT={profiles:[normProf(a),normProf(newProf('可可',1))],cur:0};
+    ROOT={profiles:[normProf(a),normProf(newProf('可可',1))],cur:0,extra:[]};
   }
   if(!(ROOT.cur>=0&&ROOT.cur<ROOT.profiles.length)) ROOT.cur=0;
   if(!Array.isArray(ROOT.extra)) ROOT.extra=[];   // 旧存档可能没有自定义词字段，补上
   S=ROOT.profiles[ROOT.cur]; useBook(S.book);
+  // 清理指向已删/缺失词的「今天想学」标记（防御性，避免 startDay 取到空词卡卡死）
+  ROOT.profiles.forEach(function(p){ if(Array.isArray(p.extra)) p.extra=p.extra.filter(function(w){ return BY_W[w]; }); });
   save();
 }
 function save(){ try{ localStorage.setItem(SAVE_KEY,JSON.stringify(ROOT)); }catch(e){} }
@@ -1622,6 +1624,7 @@ function dueWords(){
   const dn=dayNum(), out=[];
   for(const w in S.words){ const st=S.words[w];
     if(st.st===0) continue;               // 没见过面
+    if(!BY_W[w]) continue;                // 词表已无此词（如自定义词被删），跳过
     if(st.due<=dn) out.push({w,over:dn-st.due,st});
   }
   out.sort((a,b)=>{
@@ -1640,7 +1643,7 @@ function freshWords(n, excl){
 }
 /* 手动标记「想今天学」的未学词（来自 S.extra），已学会的会被剔除 */
 function pickedExtra(){
-  return (S.extra||[]).filter(function(w){ var st=S.words[w]; return !st||st.st===0; });
+  return (S.extra||[]).filter(function(w){ return BY_W[w] && (!S.words[w]||S.words[w].st===0); });
 }
 function pickedSet(arr){ const o={}; (arr||[]).forEach(function(w){ o[w]=1; }); return o; }
 /* 今天的新词数量 = 手动挑的未学词 + 自动补足到 4 个 */
@@ -1804,6 +1807,8 @@ function nextWord(){
     while(j<T.q.length && ws(T.q[j].w).st<2) j++;
     if(j<T.q.length && j>T.qi){ const it=T.q.splice(j,1)[0]; T.q.splice(T.qi,0,it); }
   }
+  // 跳过已失效的词（自定义词被删/词表缺失），避免 BY_W[w] 取不到而卡死
+  while(T.qi<T.q.length && !BY_W[T.q[T.qi].w]) T.qi++;
   if(T.qi>=T.q.length||T.timeLeft<=0){ finish(); return; }
   const it=T.q[T.qi], w=BY_W[it.w];
   let mode;
