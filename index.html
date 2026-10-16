@@ -2904,12 +2904,14 @@ function normProf(p){
   if(!p.gacha) p.gacha={tickets:0,pity:0,total:0,owned:[],star:0};
   ['tickets','pity','total','star'].forEach(function(k){ if(typeof p.gacha[k]!=='number') p.gacha[k]=0; });
   if(!Array.isArray(p.gacha.owned)) p.gacha.owned=[];
-  p.gacha.owned=p.gacha.owned.filter(function(id){ return ITEMS.some(function(i){ return i.id===id; }); });
+  /* 非破坏性：绝不丢弃孩子已收集的部件——即便该部件已从目录移除（如早年下架的独角兽/凤凰），
+     也保留在 owned 里（记录不丢，只是暂时无法渲染），避免任何更新静默清空衣柜。 */
+  p.gacha.owned=p.gacha.owned.filter(function(id){ return typeof id==='string'; });
   if(!p.equip) p.equip={};
   Object.keys(BARE).forEach(function(k){ if(!(k in p.equip)) p.equip[k]=BARE[k]; });
   if(!p.equip.bg) p.equip.bg='bg_sakura';
   if(!p.equip.shoes) p.equip.shoes='shoe_flat';
-  Object.keys(p.equip).forEach(function(k){ if(p.equip[k]&&!p.gacha.owned.includes(p.equip[k])) p.equip[k]=BARE[k]!==undefined?BARE[k]:null; });
+  Object.keys(p.equip).forEach(function(k){ if(p.equip[k]&&!ITEMS.some(function(i){ return i.id===p.equip[k]; })) p.equip[k]=BARE[k]!==undefined?BARE[k]:null; });
   ['bg_sakura','hair_long','dress_pink','shoe_flat'].forEach(function(id){ if(p.gacha.owned.indexOf(id)<0) p.gacha.owned.push(id); });
   if(!p.settings) p.settings={sound:true,tts:true,gacha:true};
   if(!Array.isArray(p.extra)) p.extra=[];   // 想今天学的未学词（手动标记）
@@ -3123,7 +3125,7 @@ function render(){
 function homeHTML(){
   const due=dueWords().length, learned=Object.values(S.words).filter(x=>x.st>0).length;
   const grad=Object.values(S.words).filter(x=>x.st>=3).length;
-  const owned=S.gacha.owned.length;
+  const owned=S.gacha.owned.filter(function(id){ return ITEMS.some(function(i){ return i.id===id; }); }).length;
   const weekDone=S.week.filter(Boolean).length;
   const pbar=`
   <div class="pbar">
@@ -3582,6 +3584,7 @@ function dollHTML(w,h){
   </svg>`;
 }
 let wardTab='dress';
+let wardSecret=0;   // 衣柜「完成」行右侧透明按钮的连点计数
 function wardrobe(){
   openModal(`
    <h3>🎀 我的衣柜</h3>
@@ -3592,7 +3595,7 @@ function wardrobe(){
      </div>
      <div class="items" id="items"></div>
    </div></div>
-   <div class="row" style="justify-content:center;margin-top:16px"><button class="btn" id="closeW">完成</button></div>`);
+   <div class="row" style="position:relative;justify-content:center;margin-top:16px"><button class="btn" id="closeW">完成</button><button id="wardSecret" aria-hidden="true" title="" style="position:absolute;right:6px;top:50%;transform:translateY(-50%);width:38px;height:38px;opacity:0;border:0;background:transparent;padding:0;margin:0;cursor:pointer"></button></div>`);
   const drawItems=()=>{
     const list=ITEMS.filter(i=>i.slot===wardTab);
     $('items').innerHTML=list.map(i=>{
@@ -3619,6 +3622,8 @@ function wardrobe(){
     b.onclick=()=>{ wardTab=b.dataset.s; wardrobe(); };
   });
   drawItems();
+  wardSecret=0;
+  $('wardSecret').onclick=()=>{ wardSecret++; if(wardSecret>=5){ wardSecret=0; if(S.gacha.tickets<=0) S.gacha.tickets=1; gacha(); } };
   $('closeW').onclick=()=>{ closeModal(); render(); };
 }
 function thumb(i){
@@ -3654,13 +3659,15 @@ function wordList(kind){
   $('modal').classList.add('wide');
   onModalClose=()=>{ $('modal').classList.remove('wide'); render(); };
   openModal(
-    '<h3 id="wlTitle"></h3>'+
+    '<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px">'+
+      '<h3 id="wlTitle" style="margin:0"></h3>'+
+      '<div style="display:flex;gap:6px;flex:0 0 auto">'+
+        '<button class="btn ghost" id="wlAdd" style="font-size:12px;padding:4px 9px">＋ 添加单词 / 词组</button>'+
+        '<button class="btn" id="wlClose" style="font-size:12px;padding:4px 9px">完成</button>'+
+      '</div>'+
+    '</div>'+
     '<div class="tabs" id="wlTabs">'+WL_TABS.map(t=>'<button class="tab" data-k="'+t[0]+'">'+t[1]+'</button>').join('')+'</div>'+
-    '<div id="wlBody"></div>'+
-    '<div class="row" style="justify-content:center;margin-top:14px">'+
-      '<button class="btn ghost" id="wlAdd">＋ 添加单词 / 词组</button>'+
-      '<button class="btn" id="wlClose">完成</button>'+
-    '</div>'
+    '<div id="wlBody"></div>'
   );
   document.querySelectorAll('#wlTabs .tab').forEach(b=>{
     b.onclick=()=>{ wlTab=b.dataset.k; drawWL(); };
