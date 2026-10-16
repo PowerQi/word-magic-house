@@ -2048,7 +2048,7 @@ function icon(w){
 }
 
 /* ============================================================
-   2. 换装：素体 + 49 件 SVG 部件（发型/裙子/鞋子/头饰/颈饰/背饰/手持/宠物/大餐/背景）
+   2. 换装：素体 + 67 件 SVG 部件（发型/裙子/鞋子/头饰/颈饰/背饰/手持/宠物/大餐/背景）
    ============================================================ */
 const DOLL_W=300, DOLL_H=380;
 const BODY_SVG=`
@@ -2227,6 +2227,26 @@ const ITEMS=[
    <ellipse cx="150" cy="360" rx="150" ry="30" fill="#fff" opacity=".9"/>
    <ellipse cx="150" cy="366" rx="72" ry="11" fill="#e8d0f0" opacity=".7"/>
    <g fill="#ffd86b" opacity=".9"><circle cx="86" cy="346" r="2.6"/><circle cx="212" cy="350" r="2.4"/><circle cx="150" cy="358" r="2.2"/></g>`},
+/* ---------------- 背景（新增） ---------------- */
+ {id:'bg_forest', name:'森林小径', slot:'bg', rar:'R',
+  svg:`<rect width="300" height="380" fill="#e6f5ea"/>
+   <rect x="0" y="294" width="300" height="86" fill="#9ed8a6"/>
+   <path d="M132 380 q18 -88 18 -104 q0 16 18 104z" fill="#caa46d"/>
+   <g><rect x="42" y="250" width="16" height="50" fill="#8a5a34"/><circle cx="50" cy="240" r="34" fill="#6cbf7e"/></g>
+   <g><rect x="242" y="240" width="16" height="60" fill="#8a5a34"/><circle cx="250" cy="228" r="40" fill="#6cbf7e"/></g>
+   <g><rect x="142" y="210" width="16" height="90" fill="#8a5a34"/><circle cx="150" cy="198" r="46" fill="#6cbf7e"/></g>
+   <g fill="#8fd79c"><circle cx="40" cy="224" r="18"/><circle cx="66" cy="230" r="16"/><circle cx="238" cy="210" r="22"/><circle cx="262" cy="218" r="18"/><circle cx="132" cy="178" r="24"/><circle cx="168" cy="184" r="20"/></g>
+   <g fill="#fff" opacity=".9"><circle cx="80" cy="60" r="4"/><circle cx="200" cy="50" r="3"/><circle cx="140" cy="40" r="3"/></g>
+   <ellipse cx="150" cy="356" rx="120" ry="18" fill="#86c98f" opacity=".5"/>`},
+ {id:'bg_candy', name:'糖果乐园', slot:'bg', rar:'SSR',
+  svg:`<rect width="300" height="380" fill="#ffe1f0"/>
+   <rect x="0" y="300" width="300" height="80" fill="#ffc2dd"/>
+   <circle cx="60" cy="120" r="40" fill="#ffd36b"/><circle cx="60" cy="120" r="40" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="10 8"/>
+   <circle cx="240" cy="150" r="34" fill="#9be7d8"/><circle cx="240" cy="150" r="34" fill="none" stroke="#fff" stroke-width="6" stroke-dasharray="10 8"/>
+   <path d="M0 300 q30 -20 60 0 t60 0 t60 0 t60 0 t60 0 v20 H0z" fill="#ff9dc0" opacity=".7"/>
+   <rect x="40" y="250" width="50" height="50" rx="10" fill="#c4b5fd"/><rect x="210" y="240" width="50" height="60" rx="10" fill="#7fd7e8"/>
+   <g fill="#ffd86b"><circle cx="150" cy="80" r="6"/><circle cx="100" cy="180" r="5"/><circle cx="200" cy="200" r="5"/></g>
+   <g fill="#fff" opacity=".8"><path d="M70 60 l2 6 6 1 -4 5 1 6 -5 -3 -5 3 1 -6 -4 -5 6 -1z"/><path d="M230 90 l2 5 6 1 -4 4 1 6 -5 -3 -5 3 1 -6 -4 -4 6 -1z"/></g>`},
 /* ---------------- 发型 ---------------- */
  {id:'hair_bob', name:'清爽波波头', slot:'hair', rar:'R',
   back:`<path d="M96 118 q0 -62 54 -62 q54 0 54 62 v58 q-16 -10 -18 -30 q-6 -34 -36 -34 q-30 0 -36 34 q-2 20 -18 30z" fill="#6b4a34"/>`,
@@ -2305,7 +2325,26 @@ const ITEMS=[
    <g fill="#fff" opacity=".85"><circle cx="136" cy="288" r="2.5"/><circle cx="166" cy="300" r="2"/><circle cx="152" cy="200" r="2"/><circle cx="176" cy="272" r="2.5"/></g>
    <rect x="110" y="242" width="80" height="8" rx="4" fill="#fde68a" opacity=".8"/>`},
 
- /* ---------------- 鞋子 ---------------- */
+/* ---------------- 裙子（新增） ---------------- */
+ {id:'dress_grape', name:'葡萄泡泡裙', slot:'dress', rar:'R',
+  svg:`<path d="M114 164 q36 -12 72 0 l14 80 q-50 20 -100 0z" fill="#b07cd8"/>
+   <path d="M114 164 q36 -12 72 0 l2 16 q-38 -12 -76 0z" fill="#c79be6"/>
+   <g fill="#9b5fc4"><circle cx="132" cy="244" r="6"/><circle cx="148" cy="252" r="6"/><circle cx="164" cy="244" r="6"/><circle cx="140" cy="262" r="6"/><circle cx="156" cy="262" r="6"/><circle cx="150" cy="232" r="6"/></g>
+   <g fill="#fff" opacity=".5"><circle cx="130" cy="242" r="2"/><circle cx="146" cy="250" r="2"/><circle cx="162" cy="242" r="2"/></g>`},
+ {id:'dress_heart', name:'爱心蕾丝裙', slot:'dress', rar:'S',
+  svg:`<path d="M114 164 q36 -12 72 0 l12 84 q-48 20 -96 0z" fill="#ffb3c8"/>
+   <path d="M114 164 q36 -12 72 0 l2 16 q-38 -12 -76 0z" fill="#ffd0de"/>
+   <g fill="#ff7da6"><path d="M132 240 q-6 -8 -12 -1 q-3 6 12 13 q15 -7 12 -13 q-6 -7 -12 1z"/><path d="M168 248 q-6 -8 -12 -1 q-3 6 12 13 q15 -7 12 -13 q-6 -7 -12 1z"/><path d="M150 262 q-5 -7 -10 -1 q-3 5 10 11 q12 -6 10 -11 q-5 -6 -10 1z"/></g>
+   <rect x="110" y="226" width="80" height="9" rx="4" fill="#fff" opacity=".6"/>`},
+ {id:'dress_rainbow', name:'彩虹蓬蓬裙', slot:'dress', rar:'SR',
+  svg:`<path d="M114 164 q36 -12 72 0 l16 70 q-52 24 -104 0z" fill="#fff"/>
+   <path d="M114 200 q36 -10 72 0 l0 14 q-36 10 -72 0z" fill="#ff9dc0"/>
+   <path d="M116 218 q34 -10 68 0 l0 14 q-34 10 -68 0z" fill="#fcd34d"/>
+   <path d="M118 236 q32 -10 64 0 l0 14 q-32 10 -64 0z" fill="#9be7d8"/>
+   <path d="M120 254 q30 -10 60 0 l0 12 q-30 10 -60 0z" fill="#c4b5fd"/>
+   <rect x="112" y="162" width="76" height="10" rx="5" fill="#ffd0de"/>`},
+
+/* ---------------- 鞋子 ---------------- */
  {id:'shoe_flat', name:'小红皮鞋', slot:'shoes', rar:'R',
   svg:`<rect x="116" y="316" width="34" height="17" rx="8" fill="#e0566d"/>
    <rect x="150" y="316" width="34" height="17" rx="8" fill="#e0566d"/>
@@ -2335,7 +2374,20 @@ const ITEMS=[
    <path d="M118 331 h30 M154 331 h30" stroke="#fff" stroke-width="3" opacity=".9"/>
    <g fill="#fff"><path d="M132 302 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z"/><path d="M172 310 l2 5 6 1 -4 4 1 6 -5 -3 -5 3 1 -6 -4 -4 6 -1z"/><circle cx="152" cy="298" r="2.5"/></g>`},
 
- /* ---------------- 背饰 ---------------- */
+/* ---------------- 鞋子（新增） ---------------- */
+ {id:'shoe_rainboot', name:'草莓雨靴', slot:'shoes', rar:'R',
+  svg:`<path d="M124 286 h20 v40 q0 12 -10 14 q-10 -2 -10 -14z" fill="#ff8fb1" stroke="#e8638c" stroke-width="2.5"/>
+   <path d="M156 286 h20 v40 q0 12 -10 14 q-10 -2 -10 -14z" fill="#ff8fb1" stroke="#e8638c" stroke-width="2.5"/>
+   <rect x="118" y="338" width="32" height="12" rx="6" fill="#e8638c"/><rect x="150" y="338" width="32" height="12" rx="6" fill="#e8638c"/>
+   <g fill="#fff"><circle cx="134" cy="306" r="3"/><circle cx="166" cy="306" r="3"/><circle cx="134" cy="318" r="2.5"/><circle cx="166" cy="318" r="2.5"/></g>`},
+ {id:'shoe_heels', name:'水晶高跟鞋', slot:'shoes', rar:'SSR',
+  svg:`<path d="M122 318 q4 -16 18 -13 q10 3 8 13 v4 q0 6 -6 6 h-20 q-6 0 -6 -6z" fill="#bfe9ff" opacity=".92" stroke="#8fd0f0" stroke-width="2"/>
+   <path d="M156 318 q4 -16 18 -13 q10 3 8 13 v4 q0 6 -6 6 h-20 q-6 0 -6 -6z" fill="#bfe9ff" opacity=".92" stroke="#8fd0f0" stroke-width="2"/>
+   <path d="M122 328 h26 M156 328 h26" stroke="#fff" stroke-width="3"/>
+   <path d="M120 332 l-6 10 h14z" fill="#8fd0f0"/><path d="M154 332 l-6 10 h14z" fill="#8fd0f0"/>
+   <g fill="#fff"><circle cx="131" cy="312" r="2.5"/><circle cx="165" cy="312" r="2.5"/></g>`},
+
+/* ---------------- 背饰 ---------------- */
  {id:'back_cape', name:'星星小披风', slot:'back', rar:'R',
   svg:`<path d="M104 164 q46 -16 92 0 l30 112 q-76 28 -152 0z" fill="#f2849b"/>
    <path d="M104 164 q46 -16 92 0 l4 16 q-50 -14 -100 0z" fill="#ffa9bb"/>
@@ -2352,7 +2404,24 @@ const ITEMS=[
    <path d="M184 208 q34 6 44 32 q6 24 -22 30 q-26 4 -30 -20z" fill="#a97ce8" stroke="#8b5cf6" stroke-width="3"/>
    <g fill="#fff" opacity=".75"><circle cx="76" cy="174" r="9"/><circle cx="92" cy="198" r="6"/><circle cx="224" cy="174" r="9"/><circle cx="208" cy="198" r="6"/><circle cx="88" cy="248" r="5"/><circle cx="212" cy="248" r="5"/></g>`},
 
- /* ---------------- 手持 ---------------- */
+/* ---------------- 背饰（新增） ---------------- */
+ {id:'back_bow', name:'巨型蝴蝶结', slot:'back', rar:'R',
+  svg:`<path d="M150 198 q-52 -42 -72 -10 q-14 28 52 32z" fill="#ff8fb1" stroke="#e8638c" stroke-width="3"/>
+   <path d="M150 198 q52 -42 72 -10 q14 28 -52 32z" fill="#ff8fb1" stroke="#e8638c" stroke-width="3"/>
+   <circle cx="150" cy="204" r="14" fill="#ffb3c8" stroke="#e8638c" stroke-width="3"/>
+   <path d="M150 204 q-52 -42 -72 -10" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>
+   <path d="M150 204 q52 -42 72 -10" fill="none" stroke="#fff" stroke-width="3" opacity=".6"/>`},
+ {id:'back_cloak', name:'魔法斗篷', slot:'back', rar:'SR',
+  svg:`<path d="M104 164 q46 -16 92 0 l34 130 q-80 30 -160 0z" fill="#7c6bc4" stroke="#5a4ba0" stroke-width="3"/>
+   <path d="M104 164 q46 -16 92 0 l6 24 q-52 -14 -104 0z" fill="#9b8be0"/>
+   <g fill="#fde68a"><path d="M150 250 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z"/><circle cx="120" cy="272" r="3"/><circle cx="180" cy="272" r="3"/></g>`},
+ {id:'back_rainbow', name:'彩虹光翼', slot:'back', rar:'SSR',
+  svg:`<g fill="none" stroke-width="7" stroke-linecap="round" opacity=".9">
+    <path d="M120 180 q-50 -40 -64 6" stroke="#ff9dc0"/><path d="M120 192 q-54 -36 -70 8" stroke="#fcd34d"/><path d="M120 204 q-56 -32 -74 10" stroke="#9be7d8"/>
+    <path d="M180 180 q50 -40 64 6" stroke="#ff9dc0"/><path d="M180 192 q54 -36 70 8" stroke="#fcd34d"/><path d="M180 204 q56 -32 74 10" stroke="#9be7d8"/></g>
+   <g fill="#fff" opacity=".8"><circle cx="62" cy="150" r="4"/><circle cx="238" cy="150" r="4"/><circle cx="80" cy="170" r="3"/><circle cx="220" cy="170" r="3"/></g>`},
+
+/* ---------------- 手持 ---------------- */
  {id:'hand_book', name:'魔法绘本', slot:'hand', rar:'R',
   svg:`<rect x="174" y="226" width="54" height="42" rx="6" fill="#7c6bc4" stroke="#5a4ba0" stroke-width="4"/>
    <rect x="179" y="231" width="44" height="32" rx="3" fill="#fff"/>
@@ -2374,7 +2443,28 @@ const ITEMS=[
    <path d="M228 206 l6 14 15 2 -11 11 3 15 -13 -7 -13 7 3 -15 -11 -11 15 -2z" fill="#ffe066" stroke="#f0c454" stroke-width="3"/>
    <g fill="#fff" opacity=".9"><circle cx="196" cy="254" r="4"/><circle cx="210" cy="234" r="3"/><circle cx="188" cy="238" r="2.5"/><circle cx="206" cy="206" r="2.5"/></g>`},
 
- /* ---------------- 宠物（站在左手边地上） ---------------- */
+/* ---------------- 手持（新增） ---------------- */
+ {id:'hand_umbrella', name:'彩虹伞', slot:'hand', rar:'R',
+  svg:`<path d="M196 212 q34 -36 68 0z" fill="#ff8fb1" stroke="#e8638c" stroke-width="3"/>
+   <path d="M196 212 q17 -18 34 0 q17 -18 34 0" fill="none" stroke="#fcd34d" stroke-width="4"/>
+   <path d="M230 212 v46" stroke="#8a5a34" stroke-width="4" stroke-linecap="round"/>
+   <g fill="#fff" opacity=".8"><circle cx="214" cy="200" r="3"/><circle cx="246" cy="200" r="3"/></g>`},
+ {id:'hand_balloon', name:'爱心气球', slot:'hand', rar:'S',
+  svg:`<path d="M214 198 q-22 -28 0 -44 q22 16 0 44z" fill="#ff9dc0" stroke="#e8638c" stroke-width="3"/>
+   <path d="M214 198 l-4 6 h8z" fill="#e8638c"/>
+   <path d="M214 204 q10 20 0 42" fill="none" stroke="#ff9dc0" stroke-width="2.5" stroke-dasharray="4 4"/>`},
+ {id:'hand_flower', name:'小花束', slot:'hand', rar:'SR',
+  svg:`<rect x="216" y="236" width="6" height="36" rx="3" fill="#4d9e6a"/>
+   <g fill="#ffb3c8"><circle cx="210" cy="232" r="9"/><circle cx="224" cy="226" r="10"/><circle cx="218" cy="240" r="8"/></g>
+   <g fill="#fcd34d"><circle cx="210" cy="232" r="3"/><circle cx="224" cy="226" r="3.5"/><circle cx="218" cy="240" r="3"/></g>
+   <g fill="#c4b5fd"><circle cx="230" cy="238" r="7"/><circle cx="230" cy="238" r="3" fill="#fcd34d"/></g>
+   <path d="M240 248 q-6 10 -14 12" stroke="#4d9e6a" stroke-width="3" fill="none"/>`},
+ {id:'hand_lolly', name:'星星棒棒糖', slot:'hand', rar:'SSR',
+  svg:`<rect x="227" y="206" width="5" height="60" rx="2.5" fill="#c4b5fd"/>
+   <path d="M229 206 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#ffd86b" stroke="#e8a93c" stroke-width="2.5"/>
+   <g fill="#fff" opacity=".9"><circle cx="224" cy="200" r="2.5"/><circle cx="238" cy="214" r="2"/></g>`},
+
+/* ---------------- 宠物（站在左手边地上） ---------------- */
  {id:'pet_cat', name:'布丁小猫', slot:'pet', rar:'R',
   svg:`<ellipse cx="70" cy="350" rx="32" ry="7" fill="rgba(120,90,140,.12)"/>
    <path d="M100 342 q18 -2 16 -18 q-2 -12 -12 -10 q8 8 2 14 q-6 6 -12 6z" fill="#f3b268"/>
@@ -2687,7 +2777,20 @@ const ITEMS=[
    <circle cx="130" cy="48" r="5" fill="#7fd7e8"/><circle cx="170" cy="48" r="5" fill="#b9f5c9"/>
    <path d="M150 70 l3 7 8 1 -6 6 2 8 -7 -4 -7 4 2 -8 -6 -6 8 -1z" fill="#fff" opacity=".9"/>`},
 
- /* ---------------- 颈饰 ---------------- */
+/* ---------------- 头饰（新增） ---------------- */
+ {id:'head_heart', name:'爱心发夹', slot:'head', rar:'R',
+  svg:`<path d="M115 80 q-14 -16 -24 -2 q-8 12 24 28 q32 -16 24 -28 q-10 -14 -24 2z" fill="#ff8fb1" stroke="#e8638c" stroke-width="2.5"/>
+   <circle cx="111" cy="80" r="2.5" fill="#fff" opacity=".7"/>`},
+ {id:'head_antenna', name:'蝴蝶触角', slot:'head', rar:'SR',
+  svg:`<path d="M138 66 q-10 -28 -20 -34" fill="none" stroke="#8f88a3" stroke-width="4" stroke-linecap="round"/>
+   <path d="M162 66 q10 -28 20 -34" fill="none" stroke="#8f88a3" stroke-width="4" stroke-linecap="round"/>
+   <circle cx="116" cy="30" r="7" fill="#ff9dc0"/><circle cx="184" cy="30" r="7" fill="#c4b5fd"/>
+   <circle cx="116" cy="30" r="3" fill="#fff" opacity=".7"/><circle cx="184" cy="30" r="3" fill="#fff" opacity=".7"/>`},
+ {id:'head_starclip', name:'星星发饰', slot:'head', rar:'SSR',
+  svg:`<path d="M120 78 l5 11 12 1 -9 8 3 12 -11 -6 -11 6 3 -12 -9 -8 12 -1z" fill="#fde68a" stroke="#e8a93c" stroke-width="2.5"/>
+   <circle cx="116" cy="70" r="3" fill="#fff" opacity=".8"/>`},
+
+/* ---------------- 颈饰 ---------------- */
  {id:'neck_ribbon', name:'蕾丝领结', slot:'neck', rar:'R',
   svg:`<path d="M150 168 q-22 -12 -28 4 q-4 14 26 12z" fill="#fff"/>
    <path d="M150 168 q22 -12 28 4 q4 14 -26 12z" fill="#fff"/>
@@ -2702,7 +2805,20 @@ const ITEMS=[
  {id:'neck_star', name:'流星项链', slot:'neck', rar:'SR',
   svg:`<path d="M128 170 q22 18 44 0" fill="none" stroke="#c4b5fd" stroke-width="4"/>
    <path d="M150 184 l4 9 10 1 -7 7 2 10 -9 -5 -9 5 2 -10 -7 -7 10 -1z" fill="#c4b5fd"/>
-   <g fill="#fff"><circle cx="139" cy="175" r="2.5"/><circle cx="161" cy="175" r="2.5"/><circle cx="150" cy="196" r="2"/></g>`}
+   <g fill="#fff"><circle cx="139" cy="175" r="2.5"/><circle cx="161" cy="175" r="2.5"/><circle cx="150" cy="196" r="2"/></g>`},
+/* ---------------- 颈饰（新增） ---------------- */
+ {id:'neck_scarf', name:'绒球围巾', slot:'neck', rar:'R',
+  svg:`<path d="M120 178 q30 22 60 0 q4 14 -6 22 q-24 10 -48 0 q-10 -8 -6 -22z" fill="#7fd7e8" stroke="#56bccf" stroke-width="3"/>
+   <path d="M150 200 l-10 18 q10 6 20 0z" fill="#7fd7e8" stroke="#56bccf" stroke-width="3"/>
+   <circle cx="142" cy="220" r="7" fill="#ffd86b" stroke="#e8a93c" stroke-width="2"/><circle cx="158" cy="220" r="7" fill="#ff9dc0" stroke="#e8638c" stroke-width="2"/>`},
+ {id:'neck_bell', name:'金色铃铛', slot:'neck', rar:'S',
+  svg:`<path d="M126 176 q24 16 48 0" fill="none" stroke="#e8a93c" stroke-width="4"/>
+   <path d="M134 182 q16 26 32 0z" fill="#ffd86b" stroke="#e8a93c" stroke-width="3"/>
+   <circle cx="150" cy="190" r="4" fill="#e8a93c"/><path d="M138 184 h24" stroke="#e8a93c" stroke-width="2"/>`},
+ {id:'neck_heart', name:'爱心项链', slot:'neck', rar:'SR',
+  svg:`<path d="M126 174 q24 18 48 0" fill="none" stroke="#ff9dc0" stroke-width="4"/>
+   <path d="M150 188 q-10 -12 -18 -2 q-6 9 18 20 q24 -11 18 -20 q-8 -10 -18 2z" fill="#ff8fb1" stroke="#e8638c" stroke-width="2.5"/>
+   <circle cx="150" cy="186" r="3" fill="#fff" opacity=".7"/>`}
 ];
 const SLOT_NAME={hair:'发型',dress:'裙子',shoes:'鞋子',head:'头饰',neck:'颈饰',back:'背饰',hand:'手持',pet:'宠物',food:'大餐',bg:'背景'};
 const SLOT_ORDER=['hair','dress','shoes','head','neck','back','hand','pet','food','bg'];
@@ -3307,8 +3423,9 @@ function submit(){
   sfx.right(); st.right++; T.stat.total++;
   if(c.hint===0){
     if(c.usedAudio){
-      /* 听着读音拼出来的：不算零提示，但也不当错——明天再来一次，确认是真会了 */
-      st.streakNH=0; st.hint=0; st.st=Math.max(1,st.st); st.due=dayNum()+1;
+      /* 听着读音拼出来的：也算通过——读音是发音辅助而非偷看拼写，掌握度照常推进；
+         但“零提示连胜”仍清零（借助了读音，不算零提示），“零提示拼对”统计也不计入（不拿抽奖券） */
+      st.streakNH=0; st.hint=0; st.st=Math.min(3,st.st+1); st.due=dayNum()+1;
     } else {
       st.streakNH++; T.stat.noHint++; st.hint=-1;
       st.st = st.streakNH>=5 ? 3 : (st.streakNH>=2 ? 2 : 1);
